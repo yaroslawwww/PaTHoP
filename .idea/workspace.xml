@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/Prediction_after_the_horizont_of_predictability.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysrc/Daemons.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysrc/Lorentz.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysrc/Patterns.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysrc/Predictions.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysrc/QuickSelect.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysrc/Selection.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysrc/TimeSeries.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysrc/Visualisation.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysrc/WishartClusterizationAlgorithm.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysrc/main.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysrc/prediction_experiment.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysrc/wishart_experiments.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysrc/wishart_metrics.ipynb" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+        <option value="Jupyter Notebook" />
+      </list>
+    </option>
+  </component>
+  <component name="FlaskConsoleOptions" custom-start-script="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))">
+    <envs>
+      <env key="FLASK_APP" value="app" />
+    </envs>
+    <option name="myCustomStartScript" value="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))" />
+    <option name="myEnvs">
+      <map>
+        <entry key="FLASK_APP" value="app" />
+      </map>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
+  <component name="ProjectId" id="2opzZpOcsgRiJ9rkp2kUxuuzy78" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.GetSeries.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Patterns.executor&quot;: &quot;Debug&quot;,
+    &quot;Python.Predictions.executor&quot;: &quot;Debug&quot;,
+    &quot;Python.QuickSelect.executor&quot;: &quot;Run&quot;,
+    &quot;Python.TimeSeries.executor&quot;: &quot;Run&quot;,
+    &quot;Python.WishartClusterizationAlgorithm.executor&quot;: &quot;Debug&quot;,
+    &quot;Python.interactiveshell.executor&quot;: &quot;Debug&quot;,
+    &quot;Python.main.executor&quot;: &quot;Debug&quot;,
+    &quot;Python.wisharp.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/media/yarik/NewDisk/git-rep/Prediction_after_the_horizont_of_predictability/mysrc&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;debugger.dataViews.python.type.renderers&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/mysrc" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/mysrc" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-PY-243.22562.180" />
+        <option value="bundled-python-sdk-85c76a3b01b3-9a18a617cbe4-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-243.22562.180" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="" />
+      <created>1731581362700</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1731581362700</updated>
+      <workItem from="1731581363785" duration="1680000" />
+      <workItem from="1731585501799" duration="5190000" />
+      <workItem from="1731600071175" duration="4824000" />
+      <workItem from="1732269066940" duration="13593000" />
+      <workItem from="1732633061162" duration="3759000" />
+      <workItem from="1732640950091" duration="4049000" />
+      <workItem from="1732646938613" duration="105000" />
+      <workItem from="1732701661097" duration="1463000" />
+      <workItem from="1732703391433" duration="4485000" />
+      <workItem from="1732727452801" duration="67000" />
+      <workItem from="1732729563698" duration="536000" />
+      <workItem from="1732733824286" duration="1769000" />
+      <workItem from="1733140778273" duration="2304000" />
+      <workItem from="1733227553147" duration="16399000" />
+      <workItem from="1733247066568" duration="1388000" />
+      <workItem from="1733249174790" duration="7921000" />
+      <workItem from="1733260718851" duration="4627000" />
+      <workItem from="1733329681168" duration="391000" />
+      <workItem from="1733342883290" duration="9837000" />
+      <workItem from="1733357222978" duration="116000" />
+      <workItem from="1733357493305" duration="7596000" />
+      <workItem from="1733395638529" duration="8267000" />
+      <workItem from="1733410523746" duration="1342000" />
+      <workItem from="1733422827866" duration="4867000" />
+      <workItem from="1733429035792" duration="1440000" />
+      <workItem from="1733477485204" duration="950000" />
+      <workItem from="1733484413014" duration="1225000" />
+      <workItem from="1733521707749" duration="5276000" />
+      <workItem from="1733548246308" duration="3095000" />
+      <workItem from="1733567224188" duration="3651000" />
+      <workItem from="1733674094972" duration="57000" />
+      <workItem from="1733867211183" duration="1010000" />
+      <workItem from="1733986438520" duration="5522000" />
+      <workItem from="1733994574782" duration="2518000" />
+      <workItem from="1733998777531" duration="3655000" />
+      <workItem from="1734004523257" duration="305000" />
+      <workItem from="1734004899502" duration="516000" />
+      <workItem from="1734005578608" duration="2000" />
+      <workItem from="1734007110199" duration="11629000" />
+      <workItem from="1734075489801" duration="359000" />
+      <workItem from="1735118084078" duration="9031000" />
+      <workItem from="1735131072877" duration="760000" />
+      <workItem from="1735137678943" duration="261000" />
+      <workItem from="1735137964684" duration="540000" />
+      <workItem from="1735138515247" duration="2638000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/TSProcessor/main.py</url>
+          <line>23</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="wishart_experiments">
+        <watch expression="i" />
+      </configuration>
+    </watches-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Prediction_after_the_horizont_of_predictability$TimeSeries.coverage" NAME="TimeSeries Coverage Results" MODIFIED="1735118676582" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mysrc" />
+    <SUITE FILE_PATH="coverage/Prediction_after_the_horizont_of_predictability$WishartClusterizationAlgorithm.coverage" NAME="WishartClusterizationAlgorithm Coverage Results" MODIFIED="1735124631016" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mysrc" />
+    <SUITE FILE_PATH="coverage/Prediction_after_the_horizont_of_predictability$GetSeries.coverage" NAME="GetSeries Coverage Results" MODIFIED="1733228689504" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mysrc" />
+    <SUITE FILE_PATH="coverage/Prediction_after_the_horizont_of_predictability$main.coverage" NAME="main Coverage Results" MODIFIED="1733261495987" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/TSProcessor" />
+    <SUITE FILE_PATH="coverage/Prediction_after_the_horizont_of_predictability$QuickSelect.coverage" NAME="QuickSelect Coverage Results" MODIFIED="1733356586025" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mysrc" />
+    <SUITE FILE_PATH="coverage/Prediction_after_the_horizont_of_predictability$Predictions.coverage" NAME="Predictions Coverage Results" MODIFIED="1735138364269" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mysrc" />
+    <SUITE FILE_PATH="coverage/Prediction_after_the_horizont_of_predictability$wisharp.coverage" NAME="wisharp Coverage Results" MODIFIED="1731589386550" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Prediction_after_the_horizont_of_predictability$Patterns.coverage" NAME="Patterns Coverage Results" MODIFIED="1735131041810" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mysrc" />
+    <SUITE FILE_PATH="coverage/Prediction_after_the_horizont_of_predictability$interactiveshell.coverage" NAME="interactiveshell Coverage Results" MODIFIED="1735130768646" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/anaconda3/lib/python3.12/site-packages/IPython/core" />
+  </component>
+</project>
