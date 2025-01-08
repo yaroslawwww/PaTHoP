@@ -39,7 +39,7 @@ class Lorentz:
         y += (l_1 + 2 * l_2 + 2 * l_3 + l_4) * dt * (1/6)
         z += (m_1 + 2 * m_2 + 2 * m_3 + m_4) * dt * (1/6)
 
-        return (x, y, z)
+        return x, y, z
 
     def generate(self, dt, steps):
         # Initial values and Parameters
