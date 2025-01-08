@@ -1,12 +1,9 @@
+# coding: utf-8
 import copy
 from collections import defaultdict
 from itertools import product
 from math import gamma
 
-import pandas as pd
-from matplotlib import pyplot as plt
-
-from Patterns import TimeSeries, Templates
 import numpy as np
 from scipy.spatial.distance import squareform, pdist
 from QuickSelect import QuickSelect
@@ -17,7 +14,7 @@ def volume(radius, dim):
 
 
 class Wishart:
-    def __init__(self, k: int, mu: float):
+    def __init__(self, k, mu):
         self.k, self.mu = k, mu
         self.labels_ = None
         self.distances = None
@@ -29,7 +26,7 @@ class Wishart:
                        product(cluster, cluster))
         return max_diff >= self.mu
 
-    def merge(self, first_cl, second_cl, clusters: defaultdict, labels):
+    def merge(self, first_cl, second_cl, clusters, labels):
         for i in clusters[second_cl]:
             labels[i] = first_cl
 
@@ -48,7 +45,7 @@ class Wishart:
             return
         for i in range(n):
             distances_to_k_nearest_neighbours.append(QuickSelect(distances[i], self.k))
-        #далее присутствует костыль без которого не работает решение
+        #далее присутствует костыль без которого не работает решение(max)
         significance_of_each_point = [self.k / (max(volume(distances_to_k_nearest_neighbours[i], dim),0.000000001) * n) for i in
                                       range(n)]
         labels = [0] * n

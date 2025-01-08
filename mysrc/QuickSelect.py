@@ -1,3 +1,4 @@
+# coding: utf-8
 def partition(arr, l, r):
     x = arr[r]
     i = l

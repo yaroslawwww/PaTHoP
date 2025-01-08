@@ -4,27 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/Prediction_after_the_horizont_of_predictability.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysrc/Daemons.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysrc/Lorentz.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysrc/Patterns.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysrc/Predictions.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysrc/QuickSelect.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysrc/Selection.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysrc/TimeSeries.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysrc/Visualisation.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysrc/WishartClusterizationAlgorithm.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysrc/main.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysrc/prediction_experiment.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysrc/wishart_experiments.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysrc/wishart_metrics.ipynb" afterDir="false" />
+    <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="final shares">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysrc/Patterns.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/Patterns.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysrc/Predictions.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/Predictions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysrc/Research.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/Research.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysrc/TimeSeries.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/TimeSeries.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysrc/lorentz_experiment.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysrc/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysrc/main_bash" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/main_bash" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysrc/zero_case_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/zero_case_main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,8 +40,46 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;yaroslawwww&quot;
+  }
+}</component>
+  <component name="GitHubPullRequestState">{
+  &quot;prStates&quot;: [
+    {
+      &quot;id&quot;: {
+        &quot;id&quot;: &quot;PR_kwDONiLyk86N5coJ&quot;,
+        &quot;number&quot;: 11
+      },
+      &quot;lastSeen&quot;: 1741521788028
+    }
+  ]
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/yaroslawwww/PaTHoP.git&quot;,
+    &quot;accountId&quot;: &quot;06e97274-afad-421c-b133-139877af673b&quot;
+  },
+  &quot;recentNewPullRequestHead&quot;: {
+    &quot;server&quot;: {
+      &quot;useHttp&quot;: false,
+      &quot;host&quot;: &quot;github.com&quot;,
+      &quot;port&quot;: null,
+      &quot;suffix&quot;: null
+    },
+    &quot;owner&quot;: &quot;yaroslawwww&quot;,
+    &quot;repository&quot;: &quot;PaTHoP&quot;
+  }
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
 }</component>
@@ -71,12 +98,15 @@
     &quot;Python.TimeSeries.executor&quot;: &quot;Run&quot;,
     &quot;Python.WishartClusterizationAlgorithm.executor&quot;: &quot;Debug&quot;,
     &quot;Python.interactiveshell.executor&quot;: &quot;Debug&quot;,
-    &quot;Python.main.executor&quot;: &quot;Debug&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.theory.executor&quot;: &quot;Run&quot;,
+    &quot;Python.thery.executor&quot;: &quot;Run&quot;,
     &quot;Python.wisharp.executor&quot;: &quot;Run&quot;,
+    &quot;Python.zero_case_main.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/media/yarik/NewDisk/git-rep/Prediction_after_the_horizont_of_predictability/mysrc&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;clusters__revision&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/media/yarik/NewDisk2/nesuper&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -94,11 +124,69 @@
       <recent name="$PROJECT_DIR$/mysrc" />
     </key>
   </component>
+  <component name="RunManager" selected="Python.main">
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Prediction_after_the_horizont_of_predictability" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/mysrc" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/mysrc/main.py" />
+      <option name="PARAMETERS" value="1" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="zero_case_main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Prediction_after_the_horizont_of_predictability" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/mysrc" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/mysrc/zero_case_main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Python.main" />
+      <item itemvalue="Python.zero_case_main" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.main" />
+        <item itemvalue="Python.zero_case_main" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-PY-243.22562.180" />
-        <option value="bundled-python-sdk-85c76a3b01b3-9a18a617cbe4-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-243.22562.180" />
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-PY-243.25659.43" />
+        <option value="bundled-python-sdk-181015f7ab06-4df51de95216-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-243.25659.43" />
       </set>
     </attachedChunks>
   </component>
@@ -154,12 +242,651 @@
       <workItem from="1735131072877" duration="760000" />
       <workItem from="1735137678943" duration="261000" />
       <workItem from="1735137964684" duration="540000" />
-      <workItem from="1735138515247" duration="2638000" />
+      <workItem from="1735138515247" duration="4866000" />
+      <workItem from="1735149338470" duration="15761000" />
+      <workItem from="1735214419808" duration="2475000" />
+      <workItem from="1735236148274" duration="2141000" />
+      <workItem from="1735319740638" duration="10000" />
+      <workItem from="1735652392498" duration="1289000" />
+      <workItem from="1735833463385" duration="4089000" />
+      <workItem from="1735842796961" duration="1840000" />
+      <workItem from="1735859675883" duration="2303000" />
+      <workItem from="1736119153726" duration="2027000" />
+      <workItem from="1736125449110" duration="629000" />
+      <workItem from="1736160197067" duration="215000" />
+      <workItem from="1736164875876" duration="639000" />
+      <workItem from="1736240058522" duration="159000" />
+      <workItem from="1736339997551" duration="14000" />
+      <workItem from="1736378608183" duration="309000" />
+      <workItem from="1736382156544" duration="1911000" />
+      <workItem from="1736386868212" duration="949000" />
+      <workItem from="1736429280320" duration="890000" />
+      <workItem from="1736539478174" duration="847000" />
+      <workItem from="1736542239267" duration="1408000" />
+      <workItem from="1736544407952" duration="1065000" />
+      <workItem from="1736580193418" duration="888000" />
+      <workItem from="1736585327450" duration="284000" />
+      <workItem from="1736981834508" duration="449000" />
+      <workItem from="1736997996422" duration="1000" />
+      <workItem from="1737011686934" duration="1867000" />
+      <workItem from="1737113544952" duration="1285000" />
+      <workItem from="1737121034921" duration="68000" />
+      <workItem from="1737173520367" duration="668000" />
+      <workItem from="1737420843341" duration="1161000" />
+      <workItem from="1737431554426" duration="841000" />
+      <workItem from="1737489512160" duration="2113000" />
+      <workItem from="1737492546974" duration="2056000" />
+      <workItem from="1737495666724" duration="929000" />
+      <workItem from="1737517904520" duration="2188000" />
+      <workItem from="1737562803302" duration="364000" />
+      <workItem from="1737567964912" duration="122000" />
+      <workItem from="1737569139277" duration="93000" />
+      <workItem from="1737569792147" duration="654000" />
+      <workItem from="1737596245494" duration="711000" />
+      <workItem from="1737597991915" duration="945000" />
+      <workItem from="1737622734892" duration="2042000" />
+      <workItem from="1737644418495" duration="302000" />
+      <workItem from="1737644808053" duration="3373000" />
+      <workItem from="1737769682578" duration="1353000" />
+      <workItem from="1737771055438" duration="662000" />
+      <workItem from="1737773820416" duration="34000" />
+      <workItem from="1738205190918" duration="522000" />
+      <workItem from="1738206346567" duration="136000" />
+      <workItem from="1738207033946" duration="453000" />
+      <workItem from="1738207537677" duration="895000" />
+      <workItem from="1738215066388" duration="1893000" />
+      <workItem from="1738237448691" duration="959000" />
+      <workItem from="1738238417422" duration="342000" />
+      <workItem from="1738244156621" duration="3860000" />
+      <workItem from="1738297331230" duration="1412000" />
+      <workItem from="1738414056314" duration="2678000" />
+      <workItem from="1738416872591" duration="3414000" />
+      <workItem from="1738581717255" duration="2000" />
+      <workItem from="1738648660490" duration="146000" />
+      <workItem from="1738764722720" duration="10365000" />
+      <workItem from="1738775755238" duration="1178000" />
+      <workItem from="1738777404948" duration="696000" />
+      <workItem from="1738779435743" duration="823000" />
+      <workItem from="1738781247256" duration="1569000" />
+      <workItem from="1738817368333" duration="491000" />
+      <workItem from="1738819134754" duration="1658000" />
+      <workItem from="1738821391534" duration="307000" />
+      <workItem from="1738822151194" duration="2228000" />
+      <workItem from="1738824403439" duration="2766000" />
+      <workItem from="1738827829917" duration="2037000" />
+      <workItem from="1738832077913" duration="1807000" />
+      <workItem from="1738855471020" duration="1170000" />
+      <workItem from="1738856724210" duration="829000" />
+      <workItem from="1739340541375" duration="665000" />
+      <workItem from="1739376753903" duration="4259000" />
+      <workItem from="1739388995788" duration="486000" />
+      <workItem from="1739390411144" duration="1241000" />
+      <workItem from="1739398317859" duration="341000" />
+      <workItem from="1739435785382" duration="270000" />
+      <workItem from="1739436074712" duration="2390000" />
+      <workItem from="1739441580398" duration="659000" />
+      <workItem from="1739442448708" duration="200000" />
+      <workItem from="1739444829392" duration="4000" />
+      <workItem from="1739453281710" duration="1298000" />
+      <workItem from="1739456883514" duration="497000" />
+      <workItem from="1739460397316" duration="30000" />
+      <workItem from="1739469284469" duration="1637000" />
+      <workItem from="1739471047656" duration="420000" />
+      <workItem from="1739471483744" duration="964000" />
+      <workItem from="1739475898434" duration="872000" />
+      <workItem from="1739498192936" duration="509000" />
+      <workItem from="1739499699053" duration="12000" />
+      <workItem from="1739502232239" duration="135000" />
+      <workItem from="1739503981818" duration="103000" />
+      <workItem from="1739506086842" duration="2165000" />
+      <workItem from="1739511442458" duration="294000" />
+      <workItem from="1739516060152" duration="1182000" />
+      <workItem from="1739517975555" duration="1645000" />
+      <workItem from="1739520472525" duration="937000" />
+      <workItem from="1739521509201" duration="364000" />
+      <workItem from="1739522557589" duration="170000" />
+      <workItem from="1739522757689" duration="3000" />
+      <workItem from="1739524021709" duration="32000" />
+      <workItem from="1739524074288" duration="46000" />
+      <workItem from="1739526776682" duration="185000" />
+      <workItem from="1739528291472" duration="19000" />
+      <workItem from="1739530085011" duration="1218000" />
+      <workItem from="1739537706091" duration="373000" />
+      <workItem from="1739886671787" duration="616000" />
+      <workItem from="1739911704735" duration="1006000" />
+      <workItem from="1739953577921" duration="4283000" />
+      <workItem from="1739958240144" duration="624000" />
+      <workItem from="1739961333099" duration="49000" />
+      <workItem from="1739961445726" duration="1957000" />
+      <workItem from="1739963417053" duration="9000" />
+      <workItem from="1739989815111" duration="447000" />
+      <workItem from="1740231741014" duration="1610000" />
+      <workItem from="1740309637881" duration="25000" />
+      <workItem from="1740562896970" duration="5397000" />
+      <workItem from="1740570483097" duration="46000" />
+      <workItem from="1740608819618" duration="1296000" />
+      <workItem from="1740643826876" duration="1272000" />
+      <workItem from="1740661878909" duration="333000" />
+      <workItem from="1740724482578" duration="1514000" />
+      <workItem from="1740729578042" duration="207000" />
+      <workItem from="1740750944334" duration="15000" />
+      <workItem from="1740989549383" duration="5000" />
+      <workItem from="1741328851538" duration="1232000" />
+      <workItem from="1741514044441" duration="730000" />
+      <workItem from="1741521560057" duration="1150000" />
+      <workItem from="1741522740339" duration="11000" />
+      <workItem from="1741548210397" duration="36000" />
+      <workItem from="1741552925460" duration="256000" />
+      <workItem from="1741640871543" duration="2648000" />
+      <workItem from="1741643788089" duration="1389000" />
+      <workItem from="1741689740960" duration="8852000" />
+      <workItem from="1741729494160" duration="1620000" />
+      <workItem from="1741733852218" duration="417000" />
+      <workItem from="1741769593014" duration="1076000" />
+      <workItem from="1741784006973" duration="602000" />
+      <workItem from="1741863284386" duration="1165000" />
+      <workItem from="1741874907474" duration="738000" />
+      <workItem from="1741882278753" duration="2181000" />
+      <workItem from="1741887681134" duration="1056000" />
+      <workItem from="1741926448864" duration="62000" />
+      <workItem from="1741926516673" duration="602000" />
+      <workItem from="1741937562539" duration="2469000" />
+      <workItem from="1741948205467" duration="269000" />
+      <workItem from="1742055506004" duration="1000" />
+      <workItem from="1742062695155" duration="10000" />
+      <workItem from="1742163506858" duration="2000" />
+      <workItem from="1742216443387" duration="869000" />
+      <workItem from="1742217884024" duration="1255000" />
+      <workItem from="1742248744816" duration="2781000" />
+      <workItem from="1742254433168" duration="221000" />
+      <workItem from="1742285798110" duration="389000" />
+      <workItem from="1742327958823" duration="664000" />
+      <workItem from="1742368666044" duration="729000" />
+      <workItem from="1742369646533" duration="653000" />
+      <workItem from="1742410250598" duration="653000" />
+      <workItem from="1742461790083" duration="125000" />
+      <workItem from="1742473630089" duration="1182000" />
+      <workItem from="1742475165817" duration="513000" />
+      <workItem from="1742478249098" duration="3220000" />
+      <workItem from="1742511795431" duration="1717000" />
     </task>
+    <task id="LOCAL-00035" summary="Уменьшенный размер">
+      <option name="closed" value="true" />
+      <created>1739502342579</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1739502342579</updated>
+    </task>
+    <task id="LOCAL-00036" summary="Уменьшенный размер">
+      <option name="closed" value="true" />
+      <created>1739504067532</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1739504067532</updated>
+    </task>
+    <task id="LOCAL-00037" summary="fast">
+      <option name="closed" value="true" />
+      <created>1739511716980</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1739511716980</updated>
+    </task>
+    <task id="LOCAL-00038" summary="ошибка в 10">
+      <option name="closed" value="true" />
+      <created>1739517082382</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1739517082382</updated>
+    </task>
+    <task id="LOCAL-00039" summary="ошибка в 10">
+      <option name="closed" value="true" />
+      <created>1739518056244</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1739518056244</updated>
+    </task>
+    <task id="LOCAL-00040" summary="ошибка в 10">
+      <option name="closed" value="true" />
+      <created>1739518431413</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1739518431413</updated>
+    </task>
+    <task id="LOCAL-00041" summary="Пробный 3-х мерный график">
+      <option name="closed" value="true" />
+      <created>1739521207018</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1739521207018</updated>
+    </task>
+    <task id="LOCAL-00042" summary="Удобство">
+      <option name="closed" value="true" />
+      <created>1739522701749</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1739522701749</updated>
+    </task>
+    <task id="LOCAL-00043" summary="Добавление изучения принадлежности вероятных точек ряду">
+      <option name="closed" value="true" />
+      <created>1739963322216</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1739963322216</updated>
+    </task>
+    <task id="LOCAL-00044" summary="Добавление изучения принадлежности вероятных точек ряду">
+      <option name="closed" value="true" />
+      <created>1740563766263</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1740563766263</updated>
+    </task>
+    <task id="LOCAL-00045" summary="hard count">
+      <option name="closed" value="true" />
+      <created>1740564100782</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1740564100782</updated>
+    </task>
+    <task id="LOCAL-00046" summary="float ебаный">
+      <option name="closed" value="true" />
+      <created>1740566235102</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1740566235102</updated>
+    </task>
+    <task id="LOCAL-00047" summary="float ебаный">
+      <option name="closed" value="true" />
+      <created>1740568222049</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1740568222049</updated>
+    </task>
+    <task id="LOCAL-00048" summary="Исправил прогу">
+      <option name="closed" value="true" />
+      <created>1740568322489</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1740568322489</updated>
+    </task>
+    <task id="LOCAL-00049" summary="Исправил прогу">
+      <option name="closed" value="true" />
+      <created>1740609623643</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1740609623643</updated>
+    </task>
+    <task id="LOCAL-00050" summary="Исправил прогу">
+      <option name="closed" value="true" />
+      <created>1740643763116</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1740643763117</updated>
+    </task>
+    <task id="LOCAL-00051" summary="Нулевой случай">
+      <option name="closed" value="true" />
+      <created>1740661923223</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1740661923224</updated>
+    </task>
+    <task id="LOCAL-00052" summary="Нулевой случай + eps = 0.001 + gaps = 10">
+      <option name="closed" value="true" />
+      <created>1740725735864</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1740725735865</updated>
+    </task>
+    <task id="LOCAL-00053" summary="Тест для успешной работы">
+      <option name="closed" value="true" />
+      <created>1741520726075</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1741520726075</updated>
+    </task>
+    <task id="LOCAL-00054" summary="Тест для успешной работы">
+      <option name="closed" value="true" />
+      <created>1741521716929</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1741521716930</updated>
+    </task>
+    <task id="LOCAL-00055" summary="Тест для успешной работы">
+      <option name="closed" value="true" />
+      <created>1741522247084</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1741522247084</updated>
+    </task>
+    <task id="LOCAL-00056" summary="Тест для успешной работы">
+      <option name="closed" value="true" />
+      <created>1741522392925</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1741522392925</updated>
+    </task>
+    <task id="LOCAL-00057" summary="rmse with nan">
+      <option name="closed" value="true" />
+      <created>1741522595541</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1741522595541</updated>
+    </task>
+    <task id="LOCAL-00058" summary="final test">
+      <option name="closed" value="true" />
+      <created>1741522652377</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1741522652377</updated>
+    </task>
+    <task id="LOCAL-00059" summary="temp">
+      <option name="closed" value="true" />
+      <created>1741643202927</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1741643202928</updated>
+    </task>
+    <task id="LOCAL-00060" summary="temp">
+      <option name="closed" value="true" />
+      <created>1741643244774</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1741643244774</updated>
+    </task>
+    <task id="LOCAL-00061" summary="Отдебаганная версия(epsilon = 0.001,gaps = 1000,window = 100)">
+      <option name="closed" value="true" />
+      <created>1741697680460</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1741697680460</updated>
+    </task>
+    <task id="LOCAL-00062" summary="Незамеченные исправления">
+      <option name="closed" value="true" />
+      <created>1741698653749</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1741698653749</updated>
+    </task>
+    <task id="LOCAL-00063" summary="np.NaN ошибка исправлена">
+      <option name="closed" value="true" />
+      <created>1741730926471</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1741730926471</updated>
+    </task>
+    <task id="LOCAL-00064" summary="np.NaN ошибка исправлена">
+      <option name="closed" value="true" />
+      <created>1741731038080</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1741731038080</updated>
+    </task>
+    <task id="LOCAL-00065" summary="np.NaN ошибка исправлена">
+      <option name="closed" value="true" />
+      <created>1741770469069</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1741770469069</updated>
+    </task>
+    <task id="LOCAL-00066" summary="np.NaN ошибка исправлена">
+      <option name="closed" value="true" />
+      <created>1741770510268</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1741770510268</updated>
+    </task>
+    <task id="LOCAL-00067" summary="Непересекающиеся промежутки">
+      <option name="closed" value="true" />
+      <created>1741875577067</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1741875577068</updated>
+    </task>
+    <task id="LOCAL-00068" summary="Непересекающиеся промежутки">
+      <option name="closed" value="true" />
+      <created>1741875628599</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1741875628599</updated>
+    </task>
+    <task id="LOCAL-00069" summary="Непересекающиеся промежутки">
+      <option name="closed" value="true" />
+      <created>1741875694634</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1741875694634</updated>
+    </task>
+    <task id="LOCAL-00070" summary="Модернизировано на случай доебов">
+      <option name="closed" value="true" />
+      <created>1741938920011</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1741938920012</updated>
+    </task>
+    <task id="LOCAL-00071" summary="Модернизировано на случай доебов">
+      <option name="closed" value="true" />
+      <created>1741938979160</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1741938979160</updated>
+    </task>
+    <task id="LOCAL-00072" summary="Забыл нулевой случай обновить">
+      <option name="closed" value="true" />
+      <created>1741948271963</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1741948271964</updated>
+    </task>
+    <task id="LOCAL-00073" summary="Забыл нулевой случай обновить">
+      <option name="closed" value="true" />
+      <created>1741948337046</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1741948337046</updated>
+    </task>
+    <task id="LOCAL-00074" summary="Расчет идеальной доли">
+      <option name="closed" value="true" />
+      <created>1742216623347</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1742216623347</updated>
+    </task>
+    <task id="LOCAL-00075" summary="Расчет для разных размеров">
+      <option name="closed" value="true" />
+      <created>1742219201638</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1742219201639</updated>
+    </task>
+    <task id="LOCAL-00076" summary="Расчет для разных размеров на 1 ядре">
+      <option name="closed" value="true" />
+      <created>1742248776165</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1742248776166</updated>
+    </task>
+    <task id="LOCAL-00077" summary="Расчет для разных доль на 1 ядрн">
+      <option name="closed" value="true" />
+      <created>1742248914687</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1742248914687</updated>
+    </task>
+    <task id="LOCAL-00078" summary="Расчет для разных доль на 1 ядрн">
+      <option name="closed" value="true" />
+      <created>1742248961400</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1742248961400</updated>
+    </task>
+    <task id="LOCAL-00079" summary="Расчет для разных доль на 1 ядрн">
+      <option name="closed" value="true" />
+      <created>1742249023147</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1742249023147</updated>
+    </task>
+    <task id="LOCAL-00080" summary="Расчет для разных доль на 1 ядре+подправленные логи.">
+      <option name="closed" value="true" />
+      <created>1742249688815</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1742249688815</updated>
+    </task>
+    <task id="LOCAL-00081" summary="Рабочие логи">
+      <option name="closed" value="true" />
+      <created>1742250753584</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1742250753584</updated>
+    </task>
+    <task id="LOCAL-00082" summary="Разные размеры">
+      <option name="closed" value="true" />
+      <created>1742250890984</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1742250890985</updated>
+    </task>
+    <task id="LOCAL-00083" summary="floatы">
+      <option name="closed" value="true" />
+      <created>1742254513151</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1742254513151</updated>
+    </task>
+    <option name="localTasksCounter" value="84" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="OPEN_GENERIC_TABS">
+      <map>
+        <entry key="06edaed5-4274-4a04-8824-aa3eb09ef8ad" value="TOOL_WINDOW" />
+      </map>
+    </option>
+    <option name="TAB_STATES">
+      <map>
+        <entry key="06edaed5-4274-4a04-8824-aa3eb09ef8ad">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="range">
+                    <value>
+                      <list>
+                        <option value="origin/master..origin/clusters_revision" />
+                      </list>
+                    </value>
+                  </entry>
+                  <entry key="roots">
+                    <value>
+                      <list>
+                        <option value="$PROJECT_DIR$" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="clusters_revision" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Удобство" />
+    <MESSAGE value="Добавление изучения принадлежности вероятных точек ряду" />
+    <MESSAGE value="hard count" />
+    <MESSAGE value="float ебаный" />
+    <MESSAGE value="Исправил прогу" />
+    <MESSAGE value="Нулевой случай" />
+    <MESSAGE value="Нулевой случай + eps = 0.001 + gaps = 10" />
+    <MESSAGE value="Тест для успешной работы" />
+    <MESSAGE value="rmse with nan" />
+    <MESSAGE value="final test" />
+    <MESSAGE value="temp" />
+    <MESSAGE value="Отдебаганная версия(epsilon = 0.001,gaps = 1000,window = 100)" />
+    <MESSAGE value="Незамеченные исправления" />
+    <MESSAGE value="np.NaN ошибка исправлена" />
+    <MESSAGE value="Непересекающиеся промежутки" />
+    <MESSAGE value="Модернизировано на случай доебов" />
+    <MESSAGE value="Забыл нулевой случай обновить" />
+    <MESSAGE value="Расчет идеальной доли" />
+    <MESSAGE value="Расчет для разных размеров" />
+    <MESSAGE value="Расчет для разных размеров на 1 ядре" />
+    <MESSAGE value="Расчет для разных доль на 1 ядрн" />
+    <MESSAGE value="Расчет для разных доль на 1 ядре+подправленные логи." />
+    <MESSAGE value="Рабочие логи" />
+    <MESSAGE value="Разные размеры" />
+    <MESSAGE value="floatы" />
+    <option name="LAST_COMMIT_MESSAGE" value="floatы" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -172,6 +899,9 @@
       </breakpoints>
     </breakpoint-manager>
     <watches-manager>
+      <configuration name="prediction_experiment">
+        <watch expression="self.templates_" />
+      </configuration>
       <configuration name="wishart_experiments">
         <watch expression="i" />
       </configuration>
@@ -180,12 +910,15 @@
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Prediction_after_the_horizont_of_predictability$TimeSeries.coverage" NAME="TimeSeries Coverage Results" MODIFIED="1735118676582" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mysrc" />
     <SUITE FILE_PATH="coverage/Prediction_after_the_horizont_of_predictability$WishartClusterizationAlgorithm.coverage" NAME="WishartClusterizationAlgorithm Coverage Results" MODIFIED="1735124631016" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mysrc" />
-    <SUITE FILE_PATH="coverage/Prediction_after_the_horizont_of_predictability$GetSeries.coverage" NAME="GetSeries Coverage Results" MODIFIED="1733228689504" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mysrc" />
-    <SUITE FILE_PATH="coverage/Prediction_after_the_horizont_of_predictability$main.coverage" NAME="main Coverage Results" MODIFIED="1733261495987" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/TSProcessor" />
-    <SUITE FILE_PATH="coverage/Prediction_after_the_horizont_of_predictability$QuickSelect.coverage" NAME="QuickSelect Coverage Results" MODIFIED="1733356586025" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mysrc" />
-    <SUITE FILE_PATH="coverage/Prediction_after_the_horizont_of_predictability$Predictions.coverage" NAME="Predictions Coverage Results" MODIFIED="1735138364269" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mysrc" />
-    <SUITE FILE_PATH="coverage/Prediction_after_the_horizont_of_predictability$wisharp.coverage" NAME="wisharp Coverage Results" MODIFIED="1731589386550" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Prediction_after_the_horizont_of_predictability$zero_case_main.coverage" NAME="zero_case_main Coverage Results" MODIFIED="1741729898478" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mysrc" />
     <SUITE FILE_PATH="coverage/Prediction_after_the_horizont_of_predictability$Patterns.coverage" NAME="Patterns Coverage Results" MODIFIED="1735131041810" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mysrc" />
+    <SUITE FILE_PATH="coverage/Prediction_after_the_horizont_of_predictability$GetSeries.coverage" NAME="GetSeries Coverage Results" MODIFIED="1733228689504" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mysrc" />
+    <SUITE FILE_PATH="coverage/Prediction_after_the_horizont_of_predictability$main.coverage" NAME="main Coverage Results" MODIFIED="1742513286213" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mysrc" />
+    <SUITE FILE_PATH="coverage/Prediction_after_the_horizont_of_predictability$theory.coverage" NAME="theory Coverage Results" MODIFIED="1738238377102" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/archive" />
+    <SUITE FILE_PATH="coverage/Prediction_after_the_horizont_of_predictability$thery.coverage" NAME="thery Coverage Results" MODIFIED="1738237468438" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/archive" />
+    <SUITE FILE_PATH="coverage/Prediction_after_the_horizont_of_predictability$QuickSelect.coverage" NAME="QuickSelect Coverage Results" MODIFIED="1733356586025" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mysrc" />
+    <SUITE FILE_PATH="coverage/Prediction_after_the_horizont_of_predictability$Predictions.coverage" NAME="Predictions Coverage Results" MODIFIED="1739956483588" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mysrc" />
+    <SUITE FILE_PATH="coverage/Prediction_after_the_horizont_of_predictability$wisharp.coverage" NAME="wisharp Coverage Results" MODIFIED="1731589386550" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Prediction_after_the_horizont_of_predictability$interactiveshell.coverage" NAME="interactiveshell Coverage Results" MODIFIED="1735130768646" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/anaconda3/lib/python3.12/site-packages/IPython/core" />
   </component>
 </project>
