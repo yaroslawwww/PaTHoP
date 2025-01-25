@@ -27,14 +27,14 @@ def calc_distance_matrix(test_vectors: np.ndarray, train_vectors: np.ndarray, st
 
 
 class TSProcessor:
-    def __init__(self, time_series: TimeSeries, template_length: int = 4, max_template_spread: int = 10,
-                 train_size: int = 5000, val_size: int = 0, test_size: int = 50, k: int = 5, mu: float = 0.1):
-        self.time_series_ = time_series
+    def __init__(self, time_series_list: list[TimeSeries], template_length: int = 4, max_template_spread: int = 10,
+                 train_size: int = 5000, val_size: int = 0, test_size: int = 50, k: int = 16, mu: float = 0.45):
+        self.time_series_ = time_series_list[0]
         self.time_series_.split_train_val_test(train_size, val_size, test_size)
         self.templates_ = Templates(template_length, max_template_spread)
-        self.templates_.create_train_set(time_series)
+        self.templates_.create_train_set(time_series_list)
         self.k, self.mu = k, mu
-        self.eps = 0.0056
+        self.eps = 0.001
 
     def validation(self):
         eps = self.eps
@@ -57,6 +57,8 @@ class TSProcessor:
                 test_vectors = values[:size_of_series + step][observation_indexes]
                 distance_matrix = calc_distance_matrix(test_vectors, train_vectors, steps, y_dim)
                 points = train_vectors[distance_matrix < eps][:, -1]
+                forecast_point = self.freeze_point(points, 'mf')
+                values[size_of_series + step] = forecast_point
                 average_points_size += points.size
             average_points_size /= steps
             if average_points_size > 100:
@@ -94,7 +96,7 @@ class TSProcessor:
             points = train_vectors[distance_matrix < eps][:, -1]
             forecast_point = self.freeze_point(points, 'cl')
             forecast_trajectories[step, 0] = forecast_point
-            values[size_of_series + step] = forecast_point  # необязательно
+            values[size_of_series + step] = forecast_point
         return forecast_trajectories, values
 
     def freeze_point(self, points_pool: np.ndarray, how: str) -> float:
@@ -109,12 +111,13 @@ class TSProcessor:
             points, counts = np.unique(points_pool, return_counts=True)
             result = points[counts.argmax()]
         elif how == 'cl':
-            if len(points_pool) < 16:
-                dbs = Wishart(k=len(points_pool), mu=0.45)
+            if len(points_pool) < self.k:
+                dbs = Wishart(k=len(points_pool) - 1, mu=0.45)
             else:
-                dbs = Wishart(k=16, mu=0.45)
-            if points_pool.size > 100:
-                points_pool = points_pool[:100]
+                dbs = Wishart(k=self.k, mu=self.mu)
+            np.random.shuffle(points_pool)
+            if points_pool.size > 400:
+                result = self.freeze_point(points_pool, how='mean')
             dbs.fit(points_pool.reshape(-1, 1))
 
             cluster_labels, cluster_sizes = np.unique(dbs.labels_[dbs.labels_ > -1], return_counts=True)

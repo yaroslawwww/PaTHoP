@@ -2,11 +2,10 @@ import numpy as np
 
 
 class Lorentz:
-    def __init__(self, s = 10, r = 28, b = 8/3):
+    def __init__(self, s = 10, b = 8/3):
         self.s = s
-        self.r = r
         self.b = b
-
+        self.r = None
     # Differential equations of a Lorenz System
     def X(self, x, y, s):
         return s * (y - x)
@@ -41,7 +40,7 @@ class Lorentz:
 
         return x, y, z
 
-    def generate(self, dt, steps):
+    def generate(self, dt, steps,r = 28):
         # Initial values and Parameters
         x_0, y_0, z_0 = 1, 1, 1
 
@@ -51,7 +50,7 @@ class Lorentz:
         z_list = [z_0]
 
         i = 0
-
+        self.r = r
         while i < steps:
             x = x_list[i]
             y = y_list[i]

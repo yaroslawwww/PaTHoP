@@ -5,11 +5,11 @@ import pandas as pd
 import numpy as np
 
 class TimeSeries:
-    def __init__(self, series_type: str, size: int = 0,array = None):
+    def __init__(self, series_type: str, size: int = 0,r:float = 28,dt:float = 0.1,divisor = 1,array = None):
         if series_type == "Lorentz":
-            x, y, z = Lorentz().generate(0.1, size)
+            x, y, z = Lorentz().generate(dt = dt, steps= size,r = r)
             x = (x - x.min()) / (x.max() - x.min())  # нормализация чисел
-            self.values = list(x)
+            self.values = list(x)[::divisor]
         else:
             x = np.array(array)
             x = (x - x.min()) / (x.max() - x.min())

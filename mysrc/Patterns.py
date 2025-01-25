@@ -28,21 +28,26 @@ class Templates:
         shapes: np.ndarray = self.templates[:, 1:] - self.templates[:, :-1]
         self.observation_indexes = np.cumsum(-shapes[:, ::-1], axis=1)[:, ::-1]
 
-    def __repr__(self):
-        return str(self.templates)
 
-    def create_train_set(self, time_series: TimeSeries):
-        train_part = np.array(time_series.train)
-
+    def create_train_set(self, time_series_list: list[TimeSeries]):
+        # необходим ряд не менее чем template_length * max_template_spread
+        train_part = []
+        for time_series in time_series_list:
+            if time_series.train is not None:
+                train_part.extend(time_series.train)
+            else:
+                train_part.extend(time_series.values)
+        train_part = np.array(train_part)
         x_dim = self.templates.shape[0]
         y_dim = 0
         for i in range(x_dim):
-            y_dim = max(train_part.shape[0] - self.templates[i][-1],y_dim)
+            template_window:int = self.templates[i][-1]
+            y_dim = max(train_part.shape[0] - template_window,y_dim)
         z_dim = self.templates.shape[1]
         self.train_set: np.ndarray = np.full(shape=(x_dim, y_dim, z_dim), fill_value=np.inf, dtype=float)
         for i in range(len(self.templates)):
             current_template = self.templates[i]
-            time_series_indexes = current_template + np.arange(len(train_part) - current_template[-1])[:, None]
+            template_window:int = current_template[-1]
+            time_series_indexes = current_template + np.arange(len(train_part) - template_window)[:, None]
             time_series_vectors = train_part[time_series_indexes]
             self.train_set[i, :len(time_series_vectors)] = time_series_vectors
-        return self.train_set

@@ -48,7 +48,7 @@ class Wishart:
             return
         for i in range(n):
             distances_to_k_nearest_neighbours.append(QuickSelect(distances[i], self.k))
-        #далее присутствует костыль без которого не работает решение
+        #далее присутствует костыль без которого не работает решение(max)
         significance_of_each_point = [self.k / (max(volume(distances_to_k_nearest_neighbours[i], dim),0.000000001) * n) for i in
                                       range(n)]
         labels = [0] * n
