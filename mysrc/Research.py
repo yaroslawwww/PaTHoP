@@ -6,10 +6,9 @@ import os
 
 
 def split_range(min_w, max_w, step, num_threads):
-    # Вычисляем общее количество значений в диапазоне
+
     total_values = (max_w - min_w) // step + 1
 
-    # Вычисляем количество значений на каждый поток
     values_per_thread = total_values // num_threads
     remainder = total_values % num_threads
 
@@ -17,19 +16,14 @@ def split_range(min_w, max_w, step, num_threads):
     start = min_w
 
     for i in range(num_threads):
-        # Определяем количество значений для текущего потока
         if i < remainder:
             end = start + (values_per_thread + 1) * step
         else:
             end = start + values_per_thread * step
-
-        # Убедимся, что end не выходит за пределы max_w
         end = min(end, max_w + step)
 
-        # Добавляем диапазон в список
         ranges.append((start, end - step))
 
-        # Обновляем start для следующего потока
         start = end
 
     return ranges
@@ -64,20 +58,18 @@ def threaded_research(r_values=None,gap_number = 0, test_size_constant: int = 50
     min_window_index = int(ts_size / divisor) - test_size_constant - gap_number * test_size_constant - 1
     num_threads = os.cpu_count()
     max_window_index = int(ts_size / divisor) - test_size_constant - 1
-    step = (max_window_index - min_window_index) // num_threads  # Определяем размер для каждого потока
+    step = (max_window_index - min_window_index) // num_threads
 
-    # Генерация диапазонов с учетом min_window_index
     ranges = split_range(min_window_index, max_window_index, test_size_constant, num_threads)
     # print("ranges:", ranges)
     # print([[start,end] for start, end in ranges])
     rmses_list = []
 
     with ThreadPoolExecutor(max_workers=num_threads) as executor:
-        # Эмитация запуска потоков на основании диапазонов
         futures = [executor.submit(research, start, end + 1, r_values, test_size_constant, dt,
                                    epsilon, template_length_constant, template_spread_constant, ts_size)
                    for start, end in ranges]
 
         for future in futures:
-            rmses_list.extend(future.result())  # Объединяем результаты каждого потока
+            rmses_list.extend(future.result())
     return np.mean(rmses_list)

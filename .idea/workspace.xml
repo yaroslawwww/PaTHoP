@@ -4,19 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="Был осуществлен подбор значений для вишарта.">
-      <change afterPath="$PROJECT_DIR$/mysrc/bash" afterDir="false" />
+    <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="Был модернизирован алгоритм">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysrc/Patterns.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/Patterns.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysrc/Predictions.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/Predictions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysrc/Selection.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/Research.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysrc/TimeSeries.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/TimeSeries.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysrc/Visualisation.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/Visualisation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysrc/WishartClusterizationAlgorithm.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/WishartClusterizationAlgorithm.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysrc/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysrc/prediction_experiment.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/prediction_experiment.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysrc/temp.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysrc/wishart_metrics.ipynb" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -252,6 +241,9 @@
       <workItem from="1738581717255" duration="2000" />
       <workItem from="1738648660490" duration="146000" />
       <workItem from="1738764722720" duration="10365000" />
+      <workItem from="1738775755238" duration="1178000" />
+      <workItem from="1738777404948" duration="696000" />
+      <workItem from="1738779435743" duration="823000" />
     </task>
     <task id="LOCAL-00001" summary="Готовый предсказатель(почти)">
       <option name="closed" value="true" />
@@ -277,7 +269,15 @@
       <option name="project" value="LOCAL" />
       <updated>1737770602384</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Был модернизирован алгоритм">
+      <option name="closed" value="true" />
+      <created>1738776043510</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1738776043510</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -309,7 +309,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Готовый предсказатель(почти)" />
     <MESSAGE value="Был осуществлен подбор значений для вишарта." />
-    <option name="LAST_COMMIT_MESSAGE" value="Был осуществлен подбор значений для вишарта." />
+    <MESSAGE value="Был модернизирован алгоритм" />
+    <option name="LAST_COMMIT_MESSAGE" value="Был модернизирован алгоритм" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
