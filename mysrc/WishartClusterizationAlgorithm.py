@@ -13,7 +13,7 @@ def volume(radius, dim):
 
 
 class Wishart:
-    def __init__(self, k: int, mu: float):
+    def __init__(self, k, mu):
         self.k, self.mu = k, mu
         self.labels_ = None
         self.distances = None
@@ -25,7 +25,7 @@ class Wishart:
                        product(cluster, cluster))
         return max_diff >= self.mu
 
-    def merge(self, first_cl, second_cl, clusters: defaultdict, labels):
+    def merge(self, first_cl, second_cl, clusters, labels):
         for i in clusters[second_cl]:
             labels[i] = first_cl
 

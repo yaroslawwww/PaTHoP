@@ -3,7 +3,7 @@ import numpy as np
 
 
 class Templates:
-    def __init__(self, template_length: int, max_template_spread: int):
+    def __init__(self, template_length, max_template_spread):
         self.train_set = None
         self.template_length = template_length
         self.max_template_spread = max_template_spread
@@ -53,7 +53,7 @@ class Templates:
     #         time_series_vectors = train_part[time_series_indexes]
     #         self.train_set[i, :len(time_series_vectors)] = time_series_vectors
 
-    def create_train_set(self, time_series_list: list[TimeSeries]):
+    def create_train_set(self, time_series_list):
         all_train_sets = []  # Список для хранения train_set каждого временного ряда
 
         for time_series in time_series_list:

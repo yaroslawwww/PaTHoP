@@ -28,7 +28,7 @@ def split_range(min_w, max_w, step, num_threads):
 
     return ranges
 
-def research(min_window_index, max_window_index, r_values=None, test_size_constant: int = 50, dt=0.01, epsilon=0.01,template_length_constant=4, template_spread_constant=4, ts_size=100000):
+def research(min_window_index, max_window_index, r_values=None, test_size_constant = 50, dt=0.01, epsilon=0.01,template_length_constant=4, template_spread_constant=4, ts_size=100000):
     divisor = int(0.1 / dt)
 
     list_ts = []
@@ -51,7 +51,7 @@ def research(min_window_index, max_window_index, r_values=None, test_size_consta
     return rmses
 
 
-def threaded_research(r_values=None,gap_number = 0, test_size_constant: int = 50, dt=0.01, epsilon=0.01, template_length_constant=4,
+def threaded_research(r_values=None,gap_number = 0, test_size_constant = 50, dt=0.01, epsilon=0.01, template_length_constant=4,
                       template_spread_constant=4, ts_size=100000):
     divisor = int(0.1 / dt)
     min_window_index = int(ts_size / divisor) - test_size_constant - gap_number * test_size_constant - 1
