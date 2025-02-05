@@ -7,8 +7,8 @@ import numpy as np
 from WishartClusterizationAlgorithm import Wishart
 
 
-def calc_distance_matrix(test_vectors: np.ndarray, train_vectors: np.ndarray, steps: int,
-                         y_dim: int) -> np.ndarray:
+def calc_distance_matrix(test_vectors, train_vectors, steps,
+                         y_dim):
     shape = (test_vectors.shape[0], train_vectors.shape[1])
     distance_matrix = np.zeros(shape)
     for i in range(test_vectors.shape[1]):
@@ -19,16 +19,16 @@ def calc_distance_matrix(test_vectors: np.ndarray, train_vectors: np.ndarray, st
 
 
 class TSProcessor:
-    def __init__(self, time_series_list: list[TimeSeries], window_index: int, template_length: int = 4,
-                 max_template_spread: int = 10,
-                 test_size: int = 50, k: int = 16, mu: float = 0.45):
+    def __init__(self, time_series_list, window_index, template_length = 4,
+                 max_template_spread = 10,
+                 test_size = 50, k = 16, mu = 0.45):
         self.time_series_ = time_series_list[0]
         self.time_series_.split_train_val_test(window_index,test_size)
         self.templates_ = Templates(template_length, max_template_spread)
         self.templates_.create_train_set(time_series_list)
         self.k, self.mu = k, mu
 
-    def pull(self, eps: float):
+    def pull(self, eps):
         steps = len(self.time_series_.test)
         values = self.time_series_.train
         values += self.time_series_.val
@@ -50,7 +50,7 @@ class TSProcessor:
             values[size_of_series + step] = forecast_point
         return forecast_trajectories, values
 
-    def freeze_point(self, points_pool: np.ndarray, how: str) -> float:
+    def freeze_point(self, points_pool, how):
         result = None
         if points_pool.size == 0:
             result = np.nan
