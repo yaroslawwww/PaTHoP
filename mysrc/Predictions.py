@@ -1,18 +1,10 @@
-import copy
-import random
 
-import pandas as pd
-from dask.array import shape
-from matplotlib import pyplot as plt
-from numpy.ma.extras import average
-from statsmodels.tsa.vector_ar.var_model import forecast
-from tqdm import tqdm
 
 from TimeSeries import TimeSeries
 from Patterns import Templates
 import numpy as np
 
-from mysrc.WishartClusterizationAlgorithm import Wishart
+from WishartClusterizationAlgorithm import Wishart
 
 
 def calc_distance_matrix(test_vectors: np.ndarray, train_vectors: np.ndarray, steps: int,
@@ -27,55 +19,14 @@ def calc_distance_matrix(test_vectors: np.ndarray, train_vectors: np.ndarray, st
 
 
 class TSProcessor:
-    def __init__(self, time_series_list: list[TimeSeries], template_length: int = 4, max_template_spread: int = 10,
-                 train_size: int = 5000, val_size: int = 0, test_size: int = 50, k: int = 16, mu: float = 0.45):
+    def __init__(self, time_series_list: list[TimeSeries], window_index: int, template_length: int = 4,
+                 max_template_spread: int = 10,
+                 test_size: int = 50, k: int = 16, mu: float = 0.45):
         self.time_series_ = time_series_list[0]
-        self.time_series_.split_train_val_test(train_size, val_size, test_size)
+        self.time_series_.split_train_val_test(window_index,test_size)
         self.templates_ = Templates(template_length, max_template_spread)
         self.templates_.create_train_set(time_series_list)
         self.k, self.mu = k, mu
-        self.eps = 0.001
-
-    def validation(self):
-        eps = self.eps
-        steps = len(self.time_series_.val)
-        values = self.time_series_.train
-        size_of_series = len(values)
-        values += self.time_series_.val
-        values = np.array(values)
-        x_dim, y_dim, z_dim = self.templates_.train_set.shape
-        vectors_continuation = np.full([x_dim, steps, z_dim], fill_value=np.inf)
-        train_vectors = np.hstack([self.templates_.train_set, vectors_continuation])
-        observation_indexes = self.templates_.observation_indexes  # отрицательные номера элементов которые нужны для шаблона
-        temperature = 0.8
-        param = 4
-        average_points_size = 0
-        while average_points_size > 100 or average_points_size < 10:
-            average_points_size = 0
-            param *= temperature
-            for step in  tqdm(range(steps)):
-                test_vectors = values[:size_of_series + step][observation_indexes]
-                distance_matrix = calc_distance_matrix(test_vectors, train_vectors, steps, y_dim)
-                points = train_vectors[distance_matrix < eps][:, -1]
-                forecast_point = self.freeze_point(points, 'mf')
-                values[size_of_series + step] = forecast_point
-                average_points_size += points.size
-            average_points_size /= steps
-            if average_points_size > 100:
-                print(eps, average_points_size)
-                eps /= param
-
-            elif average_points_size < 10:
-                print(eps, average_points_size)
-
-                eps *= param
-            else:
-                print(eps, average_points_size)
-
-                self.eps = eps
-        print(eps, average_points_size)
-
-        return
 
     def pull(self, eps: float):
         steps = len(self.time_series_.test)
@@ -90,7 +41,7 @@ class TSProcessor:
         vectors_continuation = np.full([x_dim, steps, z_dim], fill_value=np.inf)
         train_vectors = np.hstack([self.templates_.train_set, vectors_continuation])
         observation_indexes = self.templates_.observation_indexes  # отрицательные номера элементов которые нужны для шаблона
-        for step in tqdm(range(steps)):
+        for step in range(steps):
             test_vectors = values[:size_of_series + step][observation_indexes]
             distance_matrix = calc_distance_matrix(test_vectors, train_vectors, steps, y_dim)
             points = train_vectors[distance_matrix < eps][:, -1]
@@ -112,18 +63,19 @@ class TSProcessor:
             result = points[counts.argmax()]
         elif how == 'cl':
             if len(points_pool) < self.k:
-                dbs = Wishart(k=len(points_pool) - 1, mu=0.45)
+                wishart = Wishart(k=len(points_pool), mu=0.45)
             else:
-                dbs = Wishart(k=self.k, mu=self.mu)
+                wishart = Wishart(k=self.k, mu=self.mu)
             np.random.shuffle(points_pool)
-            if points_pool.size > 400:
-                result = self.freeze_point(points_pool, how='mean')
-            dbs.fit(points_pool.reshape(-1, 1))
+            # нужно если комп слаб
+            # if points_pool.size > 100:
+            #     result = self.freeze_point(points_pool, how='mean')
+            #     return result
+            wishart.fit(points_pool.reshape(-1, 1))
 
-            cluster_labels, cluster_sizes = np.unique(dbs.labels_[dbs.labels_ > -1], return_counts=True)
-
+            cluster_labels, cluster_sizes = np.unique(wishart.labels_[wishart.labels_ > -1], return_counts=True)
             if cluster_labels.size > 0:
-                biggest_cluster_center = points_pool[dbs.labels_ == cluster_labels[cluster_sizes.argmax()]].mean()
+                biggest_cluster_center = points_pool[wishart.labels_ == cluster_labels[cluster_sizes.argmax()]].mean()
                 result = biggest_cluster_center
             else:
                 result = np.nan

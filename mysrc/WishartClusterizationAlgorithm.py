@@ -3,10 +3,6 @@ from collections import defaultdict
 from itertools import product
 from math import gamma
 
-import pandas as pd
-from matplotlib import pyplot as plt
-
-from Patterns import TimeSeries, Templates
 import numpy as np
 from scipy.spatial.distance import squareform, pdist
 from QuickSelect import QuickSelect

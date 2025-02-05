@@ -1,0 +1,8 @@
+#!/bin/bash
+#SBATCH --job-name=prediction
+#SBATCH -c 20
+#SBATCH --time=1:00:00
+#SBATCH -w cn-026
+#SBATCH --output=my_env/output/prediction_multiple_ts_1.log
+source my_env/bin/activate
+python main.py
