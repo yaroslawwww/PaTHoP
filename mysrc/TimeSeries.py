@@ -1,3 +1,4 @@
+# coding: utf-8
 from Lorentz import Lorentz
 import matplotlib.pyplot as plt
 import seaborn as sns

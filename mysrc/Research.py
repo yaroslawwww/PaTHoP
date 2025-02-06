@@ -1,3 +1,4 @@
+# coding: utf-8
 from Predictions import *
 import numpy as np
 from sklearn.metrics import root_mean_squared_error

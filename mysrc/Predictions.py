@@ -1,4 +1,4 @@
-
+# coding: utf-8
 
 from TimeSeries import TimeSeries
 from Patterns import Templates
@@ -40,7 +40,7 @@ class TSProcessor:
         x_dim, y_dim, z_dim = self.templates_.train_set.shape
         vectors_continuation = np.full([x_dim, steps, z_dim], fill_value=np.inf)
         train_vectors = np.hstack([self.templates_.train_set, vectors_continuation])
-        observation_indexes = self.templates_.observation_indexes  # отрицательные номера элементов которые нужны для шаблона
+        observation_indexes = self.templates_.observation_indexes
         for step in range(steps):
             test_vectors = values[:size_of_series + step][observation_indexes]
             distance_matrix = calc_distance_matrix(test_vectors, train_vectors, steps, y_dim)

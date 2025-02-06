@@ -1,3 +1,4 @@
+# coding: utf-8
 from TimeSeries import TimeSeries
 import numpy as np
 
