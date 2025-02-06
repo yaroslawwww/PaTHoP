@@ -30,8 +30,10 @@ def split_range(min_w, max_w, step, num_threads):
     return ranges
 
 def research(min_window_index, max_window_index, r_values=None, test_size_constant = 50, dt=0.01, epsilon=0.01,template_length_constant=4, template_spread_constant=4, ts_size=100000):
-    divisor = int(0.1 / dt)
 
+    divisor = int(0.1 / dt)
+    if min_window_index > max_window_index or max_window_index + test_size_constant >= int(ts_size / divisor):
+        return []
     list_ts = []
     rmses = []
     for i, r in enumerate(r_values):
