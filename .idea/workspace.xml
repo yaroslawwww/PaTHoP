@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="древний sklearn" />
+    <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="2-&gt;200">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -246,7 +248,8 @@
       <workItem from="1738817368333" duration="491000" />
       <workItem from="1738819134754" duration="1658000" />
       <workItem from="1738821391534" duration="307000" />
-      <workItem from="1738822151194" duration="1919000" />
+      <workItem from="1738822151194" duration="2228000" />
+      <workItem from="1738824403439" duration="653000" />
     </task>
     <task id="LOCAL-00001" summary="Готовый предсказатель(почти)">
       <option name="closed" value="true" />
@@ -344,7 +347,15 @@
       <option name="project" value="LOCAL" />
       <updated>1738823848678</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="2-&gt;200">
+      <option name="closed" value="true" />
+      <created>1738824340891</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1738824340891</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -380,7 +391,8 @@
     <MESSAGE value="Ебаный ресерч" />
     <MESSAGE value="Кодировка?" />
     <MESSAGE value="древний sklearn" />
-    <option name="LAST_COMMIT_MESSAGE" value="древний sklearn" />
+    <MESSAGE value="2-&gt;200" />
+    <option name="LAST_COMMIT_MESSAGE" value="2-&gt;200" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

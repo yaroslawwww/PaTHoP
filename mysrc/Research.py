@@ -47,7 +47,8 @@ def research(min_window_index, max_window_index, r_values=None, test_size_consta
         fort, values = tsproc.pull(epsilon)
         real_values = np.array(list_ts[0].values[window_index:window_index + test_size_constant])
         pred_values = np.array(values[-test_size_constant:])
-
+        if len(real_values) != len(pred_values):
+            return rmses
         mask = ~np.isnan(real_values) & ~np.isnan(pred_values)
         rmses.append(mean_squared_error(real_values[mask], pred_values[mask]))
         # print(mean_squared_error(real_values[mask], pred_values[mask]))
