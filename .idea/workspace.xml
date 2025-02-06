@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="Исправленный код в research(там какая-то ошибка возникает)">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysrc/Research.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/Research.py" afterDir="false" />
-    </list>
+    <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="проверка на фулл nan" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -250,7 +247,7 @@
       <workItem from="1738819134754" duration="1658000" />
       <workItem from="1738821391534" duration="307000" />
       <workItem from="1738822151194" duration="2228000" />
-      <workItem from="1738824403439" duration="2168000" />
+      <workItem from="1738824403439" duration="2766000" />
     </task>
     <task id="LOCAL-00001" summary="Готовый предсказатель(почти)">
       <option name="closed" value="true" />
@@ -364,7 +361,15 @@
       <option name="project" value="LOCAL" />
       <updated>1738825545808</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="проверка на фулл nan">
+      <option name="closed" value="true" />
+      <created>1738826823423</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1738826823423</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -402,7 +407,8 @@
     <MESSAGE value="древний sklearn" />
     <MESSAGE value="2-&gt;200" />
     <MESSAGE value="Исправленный код в research(там какая-то ошибка возникает)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Исправленный код в research(там какая-то ошибка возникает)" />
+    <MESSAGE value="проверка на фулл nan" />
+    <option name="LAST_COMMIT_MESSAGE" value="проверка на фулл nan" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
