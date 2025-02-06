@@ -1,7 +1,7 @@
 # coding: utf-8
 from Predictions import *
 import numpy as np
-from sklearn.metrics import root_mean_squared_error
+from sklearn.metrics import mean_squared_error
 from concurrent.futures import ThreadPoolExecutor
 import os
 
@@ -47,8 +47,8 @@ def research(min_window_index, max_window_index, r_values=None, test_size_consta
         pred_values = np.array(values[-test_size_constant:])
 
         mask = ~np.isnan(real_values) & ~np.isnan(pred_values)
-        rmses.append(root_mean_squared_error(real_values[mask], pred_values[mask]))
-        # print(root_mean_squared_error(real_values[mask], pred_values[mask]))
+        rmses.append(mean_squared_error(real_values[mask], pred_values[mask]))
+        # print(mean_squared_error(real_values[mask], pred_values[mask]))
     return rmses
 
 
