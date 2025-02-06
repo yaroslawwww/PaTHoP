@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="Ебаный ресерч">
-      <change beforePath="$PROJECT_DIR$/mysrc/Predictions.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/Predictions.py" afterDir="false" />
+    <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="Кодировка?">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -245,6 +245,7 @@
       <workItem from="1738777404948" duration="696000" />
       <workItem from="1738779435743" duration="823000" />
       <workItem from="1738781247256" duration="1569000" />
+      <workItem from="1738817368333" duration="491000" />
     </task>
     <task id="LOCAL-00001" summary="Готовый предсказатель(почти)">
       <option name="closed" value="true" />
@@ -310,7 +311,15 @@
       <option name="project" value="LOCAL" />
       <updated>1738782642055</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Кодировка?">
+      <option name="closed" value="true" />
+      <created>1738817503355</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1738817503355</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -344,7 +353,8 @@
     <MESSAGE value="Был осуществлен подбор значений для вишарта." />
     <MESSAGE value="Был модернизирован алгоритм" />
     <MESSAGE value="Ебаный ресерч" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ебаный ресерч" />
+    <MESSAGE value="Кодировка?" />
+    <option name="LAST_COMMIT_MESSAGE" value="Кодировка?" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
