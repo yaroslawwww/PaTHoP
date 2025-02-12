@@ -74,7 +74,7 @@ class TSProcessor:
             wishart.fit(points_pool.reshape(-1, 1))
 
             cluster_labels, cluster_sizes = np.unique(wishart.labels_[wishart.labels_ > -1], return_counts=True)
-            if cluster_labels.size > 0:
+            if cluster_labels.size > 0 and (np.count_nonzero(((cluster_sizes / cluster_sizes.max()).round(2) > 0.8)) == 1):
                 biggest_cluster_center = points_pool[wishart.labels_ == cluster_labels[cluster_sizes.argmax()]].mean()
                 result = biggest_cluster_center
             else:
