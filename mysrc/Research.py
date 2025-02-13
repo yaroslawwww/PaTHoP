@@ -5,7 +5,8 @@ from sklearn.metrics import mean_squared_error
 from concurrent.futures import ThreadPoolExecutor
 import os
 
-
+def rmse(y_true, y_pred):
+    return np.sqrt(mean_squared_error(y_true, y_pred))
 def split_range(min_w, max_w, step, num_threads):
 
     total_values = (max_w - min_w) // step + 1
@@ -53,7 +54,7 @@ def research(min_window_index, max_window_index, r_values=None, ts_size=None, te
         mask = ~np.isnan(real_values) & ~np.isnan(pred_values)
         if np.all(np.isnan(real_values)) or np.all(np.isnan(pred_values)):
             continue
-        rmses.append(mean_squared_error(real_values[mask], pred_values[mask]))
+        rmses.append(rmse(real_values[mask], pred_values[mask]))
         np_points.append(test_size_constant-len(pred_values[mask]))
         # print(mean_squared_error(real_values[mask], pred_values[mask]))
         # print(np_points[-1])

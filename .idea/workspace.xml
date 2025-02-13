@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="Попытка нарисовать линию тренда">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="Увеличение числа тестов">
+      <change beforePath="$PROJECT_DIR$/mysrc/Research.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/Research.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -265,6 +265,7 @@
       <workItem from="1739442448708" duration="200000" />
       <workItem from="1739444829392" duration="4000" />
       <workItem from="1739453281710" duration="1298000" />
+      <workItem from="1739456883514" duration="322000" />
     </task>
     <task id="LOCAL-00001" summary="Готовый предсказатель(почти)">
       <option name="closed" value="true" />
@@ -458,7 +459,23 @@
       <option name="project" value="LOCAL" />
       <updated>1739453819307</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Увеличение числа тестов">
+      <option name="closed" value="true" />
+      <created>1739456954046</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1739456954046</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Увеличение числа тестов">
+      <option name="closed" value="true" />
+      <created>1739457002815</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1739457002815</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -503,7 +520,8 @@
     <MESSAGE value="Я хуй знает" />
     <MESSAGE value="Попытка распараллелить" />
     <MESSAGE value="Попытка нарисовать линию тренда" />
-    <option name="LAST_COMMIT_MESSAGE" value="Попытка нарисовать линию тренда" />
+    <MESSAGE value="Увеличение числа тестов" />
+    <option name="LAST_COMMIT_MESSAGE" value="Увеличение числа тестов" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
