@@ -21,42 +21,43 @@ def main():
     #
     # Параллелизация цикла по размеру 2 ряда
     second_size_range = [10**4*10,10**5*10,10**6*10,10**7*10]
-    epsilon_range = [1]
+    epsilon_range = [1,5,8,10,15,30]
     rmses_sizes = []
     np_points_sizes = []
     sizes_list = []
     epsilon_list = []
 
-    with concurrent.futures.ProcessPoolExecutor() as executor:
-        futures = [executor.submit(process_size, epsilon,[100000,second_size], divisor)
-                   for second_size in second_size_range for epsilon in epsilon_range]
-        for future in concurrent.futures.as_completed(futures):
-            epsilon,second_sizes, rmse, np_point = future.result()
-            epsilon_list.append(epsilon)
-            sizes_list.append(second_sizes)
-            rmses_sizes.append(rmse)
-            np_points_sizes.append(np_point)
+    for epsilon in epsilon_range:
+        with concurrent.futures.ProcessPoolExecutor() as executor:
+            futures = [executor.submit(process_size, epsilon,[100000,second_size], divisor)
+                       for second_size in second_size_range]
+            for future in concurrent.futures.as_completed(futures):
+                epsilon,second_sizes, rmse, np_point = future.result()
+                epsilon_list.append(epsilon)
+                sizes_list.append(second_sizes)
+                rmses_sizes.append(rmse)
+                np_points_sizes.append(np_point)
 
-    # Сортировка по доле второго ряда
-    sorted_sizes = sorted(zip(sizes_list, rmses_sizes, np_points_sizes), key=lambda x: x[0])
-    sizes_list, rmses_sizes, np_points_sizes = map(list, zip(*sorted_sizes))
-    plt.figure()
-    plt.plot(x=sizes_list, y=np_points_sizes)
-    plt.xscale('log')
-    plt.xlabel('Длина добавленного ряда')
-    plt.ylabel('Количество NP точек')
-    plt.title('Зависимость количества непредсказываемых точек от size')
-    plt.savefig('./graphics/sizes_and_np_points.png')
-    plt.show()
+        # Сортировка по доле второго ряда
+        sorted_sizes = sorted(zip(sizes_list, rmses_sizes, np_points_sizes), key=lambda x: x[0])
+        sizes_list, rmses_sizes, np_points_sizes = map(list, zip(*sorted_sizes))
+        plt.figure()
+        plt.plot(x=sizes_list, y=np_points_sizes)
+        plt.xscale('log')
+        plt.xlabel('Длина добавленного ряда')
+        plt.ylabel('Количество NP точек')
+        plt.title('Зависимость количества непредсказываемых точек от size')
+        plt.savefig(f'./graphics/sizes_and_np_points{epsilon}.png',dpi=300)
+        plt.show()
 
-    plt.figure()
-    plt.plot(x=sizes_list, y=rmses_sizes)
-    plt.xscale('log')
-    plt.xlabel('Длина добавленного ряда')
-    plt.ylabel('RMSE')
-    plt.title('Зависимость ошибки от size')
-    plt.savefig('./graphics/sizes_and_rmses.png')
-    plt.show()
+        plt.figure()
+        plt.plot(x=sizes_list, y=rmses_sizes)
+        plt.xscale('log')
+        plt.xlabel('Длина добавленного ряда')
+        plt.ylabel('RMSE')
+        plt.title('Зависимость ошибки от size')
+        plt.savefig(f'./graphics/sizes_and_rmses{epsilon}.png',dpi=300)
+        plt.show()
 
 if __name__ == '__main__':
     main()
