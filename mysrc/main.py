@@ -9,7 +9,7 @@ def process_epsilon(epsilon, shares, size, divisor):
     # Каждый процесс выполняет вызов threaded_research с заданным epsilon
     result = threaded_research(r_values=[28, 28 + epsilon],
                                ts_size=(np.array(shares) * size * divisor).astype(np.uint64),
-                               gap_number=20,
+                               gap_number=40,
                                test_size_constant=50)
     return epsilon, result[0], result[1]
 
@@ -18,7 +18,7 @@ def process_share(second_share, size, divisor, epsilon):
     current_shares = [1 - second_share, second_share]
     result = threaded_research(r_values=[28, 28 + epsilon],
                                ts_size=(np.array(current_shares) * size * divisor).astype(np.uint64),
-                               gap_number=20,
+                               gap_number=40,
                                test_size_constant=50)
     return second_share, result[0], result[1]
 
@@ -26,7 +26,7 @@ def process_share(second_share, size, divisor, epsilon):
 def process_nested(epsilon, size, shares, divisor):
     result = threaded_research(r_values=[28, 28 + epsilon],
                                ts_size=(np.array(shares) * size * divisor).astype(np.uint64),
-                               gap_number=20,
+                               gap_number=40,
                                test_size_constant=50)
     return epsilon, size, result[0], result[1]
 
@@ -34,7 +34,7 @@ def process_nested(epsilon, size, shares, divisor):
 def main():
     divisor = 10
     base_shares = [0.5, 0.5]
-    size = 20000
+    size = 40000
     # Параллелизация цикла по epsilon с использованием процессов
     epsilons_range = np.arange(1, 30.0, 0.2)
     rmses = []
