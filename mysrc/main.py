@@ -10,7 +10,7 @@ def process_epsilon(epsilon, shares, size, divisor):
     result = threaded_research(r_values=[28, 28 + epsilon],
                                ts_size=(np.array(shares) * size * divisor).astype(np.uint64),
                                gap_number=40,
-                               test_size_constant=50)
+                               test_size_constant=100)
     return epsilon, result[0], result[1]
 
 
@@ -19,7 +19,7 @@ def process_share(second_share, size, divisor, epsilon):
     result = threaded_research(r_values=[28, 28 + epsilon],
                                ts_size=(np.array(current_shares) * size * divisor).astype(np.uint64),
                                gap_number=40,
-                               test_size_constant=50)
+                               test_size_constant=100)
     return second_share, result[0], result[1]
 
 
@@ -27,7 +27,7 @@ def process_nested(epsilon, size, shares, divisor):
     result = threaded_research(r_values=[28, 28 + epsilon],
                                ts_size=(np.array(shares) * size * divisor).astype(np.uint64),
                                gap_number=40,
-                               test_size_constant=50)
+                               test_size_constant=100)
     return epsilon, size, result[0], result[1]
 
 
@@ -71,7 +71,7 @@ def main():
     plt.show()
 
     # Параллелизация цикла по доле второго ряда (shares)
-    second_shares_range = np.arange(0.1, 0.9, 0.01)
+    second_shares_range = np.arange(0.1, 0.8, 0.01)
     rmses_shares = []
     np_points_shares = []
     shares_list = []
