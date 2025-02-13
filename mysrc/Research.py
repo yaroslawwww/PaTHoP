@@ -70,7 +70,7 @@ def threaded_research(r_values=None,ts_size = None,gap_number = 0, test_size_con
     step = (max_window_index - min_window_index) // num_threads
 
     ranges = split_range(min_window_index, max_window_index, test_size_constant, num_threads)
-    print("ranges:", ranges)
+    # print("ranges:", ranges)
     # print([[start,end] for start, end in ranges])
     rmses_list = []
     np_points_list = []
