@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="я идиот">
+    <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="Что-то долго">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysrc/Predictions.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/Predictions.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mysrc/Research.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/Research.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysrc/bash" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/bash" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mysrc/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -260,6 +258,11 @@
       <workItem from="1738856724210" duration="829000" />
       <workItem from="1739340541375" duration="665000" />
       <workItem from="1739376753903" duration="4259000" />
+      <workItem from="1739388995788" duration="486000" />
+      <workItem from="1739390411144" duration="1241000" />
+      <workItem from="1739398317859" duration="341000" />
+      <workItem from="1739435785382" duration="270000" />
+      <workItem from="1739436074712" duration="1061000" />
     </task>
     <task id="LOCAL-00001" summary="Готовый предсказатель(почти)">
       <option name="closed" value="true" />
@@ -397,7 +400,23 @@
       <option name="project" value="LOCAL" />
       <updated>1738832205191</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Наконец-то нормальное исследование">
+      <option name="closed" value="true" />
+      <created>1739389212615</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1739389212615</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Что-то долго">
+      <option name="closed" value="true" />
+      <created>1739398529636</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1739398529636</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -437,7 +456,9 @@
     <MESSAGE value="Исправленный код в research(там какая-то ошибка возникает)" />
     <MESSAGE value="проверка на фулл nan" />
     <MESSAGE value="я идиот" />
-    <option name="LAST_COMMIT_MESSAGE" value="я идиот" />
+    <MESSAGE value="Наконец-то нормальное исследование" />
+    <MESSAGE value="Что-то долго" />
+    <option name="LAST_COMMIT_MESSAGE" value="Что-то долго" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

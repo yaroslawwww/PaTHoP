@@ -55,8 +55,8 @@ def research(min_window_index, max_window_index, r_values=None, ts_size=None, te
             continue
         rmses.append(mean_squared_error(real_values[mask], pred_values[mask]))
         np_points.append(test_size_constant-len(pred_values[mask]))
-        print(mean_squared_error(real_values[mask], pred_values[mask]))
-        print(np_points[-1])
+        # print(mean_squared_error(real_values[mask], pred_values[mask]))
+        # print(np_points[-1])
     return rmses,np_points
 
 
