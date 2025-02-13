@@ -3,7 +3,7 @@ import numpy as np
 from Research import *
 from matplotlib import pyplot as plt
 import concurrent.futures
-
+import seaborn as sns
 
 def process_epsilon(epsilon, shares, size, divisor):
     # Каждый процесс выполняет вызов threaded_research с заданным epsilon
@@ -36,7 +36,7 @@ def main():
     base_shares = [0.5, 0.5]
     size = 20000
     # Параллелизация цикла по epsilon с использованием процессов
-    epsilons_range = np.arange(1, 30.0, 0.5)
+    epsilons_range = np.arange(1, 30.0, 0.2)
     rmses = []
     np_points = []
     epsilons = []
@@ -55,7 +55,7 @@ def main():
     epsilons, rmses, np_points = map(list, zip(*sorted_results))
 
     plt.figure()
-    plt.plot(epsilons, rmses)
+    sns.regplot(x=epsilons,y= rmses,order = 3)
     plt.xlabel('Возмущение epsilon')
     plt.ylabel('Ошибка')
     plt.title('Зависимость ошибки от epsilon')
@@ -63,7 +63,7 @@ def main():
     plt.show()
 
     plt.figure()
-    plt.plot(epsilons, np_points)
+    sns.regplot(x=epsilons,y= np_points,order = 3)
     plt.xlabel('Возмущение epsilon')
     plt.ylabel('Количество NP точек')
     plt.title('Зависимость количества непредсказываемых точек от epsilon')
@@ -71,7 +71,7 @@ def main():
     plt.show()
 
     # Параллелизация цикла по доле второго ряда (shares)
-    second_shares_range = np.arange(0.1, 0.9, 0.02)
+    second_shares_range = np.arange(0.1, 0.9, 0.01)
     rmses_shares = []
     np_points_shares = []
     shares_list = []
@@ -91,7 +91,7 @@ def main():
     shares_list, rmses_shares, np_points_shares = map(list, zip(*sorted_shares))
 
     plt.figure()
-    plt.plot(shares_list, rmses_shares)
+    sns.regplot(x=shares_list,y= rmses_shares,order = 3)
     plt.xlabel('Доля второго ряда')
     plt.ylabel('Ошибка')
     plt.title('Зависимость ошибки от доли второго ряда')
@@ -99,46 +99,11 @@ def main():
     plt.show()
 
     plt.figure()
-    plt.plot(shares_list, np_points_shares)
+    sns.regplot(x=shares_list,y= np_points_shares,order = 3)
     plt.xlabel('Доля второго ряда')
     plt.ylabel('Количество NP точек')
     plt.title('Зависимость количества непредсказываемых точек от доли второго ряда')
     plt.savefig('./graphics/shares_and_np_points.png', dpi=300)
-    plt.show()
-
-    # Пример параллелизации вложенного цикла: по epsilon и size
-    rmses_nested = {}
-    np_points_nested = {}
-    fixed_shares = [0.5, 0.5]
-
-    epsilons_nested = np.arange(1, 30.0, 2)
-    sizes_range = range(20000, 35000, 1000)
-
-    tasks = []
-    with concurrent.futures.ProcessPoolExecutor() as executor:
-        for epsilon in epsilons_nested:
-            for size_val in sizes_range:
-                tasks.append(executor.submit(process_nested, epsilon, size_val, fixed_shares, divisor))
-        for future in concurrent.futures.as_completed(tasks):
-            epsilon, size_val, rmse, np_point = future.result()
-            rmses_nested[(epsilon, size_val)] = rmse
-            np_points_nested[(epsilon, size_val)] = np_point
-
-    # Создание сетки для 3D-графика (например, для RMSE)
-    X, Y = np.meshgrid(list(sizes_range),  epsilons_nested)
-    Z = np.array([[rmses_nested[(eps, sz)] for sz in sizes_range] for eps in epsilons_nested])
-
-    from mpl_toolkits.mplot3d import Axes3D  # для создания 3D графика
-    fig = plt.figure(figsize=(12, 8))
-    ax = fig.add_subplot(111, projection='3d')
-    surf = ax.plot_surface(X, Y, Z, cmap='viridis', edgecolor='none', antialiased=True)
-    ax.set_xlabel('Size', fontsize=12)
-    ax.set_ylabel('Epsilon', fontsize=12)
-    ax.set_zlabel('RMSE', fontsize=12)
-    ax.set_title('3D Surface Plot of RMSE', pad=20)
-    fig.colorbar(surf, shrink=0.5, aspect=5)
-    ax.view_init(elev=25, azim=-45)
-    plt.savefig('./graphics/surface_plot.png', dpi=300)
     plt.show()
 
 
