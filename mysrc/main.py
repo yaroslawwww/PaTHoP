@@ -125,7 +125,7 @@ def main():
             np_points_nested[(epsilon, size_val)] = np_point
 
     # Создание сетки для 3D-графика (например, для RMSE)
-    X, Y = np.meshgrid(list(sizes_range), epsilons_nested)
+    X, Y = np.meshgrid(list(sizes_range),  epsilons_nested)
     Z = np.array([[rmses_nested[(eps, sz)] for sz in sizes_range] for eps in epsilons_nested])
 
     from mpl_toolkits.mplot3d import Axes3D  # для создания 3D графика
