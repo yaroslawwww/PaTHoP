@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="epsilon =1">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="Уменьшенный размер" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -273,6 +271,7 @@
       <workItem from="1739475898434" duration="872000" />
       <workItem from="1739498192936" duration="509000" />
       <workItem from="1739499699053" duration="12000" />
+      <workItem from="1739502232239" duration="135000" />
     </task>
     <task id="LOCAL-00001" summary="Готовый предсказатель(почти)">
       <option name="closed" value="true" />
@@ -538,7 +537,23 @@
       <option name="project" value="LOCAL" />
       <updated>1739498541940</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="epsilon =1">
+      <option name="closed" value="true" />
+      <created>1739502244129</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1739502244129</updated>
+    </task>
+    <task id="LOCAL-00035" summary="Уменьшенный размер">
+      <option name="closed" value="true" />
+      <created>1739502342579</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1739502342579</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -589,7 +604,8 @@
     <MESSAGE value="Проверка нескольких epsilon" />
     <MESSAGE value="process pool" />
     <MESSAGE value="epsilon =1" />
-    <option name="LAST_COMMIT_MESSAGE" value="epsilon =1" />
+    <MESSAGE value="Уменьшенный размер" />
+    <option name="LAST_COMMIT_MESSAGE" value="Уменьшенный размер" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
