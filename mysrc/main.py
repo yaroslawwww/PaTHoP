@@ -14,7 +14,7 @@ def process_size(epsilon, sizes, divisor):
                                ts_size=sizes,
                                gap_number=20,
                                test_size_constant=50)
-    return epsilon, sizes[1], result[0], result[1]
+    return epsilon, int(sizes[1] / 10), result[0], result[1]
 
 
 def main():
@@ -31,12 +31,12 @@ def main():
         futures = [executor.submit(process_size, epsilon, [100000, int(second_size / 10) * 10], divisor)
                    for second_size in second_size_range for epsilon in epsilon_range]
         for future in concurrent.futures.as_completed(futures):
-            epsilon, second_sizes, rmse, np_point = future.result()
-            epsilon_and_sizes_list.append([epsilon, second_sizes])
+            epsilon, second_size, rmse, np_point = future.result()
+            epsilon_and_sizes_list.append([epsilon, second_size])
             rmses_sizes.append(rmse)
             np_points_sizes.append(np_point)
-            with open(f"fast_output{epsilon}.txt", "a") as f:
-                f.write(str(second_sizes) + "," + str(np_point) + "," + str(rmse) + "\n")
+            with open(f"./outputs/fast_output{epsilon}.txt", "a") as f:
+                f.write(str(second_size) + "," + str(np_point) + "," + str(rmse) + "\n")
 
     # Сортировка по доле второго ряда
     sorted_sizes = sorted(zip(epsilon_and_sizes_list, rmses_sizes, np_points_sizes), key=lambda x: x[0])
@@ -47,7 +47,7 @@ def main():
 
     # Создаем сетку для построения поверхности
     grid_epsilon, grid_size = np.meshgrid(np.linspace(min(epsilons), max(epsilons), 100),
-                             np.linspace(min(sizes), max(sizes), 100))
+                                          np.linspace(min(sizes), max(sizes), 100))
 
     # Интерполяция данных для np_points
     grid_np_points = griddata((epsilons, sizes), np_points_sizes, (grid_epsilon, grid_size), method='cubic')
