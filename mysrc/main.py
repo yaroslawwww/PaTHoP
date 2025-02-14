@@ -36,7 +36,8 @@ def main():
             sizes_list.append(second_sizes)
             rmses_sizes.append(rmse)
             np_points_sizes.append(np_point)
-
+            with open("lol.txt","r") as f:
+                f.write(str(second_sizes)+","+str(np_points_sizes)+","+str(rmse)+"\n")
     # Сортировка по доле второго ряда
     sorted_sizes = sorted(zip(sizes_list, rmses_sizes, np_points_sizes), key=lambda x: x[0])
     sizes_list, rmses_sizes, np_points_sizes = map(list, zip(*sorted_sizes))
