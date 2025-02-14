@@ -2,7 +2,7 @@
 from Predictions import *
 import numpy as np
 from sklearn.metrics import mean_squared_error
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ProcessPoolExecutor
 import os
 
 def rmse(y_true, y_pred):
@@ -75,7 +75,7 @@ def threaded_research(r_values=None,ts_size = None,gap_number = 0, test_size_con
     # print([[start,end] for start, end in ranges])
     rmses_list = []
     np_points_list = []
-    with ThreadPoolExecutor(max_workers=num_threads) as executor:
+    with ProcessPoolExecutor(max_workers=num_threads) as executor:
         futures = [executor.submit(research, start, end + 1, r_values, ts_size, test_size_constant, dt,
                                    epsilon, template_length_constant, template_spread_constant)
                    for start, end in ranges]
