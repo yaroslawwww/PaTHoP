@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="fast">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="ошибка в 10" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -277,7 +275,7 @@
       <workItem from="1739503981818" duration="103000" />
       <workItem from="1739506086842" duration="2165000" />
       <workItem from="1739511442458" duration="294000" />
-      <workItem from="1739516060152" duration="617000" />
+      <workItem from="1739516060152" duration="1182000" />
     </task>
     <task id="LOCAL-00001" summary="Готовый предсказатель(почти)">
       <option name="closed" value="true" />
@@ -575,7 +573,15 @@
       <option name="project" value="LOCAL" />
       <updated>1739511716980</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="ошибка в 10">
+      <option name="closed" value="true" />
+      <created>1739517082382</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1739517082382</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -628,7 +634,8 @@
     <MESSAGE value="epsilon =1" />
     <MESSAGE value="Уменьшенный размер" />
     <MESSAGE value="fast" />
-    <option name="LAST_COMMIT_MESSAGE" value="fast" />
+    <MESSAGE value="ошибка в 10" />
+    <option name="LAST_COMMIT_MESSAGE" value="ошибка в 10" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
