@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="ошибка в 10" />
+    <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="ошибка в 10">
+      <change beforePath="$PROJECT_DIR$/mysrc/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/main.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -276,6 +278,7 @@
       <workItem from="1739506086842" duration="2165000" />
       <workItem from="1739511442458" duration="294000" />
       <workItem from="1739516060152" duration="1182000" />
+      <workItem from="1739517975555" duration="332000" />
     </task>
     <task id="LOCAL-00001" summary="Готовый предсказатель(почти)">
       <option name="closed" value="true" />
@@ -581,7 +584,15 @@
       <option name="project" value="LOCAL" />
       <updated>1739517082382</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="ошибка в 10">
+      <option name="closed" value="true" />
+      <created>1739518056244</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1739518056244</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

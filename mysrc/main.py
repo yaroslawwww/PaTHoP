@@ -21,7 +21,7 @@ def main():
     #
     # Параллелизация цикла по размеру 2 ряда
 
-    second_size_range = np.logspace(5, 6, 5, base=10)
+    second_size_range = np.logspace(5, 6, 100, base=10)
     epsilon_range = [1, 5, 8, 10, 15, 30]
     rmses_sizes = []
     np_points_sizes = []
@@ -43,7 +43,7 @@ def main():
     sorted_sizes = sorted(zip(sizes_list, rmses_sizes, np_points_sizes), key=lambda x: x[0])
     sizes_list, rmses_sizes, np_points_sizes = map(list, zip(*sorted_sizes))
     plt.figure()
-    plt.plot(x=sizes_list, y=np_points_sizes)
+    sns.regplot(x=sizes_list, y=np_points_sizes,order=3)
     plt.xscale('log')
     plt.xlabel('Длина добавленного ряда')
     plt.ylabel('Количество NP точек')
@@ -52,7 +52,7 @@ def main():
     plt.show()
 
     plt.figure()
-    plt.plot(x=sizes_list, y=rmses_sizes)
+    sns.regplot(x=sizes_list, y=rmses_sizes,order=3)
     plt.xscale('log')
     plt.xlabel('Длина добавленного ряда')
     plt.ylabel('RMSE')
