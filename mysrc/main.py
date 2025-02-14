@@ -21,7 +21,7 @@ def main():
     #
     # Параллелизация цикла по размеру 2 ряда
 
-    second_size_range = np.logspace(10**5,10**6,10)
+    second_size_range = np.logspace(10**5,10**6,5)
     epsilon_range = [1, 5, 8, 10, 15, 30]
     rmses_sizes = []
     np_points_sizes = []
@@ -29,7 +29,7 @@ def main():
     epsilon_list = []
 
     with concurrent.futures.ProcessPoolExecutor() as executor:
-        futures = [executor.submit(process_size, 1, [100000, second_size], divisor)
+        futures = [executor.submit(process_size, 1, [100000, int(second_size/10)*10], divisor)
                    for second_size in second_size_range]
         for future in concurrent.futures.as_completed(futures):
             epsilon, second_sizes, rmse, np_point = future.result()
