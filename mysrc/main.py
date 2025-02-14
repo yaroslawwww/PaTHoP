@@ -20,7 +20,8 @@ def main():
 
     #
     # Параллелизация цикла по размеру 2 ряда
-    second_size_range = [10 ** 4 * 10, 10 ** 4 * 30, 10 ** 5 * 10, 10 ** 5 * 30, 10 ** 6 * 10]
+
+    second_size_range = np.logspace(10**5,10**6,10)
     epsilon_range = [1, 5, 8, 10, 15, 30]
     rmses_sizes = []
     np_points_sizes = []
@@ -36,7 +37,7 @@ def main():
             sizes_list.append(second_sizes)
             rmses_sizes.append(rmse)
             np_points_sizes.append(np_point)
-            with open("output.txt", "w") as f:
+            with open("fast_output.txt", "a") as f:
                 f.write(str(second_sizes) + "," + str(np_point) + "," + str(rmse) + "\n")
     # Сортировка по доле второго ряда
     sorted_sizes = sorted(zip(sizes_list, rmses_sizes, np_points_sizes), key=lambda x: x[0])
@@ -47,7 +48,7 @@ def main():
     plt.xlabel('Длина добавленного ряда')
     plt.ylabel('Количество NP точек')
     plt.title('Зависимость количества непредсказываемых точек от size')
-    plt.savefig(f'./graphics/sizes_and_np_points{epsilon}.png', dpi=300)
+    plt.savefig(f'./graphics/fast_sizes_and_np_points{epsilon}.png', dpi=300)
     plt.show()
 
     plt.figure()
@@ -56,7 +57,7 @@ def main():
     plt.xlabel('Длина добавленного ряда')
     plt.ylabel('RMSE')
     plt.title('Зависимость ошибки от size')
-    plt.savefig(f'./graphics/sizes_and_rmses{epsilon}.png', dpi=300)
+    plt.savefig(f'./graphics/fast_sizes_and_rmses{epsilon}.png', dpi=300)
     plt.show()
 
 
