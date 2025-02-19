@@ -16,6 +16,7 @@ class TimeSeries:
             x = (x - x.min()) / (x.max() - x.min())
             self.values = list(x)
         self.train = None
+        self.after_test_train = None
         self.test = None
         self.val = []
         self.time = [i for i in range(len(self.values))]
@@ -23,6 +24,6 @@ class TimeSeries:
         if window_index + test_size> len(self.values):
             raise ValueError("test index out of range")
 
-        # self.train = self.values[window_index+test_size+1:]
+        self.after_test_train = self.values[window_index + test_size + 1:]
         self.train = self.values[:window_index]
         self.test = self.values[window_index:window_index+test_size]
