@@ -2,13 +2,16 @@
 from Predictions import *
 import numpy as np
 from sklearn.metrics import mean_squared_error
-from concurrent.futures import ProcessPoolExecutor
+from concurrent.futures import ThreadPoolExecutor,ProcessPoolExecutor
 import os
+
+
 
 def rmse(y_true, y_pred):
     return np.sqrt(mean_squared_error(y_true, y_pred))
-def split_range(min_w, max_w, step, num_threads):
 
+
+def split_range(min_w, max_w, step, num_threads):
     total_values = (max_w - min_w) // step + 1
 
     values_per_thread = total_values // num_threads
@@ -30,7 +33,9 @@ def split_range(min_w, max_w, step, num_threads):
 
     return ranges
 
-def research(min_window_index, max_window_index, r_values=None, ts_size=None, test_size_constant = 50, dt=0.01, epsilon=0.01,template_length_constant=4, template_spread_constant=4):
+
+def research(min_window_index, max_window_index, r_values=None, ts_size=None, test_size_constant=50, dt=0.01,
+             epsilon=0.01, template_length_constant=4, template_spread_constant=4):
     divisor = int(0.1 / dt)
     main_ts_size = int(ts_size[0] / divisor)
     if min_window_index > max_window_index or max_window_index + test_size_constant >= main_ts_size:
@@ -38,6 +43,7 @@ def research(min_window_index, max_window_index, r_values=None, ts_size=None, te
     list_ts = []
     rmses = []
     np_points = []
+    affiliation_result = []
     for i, r in enumerate(r_values):
         ts = TimeSeries("Lorentz", size=ts_size[i], r=r, dt=dt, divisor=divisor)
         list_ts.append(ts)
@@ -46,7 +52,7 @@ def research(min_window_index, max_window_index, r_values=None, ts_size=None, te
                              max_template_spread=template_spread_constant,
                              window_index=window_index, test_size=test_size_constant)
 
-        fort, values = tsproc.pull(epsilon)
+        fort, values, affiliation_window_result = tsproc.pull(epsilon)
         real_values = np.array(list_ts[0].values[window_index:window_index + test_size_constant])
         pred_values = np.array(values[-test_size_constant:])
         if len(real_values) != len(pred_values):
@@ -55,13 +61,15 @@ def research(min_window_index, max_window_index, r_values=None, ts_size=None, te
         if np.all(np.isnan(real_values)) or np.all(np.isnan(pred_values)):
             continue
         rmses.append(rmse(real_values[mask], pred_values[mask]))
-        np_points.append(test_size_constant-len(pred_values[mask]))
+        np_points.append(test_size_constant - len(pred_values[mask]))
+        affiliation_result.append(affiliation_window_result)
         # print(mean_squared_error(real_values[mask], pred_values[mask]))
         # print(np_points[-1])
-    return rmses,np_points
+    return rmses, np_points,affiliation_result
 
 
-def threaded_research(r_values=None,ts_size = None,gap_number = 0, test_size_constant = 50, dt=0.01, epsilon=0.01, template_length_constant=4,
+def threaded_research(r_values=None, ts_size=None, gap_number=0, test_size_constant=50, dt=0.01, epsilon=0.01,
+                      template_length_constant=4,
                       template_spread_constant=4):
     divisor = int(0.1 / dt)
     main_ts_size = int(ts_size[0] / divisor)
@@ -75,6 +83,7 @@ def threaded_research(r_values=None,ts_size = None,gap_number = 0, test_size_con
     # print([[start,end] for start, end in ranges])
     rmses_list = []
     np_points_list = []
+    affiliations_list = []
     with ProcessPoolExecutor(max_workers=num_threads) as executor:
         futures = [executor.submit(research, start, end + 1, r_values, ts_size, test_size_constant, dt,
                                    epsilon, template_length_constant, template_spread_constant)
@@ -85,4 +94,5 @@ def threaded_research(r_values=None,ts_size = None,gap_number = 0, test_size_con
             if result is not None and len(result) > 0:
                 rmses_list.extend(result[0])
                 np_points_list.extend(result[1])
-    return np.mean(rmses_list),np.mean(np_points_list)
+                affiliations_list.extend(result[2])
+    return np.mean(rmses_list), np.mean(np_points_list), np.nanmean(affiliations_list,axis = 0)

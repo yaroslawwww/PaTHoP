@@ -3,78 +3,57 @@ import numpy as np
 from Research import *
 from matplotlib import pyplot as plt
 import concurrent.futures
-import seaborn as sns
-from mpl_toolkits.mplot3d import Axes3D
-from scipy.interpolate import griddata
 
 
-def process_size(epsilon, sizes, divisor):
+def process_epsilon(epsilon, shares, size, divisor):
     # Каждый процесс выполняет вызов threaded_research с заданным epsilon
     result = threaded_research(r_values=[28, 28 + epsilon],
-                               ts_size=sizes,
+                               ts_size=(np.array(shares) * size * divisor).astype(np.uint64),
                                gap_number=20,
                                test_size_constant=50)
-    return epsilon, int(sizes[1] / 10), result[0], result[1]
+    return epsilon, result[0], result[1], result[2]
 
 
 def main():
     divisor = 10
-
-    # Параллелизация цикла по размеру 2 ряда
-    second_size_range = np.logspace(5, 6, 30, base=10)
-    epsilon_range = [1, 5, 8, 10, 15, 30]
-    rmses_sizes = []
-    np_points_sizes = []
-    epsilon_and_sizes_list = []
-
+    base_shares = [0.5, 0.5]
+    size = 20000
+    # Параллелизация цикла по epsilon с использованием процессов
+    epsilons_range = np.arange(1, 2, 1)
+    rmses = []
+    np_points = []
+    epsilons = []
+    affiliation_list = []
     with concurrent.futures.ProcessPoolExecutor() as executor:
-        futures = [executor.submit(process_size, epsilon, [100000, int(second_size / 10) * 10], divisor)
-                   for second_size in second_size_range for epsilon in epsilon_range]
+        futures = [executor.submit(process_epsilon, epsilon, base_shares, size, divisor)
+                   for epsilon in epsilons_range]
         for future in concurrent.futures.as_completed(futures):
-            epsilon, second_size, rmse, np_point = future.result()
-            epsilon_and_sizes_list.append([epsilon, second_size])
-            rmses_sizes.append(rmse)
-            np_points_sizes.append(np_point)
-            with open(f"./outputs/fast_output{epsilon}.txt", "a") as f:
-                f.write(str(second_size) + "," + str(np_point) + "," + str(rmse) + "\n")
+            eps, rmse, np_point, affiliation_array = future.result()
+            epsilons.append(eps)
+            rmses.append(rmse)
+            np_points.append(np_point)
+            affiliation_list.append(affiliation_array)
+            with open(f"./fast_epsilon.txt", "a") as f:
+                f.write(
+                    str(epsilons_range) + "," + str(np_point) + "," + str(rmse) + "," + str(affiliation_list) + "\n")
+    # Сортируем результаты по значению epsilon для корректного построения графика
+    sorted_results = sorted(zip(epsilons, rmses, np_points), key=lambda x: x[0])
+    epsilons, rmses, np_points = map(list, zip(*sorted_results))
 
-    # Сортировка по доле второго ряда
-    sorted_sizes = sorted(zip(epsilon_and_sizes_list, rmses_sizes, np_points_sizes), key=lambda x: x[0])
-    epssizes, rmses_sizes, np_points_sizes = map(list, zip(*sorted_sizes))
-
-    # Разделяем epsilon и sizes из epssizes
-    epsilons, sizes = zip(*epssizes)
-
-    # Создаем сетку для построения поверхности
-    grid_epsilon, grid_size = np.meshgrid(np.linspace(min(epsilons), max(epsilons), 100),
-                                          np.linspace(min(sizes), max(sizes), 100))
-
-    # Интерполяция данных для np_points
-    grid_np_points = griddata((epsilons, sizes), np_points_sizes, (grid_epsilon, grid_size), method='cubic')
-
-    # Интерполяция данных для rmse
-    grid_rmse = griddata((epsilons, sizes), rmses_sizes, (grid_epsilon, grid_size), method='cubic')
-
-    # Построение поверхности для np_points
-    fig = plt.figure()
-    ax = fig.add_subplot(111, projection='3d')
-    ax.plot_surface(grid_epsilon, grid_size, grid_np_points, cmap='viridis')
-    ax.set_xlabel('Epsilon')
-    ax.set_ylabel('Size')
-    ax.set_zlabel('Количество NP точек')
-    ax.set_title('Зависимость количества непредсказываемых точек от epsilon и size')
-    plt.savefig(f'./graphics/fast_epsilon_size_np_points.png', dpi=300)
+    plt.figure()
+    plt.plot(epsilons, rmses)
+    plt.xlabel('Возмущение epsilon')
+    plt.ylabel('Ошибка')
+    plt.title('Зависимость ошибки от epsilon')
+    plt.savefig('./graphics/epsilons_and_rmses.png', dpi=300)
     plt.show()
 
-    # Построение поверхности для rmse
-    fig = plt.figure()
-    ax = fig.add_subplot(111, projection='3d')
-    ax.plot_surface(grid_epsilon, grid_size, grid_rmse, cmap='plasma')
-    ax.set_xlabel('Epsilon')
-    ax.set_ylabel('Size')
-    ax.set_zlabel('RMSE')
-    ax.set_title('Зависимость ошибки от epsilon и size')
-    plt.savefig(f'./graphics/fast_epsilon_size_rmse.png', dpi=300)
+    plt.figure()
+    plt.plot(epsilons, np_points)
+    plt.xlabel('Возмущение epsilon')
+    plt.ylabel('Количество NP точек')
+    plt.title('Зависимость количества непредсказываемых точек от epsilon')
+    plt.savefig('./graphics/epsilons_and_np_points.png')
     plt.show()
 
 
