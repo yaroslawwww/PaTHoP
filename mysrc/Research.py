@@ -2,15 +2,12 @@
 from Predictions import *
 import numpy as np
 from sklearn.metrics import mean_squared_error
-from concurrent.futures import ThreadPoolExecutor,ProcessPoolExecutor
+from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
 import os
-
 
 
 def rmse(y_true, y_pred):
     return np.sqrt(mean_squared_error(y_true, y_pred))
-
-
 
 
 def research(min_window_index, max_window_index, r_values=None, ts_size=None, test_size_constant=50, dt=0.01,
@@ -44,7 +41,7 @@ def research(min_window_index, max_window_index, r_values=None, ts_size=None, te
         affiliation_result.append(affiliation_window_result)
         # print(mean_squared_error(real_values[mask], pred_values[mask]))
         # print(np_points[-1])
-    return rmses, np_points,affiliation_result
+    return rmses, np_points, affiliation_result
 
 
 def threaded_research(r_values=None, ts_size=None, gap_number=0, test_size_constant=50, dt=0.01, epsilon=0.01,
@@ -52,18 +49,15 @@ def threaded_research(r_values=None, ts_size=None, gap_number=0, test_size_const
                       template_spread_constant=4):
     divisor = int(0.1 / dt)
     main_ts_size = int(ts_size[0] / divisor)
-    min_window_index = main_ts_size - test_size_constant - gap_number * test_size_constant - 1
-    num_threads = os.cpu_count()
-    max_window_index = main_ts_size - test_size_constant - 1
-    # print("ranges:", ranges)
-    # print([[start,end] for start, end in ranges])
     rmses_list = []
     np_points_list = []
     affiliations_list = []
-    with ProcessPoolExecutor(max_workers=num_threads) as executor:
-        futures = [executor.submit(research, start, end + 1, r_values, ts_size, test_size_constant, dt,
+    with ProcessPoolExecutor() as executor:
+        futures = [executor.submit(research, main_ts_size - (gap + 1) * test_size_constant,
+                                   main_ts_size - gap * test_size_constant + 1, r_values, ts_size, test_size_constant,
+                                   dt,
                                    epsilon, template_length_constant, template_spread_constant)
-                   for start, end in ranges]
+                   for gap in range(gap_number)]
 
         for future in futures:
             result = future.result()
@@ -71,4 +65,4 @@ def threaded_research(r_values=None, ts_size=None, gap_number=0, test_size_const
                 rmses_list.extend(result[0])
                 np_points_list.extend(result[1])
                 affiliations_list.extend(result[2])
-    return np.mean(rmses_list), np.mean(np_points_list), np.nanmean(affiliations_list,axis = 0)
+    return np.mean(rmses_list), np.mean(np_points_list), np.nanmean(affiliations_list, axis=0)

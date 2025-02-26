@@ -12,7 +12,7 @@ def process_epsilon(epsilon, shares, size, divisor):
     result = threaded_research(r_values=[28, 28 + epsilon],
                                ts_size=(np.array(shares) * size * divisor).astype(np.uint64),
                                gap_number=1000,
-                               test_size_constant=50)
+                               test_size_constant=100)
     return epsilon, result[0], result[1], result[2]
 
 
@@ -20,7 +20,6 @@ def main():
     divisor = 10
     base_shares = [0.5, 0.5]
     size = 250000
-    # Параллелизация цикла по epsilon с использованием процессов
     epsilon = float(sys.argv[1])
     rmses = []
     np_points = []
@@ -30,7 +29,8 @@ def main():
     rmses.append(rmse)
     np_points.append(np_point)
     affiliation_list.append(affiliation_array)
-    with open(f"/home/ikvasilev/fast_epsilon_counter/fast_epsilon{epsilon}.txt", "a") as f:
+    # print(str(epsilon) + "," + str(np_point) + "," + str(rmse) + "," + str(affiliation_list) + "\n")
+    with open(f"/home/ikvasilev/fast_epsilon_counter/fast_epsilon.txt", "a") as f:
         f.write(
             str(epsilon) + "," + str(np_point) + "," + str(rmse) + "," + str(affiliation_list) + "\n")
 

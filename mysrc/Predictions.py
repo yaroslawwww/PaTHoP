@@ -23,21 +23,15 @@ def count_elements_sorted(arr, elements):
     Возвращает массив вхождений элементов из `elements` в `arr`.
     Предполагается, что `elements` отсортирован.
     """
-    # Уникальные элементы и их количество
-    unique_elements, counts = np.unique(arr, return_counts=True)
+    count_dict = {}
+    for item in arr:
+        if item in count_dict:
+            count_dict[item] += 1
+        else:
+            count_dict[item] = 1
 
-    # Ищем индексы элементов из `elements` в `unique_elements`
-    indices = np.searchsorted(unique_elements, elements)
-
-    # Проверяем, что элементы найдены
-    mask = indices < len(unique_elements)
-    mask &= unique_elements[indices] == elements
-
-    # Создаем массив нулей и заполняем его
-    result = np.zeros(len(elements), dtype=int)
-    result[mask] = counts[indices[mask]]
-
-    return result
+    # Возвращаем список вхождений для каждого элемента из `elements`
+    return [count_dict.get(element, 0) for element in elements]
 
 
 class TSProcessor:
@@ -87,7 +81,7 @@ class TSProcessor:
         affiliation_result = np.full(self.ts_number,np.NaN)
         if points_pool.size == 0:
             result = np.nan
-            return result
+            return result,affiliation_result
         if how == 'mean':
             result = float(points_pool.mean())
 
