@@ -21,7 +21,7 @@ def main():
     base_shares = [0.5, 0.5]
     size = 250000
     # Параллелизация цикла по epsilon с использованием процессов
-    epsilon = sys.argv[1]
+    epsilon = float(sys.argv[1])
     rmses = []
     np_points = []
     affiliation_list = []
