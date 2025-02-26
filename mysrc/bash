@@ -3,6 +3,6 @@
 #SBATCH -c 4
 #SBATCH --time=24:00:00
 #SBATCH --output=/home/ikvasilev/prediction_multiple_ts_1.log
-source /home/ikvasilev/my_env/bin/activate
+#source /home/ikvasilev/my_env/bin/activate
 epsilon=$1
-python /home/ikvasilev/PaTHoP/mysrc/main.py $epsilon
+python ./main.py $epsilon
