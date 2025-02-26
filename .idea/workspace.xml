@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="Добавление изучения принадлежности вероятных точек ряду" />
+    <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="hard count">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -43,12 +45,22 @@
     &quot;assignee&quot;: &quot;yaroslawwww&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/yaroslawwww/PaTHoP.git&quot;,
-    &quot;accountId&quot;: &quot;06e97274-afad-421c-b133-139877af673b&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/yaroslawwww/PaTHoP.git",
+    "accountId": "06e97274-afad-421c-b133-139877af673b"
+  },
+  "recentNewPullRequestHead": {
+    "server": {
+      "useHttp": false,
+      "host": "github.com",
+      "port": null,
+      "suffix": null
+    },
+    "owner": "yaroslawwww",
+    "repository": "PaTHoP"
   }
-}</component>
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
 }</component>
@@ -302,7 +314,7 @@
       <workItem from="1739989815111" duration="447000" />
       <workItem from="1740231741014" duration="1610000" />
       <workItem from="1740309637881" duration="25000" />
-      <workItem from="1740562896970" duration="1012000" />
+      <workItem from="1740562896970" duration="2038000" />
     </task>
     <task id="LOCAL-00001" summary="Готовый предсказатель(почти)">
       <option name="closed" value="true" />
@@ -656,7 +668,15 @@
       <option name="project" value="LOCAL" />
       <updated>1740563766263</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="hard count">
+      <option name="closed" value="true" />
+      <created>1740564100782</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1740564100782</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -686,7 +706,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Был модернизирован алгоритм" />
     <MESSAGE value="Ебаный ресерч" />
     <MESSAGE value="Кодировка?" />
     <MESSAGE value="древний sklearn" />
@@ -711,7 +730,8 @@
     <MESSAGE value="Пробный 3-х мерный график" />
     <MESSAGE value="Удобство" />
     <MESSAGE value="Добавление изучения принадлежности вероятных точек ряду" />
-    <option name="LAST_COMMIT_MESSAGE" value="Добавление изучения принадлежности вероятных точек ряду" />
+    <MESSAGE value="hard count" />
+    <option name="LAST_COMMIT_MESSAGE" value="hard count" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
