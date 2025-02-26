@@ -1,0 +1,12 @@
+#!/bin/bash
+
+lower_bound=-4
+upper_bound=15
+num_iterations=12
+step=$(echo "scale=10; ($upper_bound - $lower_bound) / $num_iterations" | bc)
+epsilon=$lower_bound
+
+for i in $(seq 1 $num_iterations); do
+  sbatch ./bash $epsilon
+  epsilon=$(echo "scale=10; $epsilon + $step" | bc)
+done

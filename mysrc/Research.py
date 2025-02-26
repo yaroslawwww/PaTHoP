@@ -11,27 +11,6 @@ def rmse(y_true, y_pred):
     return np.sqrt(mean_squared_error(y_true, y_pred))
 
 
-def split_range(min_w, max_w, step, num_threads):
-    total_values = (max_w - min_w) // step + 1
-
-    values_per_thread = total_values // num_threads
-    remainder = total_values % num_threads
-
-    ranges = []
-    start = min_w
-
-    for i in range(num_threads):
-        if i < remainder:
-            end = start + (values_per_thread + 1) * step
-        else:
-            end = start + values_per_thread * step
-        end = min(end, max_w + step)
-
-        ranges.append((start, end - step))
-
-        start = end
-
-    return ranges
 
 
 def research(min_window_index, max_window_index, r_values=None, ts_size=None, test_size_constant=50, dt=0.01,
@@ -76,9 +55,6 @@ def threaded_research(r_values=None, ts_size=None, gap_number=0, test_size_const
     min_window_index = main_ts_size - test_size_constant - gap_number * test_size_constant - 1
     num_threads = os.cpu_count()
     max_window_index = main_ts_size - test_size_constant - 1
-    step = (max_window_index - min_window_index) // num_threads
-
-    ranges = split_range(min_window_index, max_window_index, test_size_constant, num_threads)
     # print("ranges:", ranges)
     # print([[start,end] for start, end in ranges])
     rmses_list = []
