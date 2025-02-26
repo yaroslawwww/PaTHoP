@@ -4,14 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="Удобство">
+    <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="Добавление изучения принадлежности вероятных точек ряду">
+      <change afterPath="$PROJECT_DIR$/mysrc/main_bash" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysrc/Patterns.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/Patterns.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysrc/Predictions.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/Predictions.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mysrc/Research.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/Research.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysrc/TimeSeries.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/TimeSeries.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysrc/bash" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/bash" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mysrc/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysrc/prediction_experiment.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/prediction_experiment.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,32 +64,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.GetSeries.executor": "Run",
-    "Python.Patterns.executor": "Debug",
-    "Python.Predictions.executor": "Debug",
-    "Python.QuickSelect.executor": "Run",
-    "Python.TimeSeries.executor": "Run",
-    "Python.WishartClusterizationAlgorithm.executor": "Debug",
-    "Python.interactiveshell.executor": "Debug",
-    "Python.main.executor": "Run",
-    "Python.theory.executor": "Run",
-    "Python.thery.executor": "Run",
-    "Python.wisharp.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "clusters__revision",
-    "last_opened_file_path": "/media/yarik/NewDisk2/git-rep/Prediction_after_the_horizont_of_predictability",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "debugger.dataViews.python.type.renderers",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.GetSeries.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Patterns.executor&quot;: &quot;Debug&quot;,
+    &quot;Python.Predictions.executor&quot;: &quot;Debug&quot;,
+    &quot;Python.QuickSelect.executor&quot;: &quot;Run&quot;,
+    &quot;Python.TimeSeries.executor&quot;: &quot;Run&quot;,
+    &quot;Python.WishartClusterizationAlgorithm.executor&quot;: &quot;Debug&quot;,
+    &quot;Python.interactiveshell.executor&quot;: &quot;Debug&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.theory.executor&quot;: &quot;Run&quot;,
+    &quot;Python.thery.executor&quot;: &quot;Run&quot;,
+    &quot;Python.wisharp.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;clusters__revision&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/media/yarik/NewDisk2/temp/shell&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;debugger.dataViews.python.type.renderers&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/mysrc" />
@@ -305,7 +303,12 @@
       <workItem from="1739953577921" duration="4283000" />
       <workItem from="1739958240144" duration="624000" />
       <workItem from="1739961333099" duration="49000" />
-      <workItem from="1739961445726" duration="1525000" />
+      <workItem from="1739961445726" duration="1957000" />
+      <workItem from="1739963417053" duration="9000" />
+      <workItem from="1739989815111" duration="447000" />
+      <workItem from="1740231741014" duration="1610000" />
+      <workItem from="1740309637881" duration="25000" />
+      <workItem from="1740562896970" duration="608000" />
     </task>
     <task id="LOCAL-00001" summary="Готовый предсказатель(почти)">
       <option name="closed" value="true" />
@@ -643,7 +646,15 @@
       <option name="project" value="LOCAL" />
       <updated>1739522701749</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="Добавление изучения принадлежности вероятных точек ряду">
+      <option name="closed" value="true" />
+      <created>1739963322216</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1739963322216</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -673,7 +684,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Был осуществлен подбор значений для вишарта." />
     <MESSAGE value="Был модернизирован алгоритм" />
     <MESSAGE value="Ебаный ресерч" />
     <MESSAGE value="Кодировка?" />
@@ -698,7 +708,8 @@
     <MESSAGE value="ошибка в 10" />
     <MESSAGE value="Пробный 3-х мерный график" />
     <MESSAGE value="Удобство" />
-    <option name="LAST_COMMIT_MESSAGE" value="Удобство" />
+    <MESSAGE value="Добавление изучения принадлежности вероятных точек ряду" />
+    <option name="LAST_COMMIT_MESSAGE" value="Добавление изучения принадлежности вероятных точек ряду" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
