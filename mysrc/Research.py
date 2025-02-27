@@ -44,7 +44,7 @@ def research(min_window_index, max_window_index, r_values=None, ts_size=None, te
     return rmses, np_points, affiliation_result
 
 
-def threaded_research(r_values=None, ts_size=None, gap_number=0, test_size_constant=50, dt=0.01, epsilon=0.01,
+def parallel_research(r_values=None, ts_size=None, gap_number=0, test_size_constant=50, dt=0.01, epsilon=0.01,
                       template_length_constant=4,
                       template_spread_constant=4):
     divisor = int(0.1 / dt)
