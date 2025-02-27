@@ -2,14 +2,14 @@
 import sys
 
 import numpy as np
+
 from Research import *
 from matplotlib import pyplot as plt
 import concurrent.futures
 
 
 def process_epsilon(epsilon, shares, size, divisor):
-    # Каждый процесс выполняет вызов threaded_research с заданным epsilon
-    result = threaded_research(r_values=[28, 28 + epsilon],
+    result = parallel_research(r_values=[28, 28 + epsilon],
                                ts_size=(np.array(shares) * size * divisor).astype(np.uint64),
                                gap_number=1000,
                                test_size_constant=100)
