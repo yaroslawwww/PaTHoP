@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="Исправил прогу" />
+    <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="Нулевой случай">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysrc/Research.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/Research.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -314,23 +317,10 @@
       <workItem from="1740309637881" duration="25000" />
       <workItem from="1740562896970" duration="5397000" />
       <workItem from="1740570483097" duration="46000" />
-      <workItem from="1740608819618" duration="1204000" />
-    </task>
-    <task id="LOCAL-00001" summary="Готовый предсказатель(почти)">
-      <option name="closed" value="true" />
-      <created>1735141857850</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1735141857850</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Был осуществлен подбор значений для вишарта.">
-      <option name="closed" value="true" />
-      <created>1736378684084</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1736378684084</updated>
+      <workItem from="1740608819618" duration="1296000" />
+      <workItem from="1740643826876" duration="1272000" />
+      <workItem from="1740661878909" duration="333000" />
+      <workItem from="1740724482578" duration="698000" />
     </task>
     <task id="LOCAL-00003" summary="Был осуществлен подбор значений для вишарта.">
       <option name="closed" value="true" />
@@ -708,7 +698,23 @@
       <option name="project" value="LOCAL" />
       <updated>1740609623643</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="Исправил прогу">
+      <option name="closed" value="true" />
+      <created>1740643763116</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1740643763117</updated>
+    </task>
+    <task id="LOCAL-00051" summary="Нулевой случай">
+      <option name="closed" value="true" />
+      <created>1740661923223</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1740661923224</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -738,7 +744,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="древний sklearn" />
     <MESSAGE value="2-&gt;200" />
     <MESSAGE value="Исправленный код в research(там какая-то ошибка возникает)" />
     <MESSAGE value="проверка на фулл nan" />
@@ -763,7 +768,8 @@
     <MESSAGE value="hard count" />
     <MESSAGE value="float ебаный" />
     <MESSAGE value="Исправил прогу" />
-    <option name="LAST_COMMIT_MESSAGE" value="Исправил прогу" />
+    <MESSAGE value="Нулевой случай" />
+    <option name="LAST_COMMIT_MESSAGE" value="Нулевой случай" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

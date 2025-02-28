@@ -1,5 +1,3 @@
-# coding: utf-8
-import sys
 
 import numpy as np
 
@@ -18,9 +16,9 @@ def process_epsilon(epsilon, shares, size, divisor):
 
 def main():
     divisor = 10
-    base_shares = [0.5,0.5]
+    base_shares = [1,0]
     size = 250000
-    epsilon = float(sys.argv[1])
+    epsilon = 0
 
     eps, rmse, np_point, affiliation_array = process_epsilon(epsilon, base_shares, size, divisor)
 
