@@ -11,7 +11,7 @@ def rmse(y_true, y_pred):
 
 
 def research(min_window_index, max_window_index, r_values=None, ts_size=None, test_size_constant=50, dt=0.01,
-             epsilon=0.01, template_length_constant=4, template_spread_constant=4):
+             epsilon=0.001, template_length_constant=4, template_spread_constant=4):
     divisor = int(0.1 / dt)
     main_ts_size = int(ts_size[0] / divisor)
     if min_window_index > max_window_index or max_window_index + test_size_constant >= main_ts_size:
@@ -44,7 +44,7 @@ def research(min_window_index, max_window_index, r_values=None, ts_size=None, te
     return rmses, np_points, affiliation_result
 
 
-def parallel_research(r_values=None, ts_size=None, gap_number=0, test_size_constant=50, dt=0.01, epsilon=0.01,
+def parallel_research(r_values=None, ts_size=None, gap_number=0, test_size_constant=50, dt=0.01, epsilon=0.001,
                       template_length_constant=4,
                       template_spread_constant=4):
     divisor = int(0.1 / dt)
