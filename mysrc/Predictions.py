@@ -68,7 +68,7 @@ class TSProcessor:
             points = train_vectors[affiliation_mask][:, -1]
             affiliation_indexes = affiliation_vectors[affiliation_mask][:, -1]
             forecast_point, affiliation_step_result = self.freeze_point(points, 'cl', affiliation_indexes)
-            affiliation_result.append(affiliation_step_result)
+            affiliation_result= [affiliation_step_result]
             forecast_trajectories[step, 0] = forecast_point
             values[size_of_series + step] = forecast_point
         changed_aff = np.array(affiliation_result)

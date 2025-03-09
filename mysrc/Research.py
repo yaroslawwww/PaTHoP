@@ -2,7 +2,7 @@
 from Predictions import *
 import numpy as np
 from sklearn.metrics import mean_squared_error
-from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
+from concurrent.futures import ProcessPoolExecutor
 import os
 
 
@@ -10,51 +10,43 @@ def rmse(y_true, y_pred):
     return np.sqrt(mean_squared_error(y_true, y_pred))
 
 
-def research(min_window_index, max_window_index, r_values=None, ts_size=None, test_size_constant=50, dt=0.01,
-             epsilon=0.001, template_length_constant=4, template_spread_constant=4):
+def research(gap_number, r_values, ts_size, window_size, dt,
+             epsilon, template_length_constant, template_spread_constant):
     divisor = int(0.1 / dt)
     main_ts_size = int(ts_size[0] / divisor)
-    if min_window_index > max_window_index or max_window_index + test_size_constant >= main_ts_size:
-        return []
     list_ts = []
-    rmses = []
-    np_points = []
+    value = []
     affiliation_result = []
     for i, r in enumerate(r_values):
         ts = TimeSeries("Lorentz", size=ts_size[i], r=r, dt=dt, divisor=divisor)
         list_ts.append(ts)
-    for window_index in range(min_window_index, max_window_index, test_size_constant):
-        tsproc = TSProcessor(list_ts, template_length=template_length_constant,
-                             max_template_spread=template_spread_constant,
-                             window_index=window_index, test_size=test_size_constant)
+    window_index = main_ts_size - (gap_number + 1) * window_size
+    if window_index > main_ts_size or window_index < 0:
+        raise ValueError("Window index out of range")
+    tsproc = TSProcessor(list_ts, template_length=template_length_constant,
+                         max_template_spread=template_spread_constant,
+                         window_index=window_index, test_size=window_size)
 
-        fort, values, affiliation_window_result = tsproc.pull(epsilon)
-        real_values = np.array(list_ts[0].values[window_index:window_index + test_size_constant])
-        pred_values = np.array(values[-test_size_constant:])
-        if len(real_values) != len(pred_values):
-            return rmses
-        mask = ~np.isnan(real_values) & ~np.isnan(pred_values)
-        if np.all(np.isnan(real_values)) or np.all(np.isnan(pred_values)):
-            continue
-        rmses.append(rmse(real_values[mask], pred_values[mask]))
-        np_points.append(test_size_constant - len(pred_values[mask]))
-        affiliation_result.append(affiliation_window_result)
-        # print(mean_squared_error(real_values[mask], pred_values[mask]))
-        # print(np_points[-1])
-    return rmses, np_points, affiliation_result
+    fort, values, last_affiliation = tsproc.pull(epsilon)
+    real_values = np.array(list_ts[0].values[window_index:window_index + window_size])
+    pred_values = np.array(values[-window_size:])
+    if len(real_values) != len(pred_values):
+        return value
+    value = pred_values[-1] if pred_values[-1] != np.NaN else np.NaN
+    is_np_point = [0 if pred_values[-1] != np.NaN else 1]
+    affiliation_result.append(last_affiliation)
+    return value, is_np_point, affiliation_result, real_values[-1]
 
 
-def parallel_research(r_values=None, ts_size=None, gap_number=0, test_size_constant=50, dt=0.01, epsilon=0.001,
+def parallel_research(r_values=None, ts_size=None, gap_number=0, test_size_constant=50, dt=0.01, epsilon=0.01,
                       template_length_constant=4,
                       template_spread_constant=4):
-    divisor = int(0.1 / dt)
-    main_ts_size = int(ts_size[0] / divisor)
-    rmses_list = []
-    np_points_list = []
+    pred_points_values = []
+    is_np_points = []
     affiliations_list = []
+    real_points_values = []
     with ProcessPoolExecutor() as executor:
-        futures = [executor.submit(research, main_ts_size - (gap + 1) * test_size_constant,
-                                   main_ts_size - gap * test_size_constant + 1, r_values, ts_size, test_size_constant,
+        futures = [executor.submit(research, gap, r_values, ts_size, test_size_constant,
                                    dt,
                                    epsilon, template_length_constant, template_spread_constant)
                    for gap in range(gap_number)]
@@ -62,7 +54,8 @@ def parallel_research(r_values=None, ts_size=None, gap_number=0, test_size_const
         for future in futures:
             result = future.result()
             if result is not None and len(result) > 0:
-                rmses_list.extend(result[0])
-                np_points_list.extend(result[1])
+                pred_points_values.extend(result[0])
+                is_np_points.extend(result[1])
                 affiliations_list.extend(result[2])
-    return np.mean(rmses_list), np.mean(np_points_list), np.nanmean(affiliations_list, axis=0)
+                real_points_values.extend(result[3])
+    return rmse(pred_points_values, real_points_values), np.mean(is_np_points), np.nanmean(affiliations_list, axis=0)
