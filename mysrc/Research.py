@@ -7,7 +7,9 @@ import os
 
 
 def rmse(y_true, y_pred):
-    return np.sqrt(mean_squared_error(y_true, y_pred))
+    y_true = np.array(y_true)
+    y_pred = np.array(y_pred)
+    return np.sqrt(np.nanmean(y_true - y_pred))
 
 
 def research(gap_number, r_values, ts_size, window_size, dt,
