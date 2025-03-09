@@ -68,11 +68,11 @@ class TSProcessor:
             points = train_vectors[affiliation_mask][:, -1]
             affiliation_indexes = affiliation_vectors[affiliation_mask][:, -1]
             forecast_point, affiliation_step_result = self.freeze_point(points, 'cl', affiliation_indexes)
-            affiliation_result= [affiliation_step_result]
+            affiliation_result = affiliation_step_result
             forecast_trajectories[step, 0] = forecast_point
             values[size_of_series + step] = forecast_point
         changed_aff = np.array(affiliation_result)
-        if len(changed_aff) == 0:
+        if changed_aff[1] == np.NaN or len(changed_aff) == 0:
             return forecast_trajectories, values, np.NaN
         return forecast_trajectories, values, changed_aff[1] / (changed_aff[0]+changed_aff[1])
 
