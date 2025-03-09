@@ -58,4 +58,4 @@ def parallel_research(r_values=None, ts_size=None, gap_number=0, test_size_const
                 is_np_points.extend(result[1])
                 affiliations_list.extend(result[2])
                 real_points_values.extend(result[3])
-    return rmse(pred_points_values, real_points_values), np.mean(is_np_points), np.nanmean(affiliations_list, axis=0)
+    return rmse(pred_points_values, real_points_values), np.mean(is_np_points), np.nanmean(affiliations_list)

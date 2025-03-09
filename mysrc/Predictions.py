@@ -73,8 +73,8 @@ class TSProcessor:
             values[size_of_series + step] = forecast_point
         changed_aff = np.array(affiliation_result)
         if len(changed_aff) == 0:
-            return forecast_trajectories, values, np.full(self.ts_number, 0)
-        return forecast_trajectories, values, np.nanmean(changed_aff, axis=0)
+            return forecast_trajectories, values, np.NaN
+        return forecast_trajectories, values, changed_aff[1] / (changed_aff[0]+changed_aff[1])
 
     def freeze_point(self, points_pool, how, affiliation_indexes):
         result = None
