@@ -9,7 +9,7 @@ import concurrent.futures
 def process_epsilon(epsilon, shares, size, divisor):
     result = parallel_research(r_values=[28, 28 + epsilon],
                                ts_size=(np.array(shares) * size * divisor).astype(np.uint64),
-                               gap_number=10,
+                               gap_number=1000,
                                test_size_constant=100)
     return epsilon, result[0], result[1], result[2]
 
@@ -17,7 +17,7 @@ def process_epsilon(epsilon, shares, size, divisor):
 def main():
     divisor = 10
     base_shares = [1,0]
-    size = 25000
+    size = 250000
     epsilon = 0
 
     eps, rmse, np_point, affiliation_array = process_epsilon(epsilon, base_shares, size, divisor)

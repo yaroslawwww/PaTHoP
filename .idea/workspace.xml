@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="Тест для успешной работы" />
+    <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="rmse with nan" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -334,23 +334,7 @@
       <workItem from="1740989549383" duration="5000" />
       <workItem from="1741328851538" duration="1232000" />
       <workItem from="1741514044441" duration="730000" />
-      <workItem from="1741521560057" duration="688000" />
-    </task>
-    <task id="LOCAL-00007" summary="Ебаный ресерч">
-      <option name="closed" value="true" />
-      <created>1738782370419</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1738782370419</updated>
-    </task>
-    <task id="LOCAL-00008" summary="Ебаный ресерч">
-      <option name="closed" value="true" />
-      <created>1738782642055</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1738782642055</updated>
+      <workItem from="1741521560057" duration="1036000" />
     </task>
     <task id="LOCAL-00009" summary="Кодировка?">
       <option name="closed" value="true" />
@@ -728,7 +712,23 @@
       <option name="project" value="LOCAL" />
       <updated>1741522247084</updated>
     </task>
-    <option name="localTasksCounter" value="56" />
+    <task id="LOCAL-00056" summary="Тест для успешной работы">
+      <option name="closed" value="true" />
+      <created>1741522392925</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1741522392925</updated>
+    </task>
+    <task id="LOCAL-00057" summary="rmse with nan">
+      <option name="closed" value="true" />
+      <created>1741522595541</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1741522595541</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -758,7 +758,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="проверка на фулл nan" />
     <MESSAGE value="я идиот" />
     <MESSAGE value="Наконец-то нормальное исследование" />
     <MESSAGE value="Что-то долго" />
@@ -783,7 +782,8 @@
     <MESSAGE value="Нулевой случай" />
     <MESSAGE value="Нулевой случай + eps = 0.001 + gaps = 10" />
     <MESSAGE value="Тест для успешной работы" />
-    <option name="LAST_COMMIT_MESSAGE" value="Тест для успешной работы" />
+    <MESSAGE value="rmse with nan" />
+    <option name="LAST_COMMIT_MESSAGE" value="rmse with nan" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
