@@ -32,10 +32,9 @@ def research(gap_number, r_values, ts_size, window_size, dt,
     pred_values = np.array(values[-window_size:])
     if len(real_values) != len(pred_values):
         return value
-    value = pred_values[-1] if pred_values[-1] != np.NaN else np.NaN
     is_np_point = [0 if pred_values[-1] != np.NaN else 1]
     affiliation_result.append(last_affiliation)
-    return value, is_np_point, affiliation_result, real_values[-1]
+    return pred_values[-1], is_np_point, affiliation_result, real_values[-1]
 
 
 def parallel_research(r_values=None, ts_size=None, gap_number=0, test_size_constant=50, dt=0.01, epsilon=0.01,
@@ -54,8 +53,8 @@ def parallel_research(r_values=None, ts_size=None, gap_number=0, test_size_const
         for future in futures:
             result = future.result()
             if result is not None and len(result) > 0:
-                pred_points_values.extend(result[0])
-                is_np_points.extend(result[1])
-                affiliations_list.extend(result[2])
-                real_points_values.extend(result[3])
+                pred_points_values.append(result[0])
+                is_np_points.append(result[1])
+                affiliations_list.append(result[2])
+                real_points_values.append(result[3])
     return rmse(pred_points_values, real_points_values), np.mean(is_np_points), np.nanmean(affiliations_list)
