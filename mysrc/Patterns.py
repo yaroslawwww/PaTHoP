@@ -10,11 +10,6 @@ class Templates:
         self.template_length = template_length
         self.max_template_spread = max_template_spread
 
-        # Основные оптимизации:
-        # 1. Векторизованное создание шаблонов
-        # 2. Предварительное выделение памяти
-        # 3. Убраны промежуточные кортежи
-
         templates_quantity = max_template_spread ** (template_length - 1)
         templates = np.zeros((templates_quantity, template_length), dtype=int)
 
@@ -22,13 +17,11 @@ class Templates:
             step_size = max_template_spread ** (template_length - i - 1)
             repeat_count = max_template_spread ** i
 
-            # Генерация шаблонов с использованием векторных операций
             block = np.repeat(np.arange(1, max_template_spread + 1), step_size)
             templates[:, i] = np.tile(block, repeat_count // max_template_spread) + templates[:, i - 1]
 
         self.templates = templates
 
-        # Оптимизированный расчет observation_indexes
         shapes = np.diff(templates, axis=1)
         self.observation_indexes = shapes[:, ::-1].cumsum(axis=1)[:, ::-1] * -1
 
@@ -78,7 +71,6 @@ class Templates:
         all_train_sets = []  # Список для хранения train_set каждого временного ряда
         affiliation_matrix = []
         for i, time_series in enumerate(time_series_list):
-            # Выбираем данные из временного ряда
             if time_series.train is not None:
                 data = np.array(time_series.train)
             else:
@@ -91,12 +83,6 @@ class Templates:
                 data = np.array(time_series.after_test_train)
                 self.add_data_to_train_set(data, all_train_sets)
                 self.add_data_to_affiliation_matrix(data, affiliation_matrix, i)
-        # Объединяем все train_set'ы вдоль оси временных окон (axis=1)
         if all_train_sets:
             self.train_set = np.concatenate(all_train_sets, axis=1)
             self.affiliation_matrix = np.concatenate(affiliation_matrix, axis=1)
-            # print(self.affiliation_matrix.shape)
-            # print(self.train_set.shape)
-        else:
-            # На случай, если все ряды были слишком короткими
-            raise Exception("Ряды были короткими")

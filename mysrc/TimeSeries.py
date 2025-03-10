@@ -6,9 +6,11 @@ import pandas as pd
 import numpy as np
 
 class TimeSeries:
-    def __init__(self, series_type = "Lorentz", size = 0,r = 28,dt= 0.01,divisor = 10,array = None):
+    def __init__(self, series_type = "Lorentz", size = 0,r = 28,dt = 0.01,divisor = 10,array = None):
         if series_type == "Lorentz":
             x, y, z = Lorentz().generate(dt = dt, steps= size,r = r)
+            if (x.max() == x.min()):
+                print("SOS",size,r,dt,divisor)
             x = (x - x.min()) / (x.max() - x.min())  # нормализация чисел
             self.values = list(x)[::divisor]
         else:
