@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="final test">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysrc/Patterns.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/Patterns.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysrc/Research.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/Research.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysrc/TimeSeries.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/TimeSeries.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysrc/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysrc/zero_case_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/zero_case_main.py" afterDir="false" />
-    </list>
+    <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="temp" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -370,15 +363,7 @@
       <workItem from="1741522740339" duration="11000" />
       <workItem from="1741548210397" duration="36000" />
       <workItem from="1741552925460" duration="256000" />
-      <workItem from="1741640871543" duration="2059000" />
-    </task>
-    <task id="LOCAL-00010" summary="Кодировка?">
-      <option name="closed" value="true" />
-      <created>1738819185617</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1738819185617</updated>
+      <workItem from="1741640871543" duration="2367000" />
     </task>
     <task id="LOCAL-00011" summary="древний sklearn">
       <option name="closed" value="true" />
@@ -764,7 +749,15 @@
       <option name="project" value="LOCAL" />
       <updated>1741522652377</updated>
     </task>
-    <option name="localTasksCounter" value="59" />
+    <task id="LOCAL-00059" summary="temp">
+      <option name="closed" value="true" />
+      <created>1741643202927</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1741643202928</updated>
+    </task>
+    <option name="localTasksCounter" value="60" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -794,7 +787,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Наконец-то нормальное исследование" />
     <MESSAGE value="Что-то долго" />
     <MESSAGE value="Я хуй знает" />
     <MESSAGE value="Попытка распараллелить" />
@@ -819,7 +811,8 @@
     <MESSAGE value="Тест для успешной работы" />
     <MESSAGE value="rmse with nan" />
     <MESSAGE value="final test" />
-    <option name="LAST_COMMIT_MESSAGE" value="final test" />
+    <MESSAGE value="temp" />
+    <option name="LAST_COMMIT_MESSAGE" value="temp" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -843,7 +836,7 @@
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Prediction_after_the_horizont_of_predictability$TimeSeries.coverage" NAME="TimeSeries Coverage Results" MODIFIED="1735118676582" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mysrc" />
     <SUITE FILE_PATH="coverage/Prediction_after_the_horizont_of_predictability$WishartClusterizationAlgorithm.coverage" NAME="WishartClusterizationAlgorithm Coverage Results" MODIFIED="1735124631016" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mysrc" />
-    <SUITE FILE_PATH="coverage/Prediction_after_the_horizont_of_predictability$zero_case_main.coverage" NAME="zero_case_main Coverage Results" MODIFIED="1741642925262" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mysrc" />
+    <SUITE FILE_PATH="coverage/Prediction_after_the_horizont_of_predictability$zero_case_main.coverage" NAME="zero_case_main Coverage Results" MODIFIED="1741643142626" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mysrc" />
     <SUITE FILE_PATH="coverage/Prediction_after_the_horizont_of_predictability$Patterns.coverage" NAME="Patterns Coverage Results" MODIFIED="1735131041810" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mysrc" />
     <SUITE FILE_PATH="coverage/Prediction_after_the_horizont_of_predictability$GetSeries.coverage" NAME="GetSeries Coverage Results" MODIFIED="1733228689504" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mysrc" />
     <SUITE FILE_PATH="coverage/Prediction_after_the_horizont_of_predictability$main.coverage" NAME="main Coverage Results" MODIFIED="1741641462802" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mysrc" />
