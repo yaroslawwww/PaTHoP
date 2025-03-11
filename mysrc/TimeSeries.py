@@ -9,8 +9,6 @@ class TimeSeries:
     def __init__(self, series_type = "Lorentz", size = 0,r = 28,dt = 0.01,divisor = 10,array = None):
         if series_type == "Lorentz":
             x, y, z = Lorentz().generate(dt = dt, steps= size,r = r)
-            if (x.max() == x.min()):
-                print("SOS",size,r,dt,divisor)
             x = (x - x.min()) / (x.max() - x.min())  # нормализация чисел
             self.values = list(x)[::divisor]
         else:
@@ -22,7 +20,7 @@ class TimeSeries:
         self.test = None
         self.val = []
         self.time = [i for i in range(len(self.values))]
-    def split_train_val_test(self,window_index, test_size = 50):
+    def split_train_val_test(self,window_index, test_size = 100):
         if window_index + test_size> len(self.values):
             raise ValueError("test index out of range")
 
