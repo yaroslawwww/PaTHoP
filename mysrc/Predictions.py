@@ -66,11 +66,6 @@ class TSProcessor:
 
             distance_matrix = calc_distance_matrix(test_vectors, train_vectors, steps, y_dim)
             affiliation_mask = distance_matrix < eps
-            # print(test_vectors.shape,train_vectors.shape)
-            # for i, j in enumerate(affiliation_mask):
-            #     for k,t in enumerate(j):
-            #         if t:
-            #             print("i,k:",distance_matrix[i,k],train_vectors[i,k])
             points = train_vectors[affiliation_mask][:, -1]
             affiliation_indexes = affiliation_vectors[affiliation_mask][:, -1]
             forecast_point, affiliation_step_result = self.freeze_point(points, 'cl', affiliation_indexes)

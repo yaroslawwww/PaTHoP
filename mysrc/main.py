@@ -12,8 +12,8 @@ import concurrent.futures
 def process_epsilon(deviation, shares, size, divisor):
     result = parallel_research(r_values=[28, 28 + deviation],
                                ts_size=(np.array(shares) * size * divisor).astype(np.uint64),
-                               gap_number=3,
-                               test_size_constant=100)
+                               gap_number=1000,
+                               test_size_constant=50)
     return deviation, result[0], result[1], result[2]
 
 
@@ -25,7 +25,7 @@ def main():
 
     deviation, rmse, np_points, mean_affiliation = process_epsilon(deviation, shares, size, divisor)
     print(str(deviation) + "," + str(rmse) + "," + str(np_points) + "," + str(mean_affiliation) + "\n")
-    with open(f"/home/ikvasilev/fast_epsilon_counter/ihateyou.txt", "a") as f:
+    with open(f"/home/ikvasilev/fast_epsilon_counter/rmses_np_points_affiliation.txt", "a") as f:
         f.write(str(deviation) + "," + str(rmse) + "," + str(np_points) + "," + str(mean_affiliation) + "\n")
 
 
