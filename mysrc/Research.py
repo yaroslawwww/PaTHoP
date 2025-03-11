@@ -49,7 +49,7 @@ def parallel_research(r_values=None, ts_size=None, gap_number=0, test_size_const
     is_np_points = []
     affiliations_list = []
     real_points_values = []
-    with ProcessPoolExecutor(max_workers=1) as executor:
+    with ProcessPoolExecutor() as executor:
         futures = [executor.submit(research, gap, r_values, ts_size, test_size_constant,
                                    dt,
                                    epsilon, template_length_constant, template_spread_constant)
@@ -61,5 +61,4 @@ def parallel_research(r_values=None, ts_size=None, gap_number=0, test_size_const
                 is_np_points.append(result[1])
                 affiliations_list.append(result[2])
                 real_points_values.append(result[3])
-    print(is_np_points)
     return  rmse(pred_points_values, real_points_values), np.mean(is_np_points), np.nanmean(affiliations_list)
