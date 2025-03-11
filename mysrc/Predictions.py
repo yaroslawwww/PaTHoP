@@ -37,7 +37,7 @@ def count_elements_sorted(arr, elements):
 class TSProcessor:
     def __init__(self, time_series_list, window_index, template_length=4,
                  max_template_spread=10,
-                 test_size=50, k=16, mu=0.45):
+                 test_size=100, k=16, mu=0.45):
         self.time_series_ = time_series_list[0]
         self.time_series_.split_train_val_test(window_index, test_size)
         self.templates_ = Templates(template_length, max_template_spread)
@@ -63,18 +63,24 @@ class TSProcessor:
         affiliation_result = []
         for step in range(steps):
             test_vectors = values[:size_of_series + step][observation_indexes]
+
             distance_matrix = calc_distance_matrix(test_vectors, train_vectors, steps, y_dim)
             affiliation_mask = distance_matrix < eps
+            # print(test_vectors.shape,train_vectors.shape)
+            # for i, j in enumerate(affiliation_mask):
+            #     for k,t in enumerate(j):
+            #         if t:
+            #             print("i,k:",distance_matrix[i,k],train_vectors[i,k])
             points = train_vectors[affiliation_mask][:, -1]
             affiliation_indexes = affiliation_vectors[affiliation_mask][:, -1]
             forecast_point, affiliation_step_result = self.freeze_point(points, 'cl', affiliation_indexes)
-            affiliation_result = affiliation_step_result
+            affiliation_result.append(affiliation_step_result)
             forecast_trajectories[step, 0] = forecast_point
             values[size_of_series + step] = forecast_point
         changed_aff = np.array(affiliation_result)
-        if changed_aff[1] == np.NaN or len(changed_aff) == 0:
-            return forecast_trajectories, values, np.NaN
-        return forecast_trajectories, values, changed_aff[1] / (changed_aff[0]+changed_aff[1])
+        if len(changed_aff) == 0:
+            return forecast_trajectories, values, np.full(self.ts_number, 0)
+        return forecast_trajectories, values, changed_aff[-1]
 
     def freeze_point(self, points_pool, how, affiliation_indexes):
         result = None
@@ -93,12 +99,11 @@ class TSProcessor:
                 wishart = Wishart(k=len(points_pool), mu=0.45)
             else:
                 wishart = Wishart(k=self.k, mu=self.mu)
-            np.random.shuffle(points_pool)
             wishart.fit(points_pool.reshape(-1, 1))
 
             cluster_labels, cluster_sizes = np.unique(wishart.labels_[wishart.labels_ > -1], return_counts=True)
             if cluster_labels.size > 0 and (
-                    np.count_nonzero(((cluster_sizes / cluster_sizes.max()).round(2) > 0.8)) == 1):
+                    np.count_nonzero(((cluster_sizes / cluster_sizes.max()).round(2) > 0.6)) == 1):
                 biggest_cluster_center = points_pool[wishart.labels_ == cluster_labels[cluster_sizes.argmax()]].mean()
                 affiliation_result = count_elements_sorted(
                     affiliation_indexes[wishart.labels_ == cluster_labels[cluster_sizes.argmax()]],

@@ -17,7 +17,6 @@ def research(gap_number, r_values, ts_size, window_size, dt,
     divisor = int(0.1 / dt)
     main_ts_size = int(ts_size[0] / divisor)
     list_ts = []
-    affiliation_result = []
     for i, r in enumerate(r_values):
         if ts_size[i] == 0:
             continue
@@ -30,24 +29,27 @@ def research(gap_number, r_values, ts_size, window_size, dt,
                          max_template_spread=template_spread_constant,
                          window_index=window_index, test_size=window_size)
 
-    fort, values, last_affiliation = tsproc.pull(epsilon)
+    fort, values, affiliation_result = tsproc.pull(epsilon)
     real_values = np.array(list_ts[0].values[window_index:window_index + window_size])
     pred_values = np.array(values[-window_size:])
-    print("rv:",real_values)
-    print("pv:",pred_values)
-    is_np_point = [0 if pred_values[-1] != np.NaN else 1]
-    affiliation_result.append(last_affiliation)
-    return pred_values[-1], is_np_point, affiliation_result, real_values[-1]
+    is_np_point = 1 if np.isnan(pred_values[-1]) else 0
+    if len(affiliation_result) == 1:
+        #случай когда 1 ряд
+        return  pred_values[-1], is_np_point, 0, real_values[-1]
+    elif affiliation_result[1] == np.NaN:
+        return pred_values[-1], is_np_point, np.NaN, real_values[-1]
+    else:
+        return pred_values[-1], is_np_point, affiliation_result[1] / affiliation_result[0], real_values[-1]
 
 
-def parallel_research(r_values=None, ts_size=None, gap_number=0, test_size_constant=50, dt=0.01, epsilon=0.001,
+def parallel_research(r_values=None, ts_size=None, gap_number=0, test_size_constant=100, dt=0.01, epsilon=0.001,
                       template_length_constant=4,
                       template_spread_constant=4):
     pred_points_values = []
     is_np_points = []
     affiliations_list = []
     real_points_values = []
-    with ProcessPoolExecutor() as executor:
+    with ProcessPoolExecutor(max_workers=1) as executor:
         futures = [executor.submit(research, gap, r_values, ts_size, test_size_constant,
                                    dt,
                                    epsilon, template_length_constant, template_spread_constant)
@@ -59,4 +61,5 @@ def parallel_research(r_values=None, ts_size=None, gap_number=0, test_size_const
                 is_np_points.append(result[1])
                 affiliations_list.append(result[2])
                 real_points_values.append(result[3])
-    return  pred_points_values, real_points_values, is_np_points, affiliations_list
+    print(is_np_points)
+    return  rmse(pred_points_values, real_points_values), np.mean(is_np_points), np.nanmean(affiliations_list)
