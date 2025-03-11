@@ -103,7 +103,7 @@ class TSProcessor:
 
             cluster_labels, cluster_sizes = np.unique(wishart.labels_[wishart.labels_ > -1], return_counts=True)
             if cluster_labels.size > 0 and (
-                    np.count_nonzero(((cluster_sizes / cluster_sizes.max()).round(2) > 0.6)) == 1):
+                    np.count_nonzero(((cluster_sizes / cluster_sizes.max()).round(2) > 0.8)) == 1):
                 biggest_cluster_center = points_pool[wishart.labels_ == cluster_labels[cluster_sizes.argmax()]].mean()
                 affiliation_result = count_elements_sorted(
                     affiliation_indexes[wishart.labels_ == cluster_labels[cluster_sizes.argmax()]],
