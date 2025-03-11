@@ -36,7 +36,9 @@ def research(gap_number, r_values, ts_size, window_size, dt,
     if len(affiliation_result) == 1:
         #случай когда 1 ряд
         return  pred_values[-1], is_np_point, 0, real_values[-1]
-    elif affiliation_result[1] == np.NaN:
+    elif np.isnan(affiliation_result[1]):
+        return pred_values[-1], is_np_point, np.NaN, real_values[-1]
+    elif np.isnan(affiliation_result[0]):
         return pred_values[-1], is_np_point, np.NaN, real_values[-1]
     else:
         return pred_values[-1], is_np_point, affiliation_result[1] / affiliation_result[0], real_values[-1]
