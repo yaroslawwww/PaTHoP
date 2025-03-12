@@ -7,9 +7,18 @@ import os
 
 
 def rmse(y_true, y_pred):
-    y_true = np.array(y_true)
     y_pred = np.array(y_pred)
-    return np.sqrt(np.nanmean(y_true - y_pred))
+    y_true = np.array(y_true)
+    mask = ~np.isnan(y_true) & ~np.isnan(y_pred)
+
+    y_true_masked = y_true[mask]
+    y_pred_masked = y_pred[mask]
+
+    if len(y_true_masked) == 0:
+        return np.nan
+
+    mse = np.mean((y_true_masked - y_pred_masked) ** 2)
+    return np.sqrt(mse)
 
 
 def research(gap_number, r_values, ts_size, window_size, dt,
@@ -41,7 +50,7 @@ def research(gap_number, r_values, ts_size, window_size, dt,
     elif np.isnan(affiliation_result[0]):
         return pred_values[-1], is_np_point, np.NaN, real_values[-1]
     else:
-        return pred_values[-1], is_np_point, affiliation_result[1] / affiliation_result[0], real_values[-1]
+        return pred_values[-1], is_np_point, affiliation_result[1] / (affiliation_result[0] + affiliation_result[1]), real_values[-1]
 
 
 def parallel_research(r_values=None, ts_size=None, gap_number=0, test_size_constant=100, dt=0.01, epsilon=0.001,
@@ -51,7 +60,7 @@ def parallel_research(r_values=None, ts_size=None, gap_number=0, test_size_const
     is_np_points = []
     affiliations_list = []
     real_points_values = []
-    with ProcessPoolExecutor() as executor:
+    with ProcessPoolExecutor(max_workers=1) as executor:
         futures = [executor.submit(research, gap, r_values, ts_size, test_size_constant,
                                    dt,
                                    epsilon, template_length_constant, template_spread_constant)

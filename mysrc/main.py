@@ -23,10 +23,10 @@ def main():
     size = 250000
     deviation = float(sys.argv[1])
 
-    deviation, rmse, np_points, mean_affiliation = process_epsilon(deviation, shares, size, divisor)
-    print(str(deviation) + "," + str(rmse) + "," + str(np_points) + "," + str(mean_affiliation) + "\n")
+    deviation, rmses, np_points, mean_affiliation = process_epsilon(deviation, shares, size, divisor)
+    print(str(deviation) + "," + str(rmses) + "," + str(np_points) + "," + str(mean_affiliation) + "\n")
     with open(f"/home/ikvasilev/fast_epsilon_counter/rmses_np_points_affiliation.txt", "a") as f:
-        f.write(str(deviation) + "," + str(rmse) + "," + str(np_points) + "," + str(mean_affiliation) + "\n")
+        f.write(str(deviation) + "," + str(rmses) + "," + str(np_points) + "," + str(mean_affiliation) + "\n")
 
 
 if __name__ == '__main__':
