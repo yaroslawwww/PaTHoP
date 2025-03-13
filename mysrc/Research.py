@@ -60,6 +60,7 @@ def parallel_research(r_values=None, ts_size=None, gap_number=0, test_size_const
     is_np_points = []
     affiliations_list = []
     real_points_values = []
+
     with ProcessPoolExecutor() as executor:
         futures = [executor.submit(research, gap, r_values, ts_size, test_size_constant,
                                    dt,
