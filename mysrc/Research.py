@@ -31,7 +31,7 @@ def research(gap_number, r_values, ts_size, window_size, dt,
             continue
         ts = TimeSeries("Lorentz", size=ts_size[i], r=r, dt=dt, divisor=divisor)
         list_ts.append(ts)
-    window_index = main_ts_size - (gap_number + 1) * window_size
+    window_index = main_ts_size - (gap_number + 1) - window_size
     if window_index > main_ts_size or window_index < 0:
         raise ValueError("Window index out of range")
     tsproc = TSProcessor(list_ts, template_length=template_length_constant,
@@ -53,7 +53,7 @@ def research(gap_number, r_values, ts_size, window_size, dt,
         return pred_values[-1], is_np_point, affiliation_result[1] / (affiliation_result[0] + affiliation_result[1]), real_values[-1]
 
 
-def parallel_research(r_values=None, ts_size=None, gap_number=0, test_size_constant=100, dt=0.01, epsilon=0.001,
+def parallel_research(r_values=None, ts_size=None, gap_number=0, test_size_constant=100, dt=0.01, epsilon=0.01,
                       template_length_constant=4,
                       template_spread_constant=4):
     pred_points_values = []

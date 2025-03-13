@@ -6,8 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="np.NaN ошибка исправлена">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysrc/Research.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/Research.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysrc/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -376,23 +374,9 @@
       <workItem from="1741689740960" duration="8852000" />
       <workItem from="1741729494160" duration="1620000" />
       <workItem from="1741733852218" duration="417000" />
-      <workItem from="1741769593014" duration="691000" />
-    </task>
-    <task id="LOCAL-00016" summary="я идиот">
-      <option name="closed" value="true" />
-      <created>1738827857441</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1738827857441</updated>
-    </task>
-    <task id="LOCAL-00017" summary="я идиот">
-      <option name="closed" value="true" />
-      <created>1738832205191</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1738832205191</updated>
+      <workItem from="1741769593014" duration="1076000" />
+      <workItem from="1741784006973" duration="602000" />
+      <workItem from="1741863284386" duration="1165000" />
     </task>
     <task id="LOCAL-00018" summary="Наконец-то нормальное исследование">
       <option name="closed" value="true" />
@@ -770,7 +754,23 @@
       <option name="project" value="LOCAL" />
       <updated>1741731038080</updated>
     </task>
-    <option name="localTasksCounter" value="65" />
+    <task id="LOCAL-00065" summary="np.NaN ошибка исправлена">
+      <option name="closed" value="true" />
+      <created>1741770469069</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1741770469069</updated>
+    </task>
+    <task id="LOCAL-00066" summary="np.NaN ошибка исправлена">
+      <option name="closed" value="true" />
+      <created>1741770510268</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1741770510268</updated>
+    </task>
+    <option name="localTasksCounter" value="67" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
