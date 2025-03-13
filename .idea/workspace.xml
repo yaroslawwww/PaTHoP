@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="np.NaN ошибка исправлена">
+    <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="Непересекающиеся промежутки">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysrc/Research.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/Research.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysrc/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysrc/zero_case_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/zero_case_main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -377,14 +380,7 @@
       <workItem from="1741769593014" duration="1076000" />
       <workItem from="1741784006973" duration="602000" />
       <workItem from="1741863284386" duration="1165000" />
-    </task>
-    <task id="LOCAL-00018" summary="Наконец-то нормальное исследование">
-      <option name="closed" value="true" />
-      <created>1739389212615</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1739389212615</updated>
+      <workItem from="1741874907474" duration="473000" />
     </task>
     <task id="LOCAL-00019" summary="Что-то долго">
       <option name="closed" value="true" />
@@ -770,7 +766,15 @@
       <option name="project" value="LOCAL" />
       <updated>1741770510268</updated>
     </task>
-    <option name="localTasksCounter" value="67" />
+    <task id="LOCAL-00067" summary="Непересекающиеся промежутки">
+      <option name="closed" value="true" />
+      <created>1741875577067</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1741875577068</updated>
+    </task>
+    <option name="localTasksCounter" value="68" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -800,7 +804,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Попытка нарисовать линию тренда" />
     <MESSAGE value="Увеличение числа тестов" />
     <MESSAGE value="Исследование длины дополнительного ряда" />
     <MESSAGE value="Исправил размеры" />
@@ -825,7 +828,8 @@
     <MESSAGE value="Отдебаганная версия(epsilon = 0.001,gaps = 1000,window = 100)" />
     <MESSAGE value="Незамеченные исправления" />
     <MESSAGE value="np.NaN ошибка исправлена" />
-    <option name="LAST_COMMIT_MESSAGE" value="np.NaN ошибка исправлена" />
+    <MESSAGE value="Непересекающиеся промежутки" />
+    <option name="LAST_COMMIT_MESSAGE" value="Непересекающиеся промежутки" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
