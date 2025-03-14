@@ -8,8 +8,8 @@ import concurrent.futures
 
 
 def process_epsilon(deviation, shares, size, divisor):
-    result = parallel_research(r_values=[28, 28 + deviation],
-                               ts_size=(np.array(shares) * size * divisor).astype(np.uint64),
+    result = parallel_research(r_values=[28,28, 28 + deviation],
+                               ts_size=(np.array([200000] + list(np.array(shares) * size * divisor))).astype(np.uint64),
                                gap_number=1000,
                                test_size_constant=50)
     return deviation, result[0], result[1], result[2]
