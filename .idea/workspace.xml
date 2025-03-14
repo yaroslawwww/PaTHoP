@@ -6,9 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="Модернизировано на случай доебов">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysrc/Predictions.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/Predictions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysrc/Research.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/Research.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysrc/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -385,15 +382,7 @@
       <workItem from="1741887681134" duration="1056000" />
       <workItem from="1741926448864" duration="62000" />
       <workItem from="1741926516673" duration="602000" />
-      <workItem from="1741937562539" duration="1030000" />
-    </task>
-    <task id="LOCAL-00022" summary="Попытка распараллелить">
-      <option name="closed" value="true" />
-      <created>1739441779921</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1739441779921</updated>
+      <workItem from="1741937562539" duration="2469000" />
     </task>
     <task id="LOCAL-00023" summary="Попытка распараллелить">
       <option name="closed" value="true" />
@@ -779,7 +768,15 @@
       <option name="project" value="LOCAL" />
       <updated>1741938920012</updated>
     </task>
-    <option name="localTasksCounter" value="71" />
+    <task id="LOCAL-00071" summary="Модернизировано на случай доебов">
+      <option name="closed" value="true" />
+      <created>1741938979160</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1741938979160</updated>
+    </task>
+    <option name="localTasksCounter" value="72" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
