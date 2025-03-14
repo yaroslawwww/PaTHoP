@@ -39,9 +39,13 @@ def research(gap_number, r_values, ts_size, window_size, dt,
                          window_index=window_index, test_size=window_size)
 
     fort, values, affiliation_result = tsproc.pull(epsilon)
+    print(len(list_ts[0].values))
     real_values = np.array(list_ts[0].values[window_index:window_index + window_size])
     pred_values = np.array(values[-window_size:])
     is_np_point = 1 if np.isnan(pred_values[-1]) else 0
+    mask = ~np.isnan(real_values) & ~np.isnan(pred_values)
+    print(abs(real_values[mask]-pred_values[mask]).round(2))
+    print(affiliation_result)
     if len(affiliation_result) == 1:
         #случай когда 1 ряд
         return  pred_values[-1], is_np_point, 0, real_values[-1]
@@ -61,7 +65,7 @@ def parallel_research(r_values=None, ts_size=None, gap_number=0, test_size_const
     affiliations_list = []
     real_points_values = []
 
-    with ProcessPoolExecutor() as executor:
+    with ProcessPoolExecutor(max_workers=1) as executor:
         futures = [executor.submit(research, gap, r_values, ts_size, test_size_constant,
                                    dt,
                                    epsilon, template_length_constant, template_spread_constant)
