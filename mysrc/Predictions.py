@@ -41,8 +41,8 @@ class TSProcessor:
         self.time_series_ = time_series_list[0]
         self.time_series_.split_train_val_test(window_index, test_size)
         self.templates_ = Templates(template_length, max_template_spread)
-        self.templates_.create_train_set(time_series_list)
-        self.ts_number = len(time_series_list)
+        self.templates_.create_train_set(time_series_list[1:])
+        self.ts_number = len(time_series_list[1:])
         self.k, self.mu = k, mu
 
     def pull(self, eps):
@@ -95,7 +95,7 @@ class TSProcessor:
             else:
                 wishart = Wishart(k=self.k, mu=self.mu)
             wishart.fit(points_pool.reshape(-1, 1))
-
+            # print(np.unique(points_pool,return_counts=True))
             cluster_labels, cluster_sizes = np.unique(wishart.labels_[wishart.labels_ > -1], return_counts=True)
             if cluster_labels.size > 0 and (
                     np.count_nonzero(((cluster_sizes / cluster_sizes.max()).round(2) > 0.8)) == 1):
