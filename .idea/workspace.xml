@@ -4,10 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="Непересекающиеся промежутки">
+    <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="Модернизировано на случай доебов">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mysrc/Predictions.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/Predictions.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mysrc/Research.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/Research.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysrc/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -384,15 +385,7 @@
       <workItem from="1741887681134" duration="1056000" />
       <workItem from="1741926448864" duration="62000" />
       <workItem from="1741926516673" duration="602000" />
-      <workItem from="1741937562539" duration="264000" />
-    </task>
-    <task id="LOCAL-00021" summary="Попытка распараллелить">
-      <option name="closed" value="true" />
-      <created>1739438057555</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1739438057555</updated>
+      <workItem from="1741937562539" duration="1030000" />
     </task>
     <task id="LOCAL-00022" summary="Попытка распараллелить">
       <option name="closed" value="true" />
@@ -778,7 +771,15 @@
       <option name="project" value="LOCAL" />
       <updated>1741875694634</updated>
     </task>
-    <option name="localTasksCounter" value="70" />
+    <task id="LOCAL-00070" summary="Модернизировано на случай доебов">
+      <option name="closed" value="true" />
+      <created>1741938920011</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1741938920012</updated>
+    </task>
+    <option name="localTasksCounter" value="71" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -808,7 +809,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Увеличение числа тестов" />
     <MESSAGE value="Исследование длины дополнительного ряда" />
     <MESSAGE value="Исправил размеры" />
     <MESSAGE value="Проверка нескольких epsilon" />
@@ -833,7 +833,8 @@
     <MESSAGE value="Незамеченные исправления" />
     <MESSAGE value="np.NaN ошибка исправлена" />
     <MESSAGE value="Непересекающиеся промежутки" />
-    <option name="LAST_COMMIT_MESSAGE" value="Непересекающиеся промежутки" />
+    <MESSAGE value="Модернизировано на случай доебов" />
+    <option name="LAST_COMMIT_MESSAGE" value="Модернизировано на случай доебов" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -860,7 +861,7 @@
     <SUITE FILE_PATH="coverage/Prediction_after_the_horizont_of_predictability$zero_case_main.coverage" NAME="zero_case_main Coverage Results" MODIFIED="1741729898478" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mysrc" />
     <SUITE FILE_PATH="coverage/Prediction_after_the_horizont_of_predictability$Patterns.coverage" NAME="Patterns Coverage Results" MODIFIED="1735131041810" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mysrc" />
     <SUITE FILE_PATH="coverage/Prediction_after_the_horizont_of_predictability$GetSeries.coverage" NAME="GetSeries Coverage Results" MODIFIED="1733228689504" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mysrc" />
-    <SUITE FILE_PATH="coverage/Prediction_after_the_horizont_of_predictability$main.coverage" NAME="main Coverage Results" MODIFIED="1741888016342" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mysrc" />
+    <SUITE FILE_PATH="coverage/Prediction_after_the_horizont_of_predictability$main.coverage" NAME="main Coverage Results" MODIFIED="1741938818721" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mysrc" />
     <SUITE FILE_PATH="coverage/Prediction_after_the_horizont_of_predictability$theory.coverage" NAME="theory Coverage Results" MODIFIED="1738238377102" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/archive" />
     <SUITE FILE_PATH="coverage/Prediction_after_the_horizont_of_predictability$thery.coverage" NAME="thery Coverage Results" MODIFIED="1738237468438" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/archive" />
     <SUITE FILE_PATH="coverage/Prediction_after_the_horizont_of_predictability$QuickSelect.coverage" NAME="QuickSelect Coverage Results" MODIFIED="1733356586025" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mysrc" />
