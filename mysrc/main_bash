@@ -1,8 +1,8 @@
 #!/bin/bash
 
-lower_bound=0.05
-upper_bound=0.95
-num_iterations=20
+lower_bound=25000
+upper_bound=250000
+num_iterations=10
 step=$(echo "scale=10; ($upper_bound - $lower_bound) / $num_iterations" | bc)
 epsilon=$lower_bound
 
@@ -11,4 +11,9 @@ for i in $(seq 1 $num_iterations); do
   epsilon=$(echo "scale=10; $epsilon + $step" | bc)
 done
 
-sbatch ./zero_case_bash 0
+epsilon=$lower_bound
+
+for i in $(seq 1 $num_iterations); do
+  sbatch ./zero_case_bash $epsilon
+  epsilon=$(echo "scale=10; $epsilon + $step" | bc)
+done
