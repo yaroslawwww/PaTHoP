@@ -20,7 +20,7 @@ def process_epsilon(deviation, shares, size, divisor):
 def main():
     divisor = 10
     shares = [0.5,0.5]
-    size = int(sys.argv[1])
+    size = int(float(sys.argv[1]))
     deviation = 22
 
     rmses, np_points, mean_affiliation = process_epsilon(deviation, shares, size, divisor)
