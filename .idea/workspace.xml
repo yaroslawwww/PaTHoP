@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="Расчет для разных доль на 1 ядрн">
+    <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="Расчет для разных доль на 1 ядре+подправленные логи.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -389,15 +389,7 @@
       <workItem from="1742163506858" duration="2000" />
       <workItem from="1742216443387" duration="869000" />
       <workItem from="1742217884024" duration="1255000" />
-      <workItem from="1742248744816" duration="784000" />
-    </task>
-    <task id="LOCAL-00031" summary="process pool">
-      <option name="closed" value="true" />
-      <created>1739498244108</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1739498244108</updated>
+      <workItem from="1742248744816" duration="1608000" />
     </task>
     <task id="LOCAL-00032" summary="epsilon =1">
       <option name="closed" value="true" />
@@ -783,7 +775,15 @@
       <option name="project" value="LOCAL" />
       <updated>1742249023147</updated>
     </task>
-    <option name="localTasksCounter" value="80" />
+    <task id="LOCAL-00080" summary="Расчет для разных доль на 1 ядре+подправленные логи.">
+      <option name="closed" value="true" />
+      <created>1742249688815</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1742249688815</updated>
+    </task>
+    <option name="localTasksCounter" value="81" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -842,7 +842,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Уменьшенный размер" />
     <MESSAGE value="fast" />
     <MESSAGE value="ошибка в 10" />
     <MESSAGE value="Пробный 3-х мерный график" />
@@ -867,7 +866,8 @@
     <MESSAGE value="Расчет для разных размеров" />
     <MESSAGE value="Расчет для разных размеров на 1 ядре" />
     <MESSAGE value="Расчет для разных доль на 1 ядрн" />
-    <option name="LAST_COMMIT_MESSAGE" value="Расчет для разных доль на 1 ядрн" />
+    <MESSAGE value="Расчет для разных доль на 1 ядре+подправленные логи." />
+    <option name="LAST_COMMIT_MESSAGE" value="Расчет для разных доль на 1 ядре+подправленные логи." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

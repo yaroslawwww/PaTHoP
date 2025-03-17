@@ -1,7 +1,7 @@
 #!/bin/bash
-#SBATCH --job-name=prediction_zero_case
+#SBATCH --job-name=prediction
 #SBATCH -c 1
 #SBATCH --time=72:00:00
-#SBATCH --output=/home/ikvasilev/logs/prediction_multiple_ts_1.log
+#SBATCH --output=/home/ikvasilev/logs/prediction_multiple_ts_1_%j.log
 source /home/ikvasilev/my_env/bin/activate
-python ./zero_case_main.py $1
+python ./main.py $1
