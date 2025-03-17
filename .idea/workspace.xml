@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="Рабочие логи">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysrc/bash" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/bash" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysrc/zero_case_bash" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/zero_case_bash" afterDir="false" />
-    </list>
+    <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="Разные размеры" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -134,7 +130,7 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/mysrc/main.py" />
-      <option name="PARAMETERS" value="1" />
+      <option name="PARAMETERS" value="25000.039" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -391,15 +387,7 @@
       <workItem from="1742163506858" duration="2000" />
       <workItem from="1742216443387" duration="869000" />
       <workItem from="1742217884024" duration="1255000" />
-      <workItem from="1742248744816" duration="2009000" />
-    </task>
-    <task id="LOCAL-00033" summary="epsilon =1">
-      <option name="closed" value="true" />
-      <created>1739498541940</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1739498541940</updated>
+      <workItem from="1742248744816" duration="2781000" />
     </task>
     <task id="LOCAL-00034" summary="epsilon =1">
       <option name="closed" value="true" />
@@ -785,7 +773,15 @@
       <option name="project" value="LOCAL" />
       <updated>1742250753584</updated>
     </task>
-    <option name="localTasksCounter" value="82" />
+    <task id="LOCAL-00082" summary="Разные размеры">
+      <option name="closed" value="true" />
+      <created>1742250890984</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1742250890985</updated>
+    </task>
+    <option name="localTasksCounter" value="83" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -844,7 +840,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="ошибка в 10" />
     <MESSAGE value="Пробный 3-х мерный график" />
     <MESSAGE value="Удобство" />
     <MESSAGE value="Добавление изучения принадлежности вероятных точек ряду" />
@@ -869,7 +864,8 @@
     <MESSAGE value="Расчет для разных доль на 1 ядрн" />
     <MESSAGE value="Расчет для разных доль на 1 ядре+подправленные логи." />
     <MESSAGE value="Рабочие логи" />
-    <option name="LAST_COMMIT_MESSAGE" value="Рабочие логи" />
+    <MESSAGE value="Разные размеры" />
+    <option name="LAST_COMMIT_MESSAGE" value="Разные размеры" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
