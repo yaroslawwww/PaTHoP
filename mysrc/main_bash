@@ -11,9 +11,4 @@ for i in $(seq 1 $num_iterations); do
   epsilon=$(echo "scale=10; $epsilon + $step" | bc)
 done
 
-epsilon=$lower_bound
-
-for i in $(seq 1 $num_iterations); do
-  sbatch ./zero_case_bash $epsilon
-  epsilon=$(echo "scale=10; $epsilon + $step" | bc)
-done
+sbatch ./zero_case_bash 0

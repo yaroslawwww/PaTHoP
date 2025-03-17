@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="Расчет для разных размеров">
+    <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="Расчет для разных доль на 1 ядрн">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -389,38 +389,7 @@
       <workItem from="1742163506858" duration="2000" />
       <workItem from="1742216443387" duration="869000" />
       <workItem from="1742217884024" duration="1255000" />
-    </task>
-    <task id="LOCAL-00027" summary="Увеличение числа тестов">
-      <option name="closed" value="true" />
-      <created>1739457236785</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1739457236785</updated>
-    </task>
-    <task id="LOCAL-00028" summary="Исследование длины дополнительного ряда">
-      <option name="closed" value="true" />
-      <created>1739470550740</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1739470550740</updated>
-    </task>
-    <task id="LOCAL-00029" summary="Исправил размеры">
-      <option name="closed" value="true" />
-      <created>1739471626437</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1739471626437</updated>
-    </task>
-    <task id="LOCAL-00030" summary="Проверка нескольких epsilon">
-      <option name="closed" value="true" />
-      <created>1739473043990</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1739473043990</updated>
+      <workItem from="1742248744816" duration="784000" />
     </task>
     <task id="LOCAL-00031" summary="process pool">
       <option name="closed" value="true" />
@@ -782,7 +751,39 @@
       <option name="project" value="LOCAL" />
       <updated>1742219201639</updated>
     </task>
-    <option name="localTasksCounter" value="76" />
+    <task id="LOCAL-00076" summary="Расчет для разных размеров на 1 ядре">
+      <option name="closed" value="true" />
+      <created>1742248776165</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1742248776166</updated>
+    </task>
+    <task id="LOCAL-00077" summary="Расчет для разных доль на 1 ядрн">
+      <option name="closed" value="true" />
+      <created>1742248914687</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1742248914687</updated>
+    </task>
+    <task id="LOCAL-00078" summary="Расчет для разных доль на 1 ядрн">
+      <option name="closed" value="true" />
+      <created>1742248961400</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1742248961400</updated>
+    </task>
+    <task id="LOCAL-00079" summary="Расчет для разных доль на 1 ядрн">
+      <option name="closed" value="true" />
+      <created>1742249023147</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1742249023147</updated>
+    </task>
+    <option name="localTasksCounter" value="80" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -841,8 +842,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="process pool" />
-    <MESSAGE value="epsilon =1" />
     <MESSAGE value="Уменьшенный размер" />
     <MESSAGE value="fast" />
     <MESSAGE value="ошибка в 10" />
@@ -866,7 +865,9 @@
     <MESSAGE value="Забыл нулевой случай обновить" />
     <MESSAGE value="Расчет идеальной доли" />
     <MESSAGE value="Расчет для разных размеров" />
-    <option name="LAST_COMMIT_MESSAGE" value="Расчет для разных размеров" />
+    <MESSAGE value="Расчет для разных размеров на 1 ядре" />
+    <MESSAGE value="Расчет для разных доль на 1 ядрн" />
+    <option name="LAST_COMMIT_MESSAGE" value="Расчет для разных доль на 1 ядрн" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
