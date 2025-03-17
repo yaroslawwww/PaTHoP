@@ -24,7 +24,7 @@ def main():
     deviation = 22
 
     rmses, np_points, mean_affiliation = process_epsilon(deviation, shares, size, divisor)
-    with open(f"/home/ikvasilev/fast_epsilon_counter/rmses_np_points_affiliation_sizes.txt", "a") as f:
+    with open(f"/home/ikvasilev/fast_epsilon_counter/rmses_np_points_affiliation_shares.txt", "a") as f:
         f.write(str(shares) + "," + str(rmses) + "," + str(np_points) + "," + str(mean_affiliation) + "\n")
 
 
