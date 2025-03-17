@@ -19,13 +19,13 @@ def process_epsilon(deviation, shares, size, divisor):
 
 def main():
     divisor = 10
-    shares = [0.5,0.5]
+    shares = [float(sys.argv[1]),1-float(sys.argv[1])]
     size = 25000
-    deviation = float(sys.argv[1])
+    deviation = 22
 
     deviation, rmses, np_points, mean_affiliation = process_epsilon(deviation, shares, size, divisor)
     print(str(deviation) + "," + str(rmses) + "," + str(np_points) + "," + str(mean_affiliation) + "\n")
-    with open(f"/home/ikvasilev/fast_epsilon_counter/rmses_np_points_affiliation.txt", "a") as f:
+    with open(f"/home/ikvasilev/fast_epsilon_counter/rmses_np_points_affiliation_shares.txt", "a") as f:
         f.write(str(deviation) + "," + str(rmses) + "," + str(np_points) + "," + str(mean_affiliation) + "\n")
 
 

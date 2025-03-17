@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="Модернизировано на случай доебов">
+    <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="Забыл нулевой случай обновить">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -383,22 +383,10 @@
       <workItem from="1741926448864" duration="62000" />
       <workItem from="1741926516673" duration="602000" />
       <workItem from="1741937562539" duration="2469000" />
-    </task>
-    <task id="LOCAL-00023" summary="Попытка распараллелить">
-      <option name="closed" value="true" />
-      <created>1739441806329</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1739441806329</updated>
-    </task>
-    <task id="LOCAL-00024" summary="Попытка нарисовать линию тренда">
-      <option name="closed" value="true" />
-      <created>1739453819307</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1739453819307</updated>
+      <workItem from="1741948205467" duration="269000" />
+      <workItem from="1742055506004" duration="1000" />
+      <workItem from="1742062695155" duration="10000" />
+      <workItem from="1742163506858" duration="2000" />
     </task>
     <task id="LOCAL-00025" summary="Увеличение числа тестов">
       <option name="closed" value="true" />
@@ -776,7 +764,23 @@
       <option name="project" value="LOCAL" />
       <updated>1741938979160</updated>
     </task>
-    <option name="localTasksCounter" value="72" />
+    <task id="LOCAL-00072" summary="Забыл нулевой случай обновить">
+      <option name="closed" value="true" />
+      <created>1741948271963</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1741948271964</updated>
+    </task>
+    <task id="LOCAL-00073" summary="Забыл нулевой случай обновить">
+      <option name="closed" value="true" />
+      <created>1741948337046</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1741948337046</updated>
+    </task>
+    <option name="localTasksCounter" value="74" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -806,7 +810,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Исследование длины дополнительного ряда" />
     <MESSAGE value="Исправил размеры" />
     <MESSAGE value="Проверка нескольких epsilon" />
     <MESSAGE value="process pool" />
@@ -831,7 +834,8 @@
     <MESSAGE value="np.NaN ошибка исправлена" />
     <MESSAGE value="Непересекающиеся промежутки" />
     <MESSAGE value="Модернизировано на случай доебов" />
-    <option name="LAST_COMMIT_MESSAGE" value="Модернизировано на случай доебов" />
+    <MESSAGE value="Забыл нулевой случай обновить" />
+    <option name="LAST_COMMIT_MESSAGE" value="Забыл нулевой случай обновить" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
