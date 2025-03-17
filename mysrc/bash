@@ -2,7 +2,6 @@
 #SBATCH --job-name=prediction
 #SBATCH -c 1
 #SBATCH --time=72:00:00
-#SBATCH --output=/home/ikvasilev/prediction_multiple_ts_1.log
+#SBATCH --output=/home/ikvasilev/logs/prediction_multiple_ts_1$1.log
 source /home/ikvasilev/my_env/bin/activate
-epsilon=$1
-python ./main.py $epsilon
+python ./main.py $1
