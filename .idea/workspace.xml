@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="final shares">
+    <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="Что-то читаемое">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mysrc/Patterns.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/Patterns.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mysrc/Predictions.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/Predictions.py" afterDir="false" />
@@ -13,6 +13,8 @@
       <change beforePath="$PROJECT_DIR$/mysrc/lorentz_experiment.ipynb" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/mysrc/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mysrc/main_bash" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/main_bash" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysrc/wishart_experiments.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysrc/zero_case_bash" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/zero_case_bash" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mysrc/zero_case_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/zero_case_main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -408,15 +410,7 @@
       <workItem from="1742473630089" duration="1182000" />
       <workItem from="1742475165817" duration="513000" />
       <workItem from="1742478249098" duration="3220000" />
-      <workItem from="1742511795431" duration="1717000" />
-    </task>
-    <task id="LOCAL-00035" summary="Уменьшенный размер">
-      <option name="closed" value="true" />
-      <created>1739502342579</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
-      <option name="project" value="LOCAL" />
-      <updated>1739502342579</updated>
+      <workItem from="1742511795431" duration="2331000" />
     </task>
     <task id="LOCAL-00036" summary="Уменьшенный размер">
       <option name="closed" value="true" />
@@ -802,7 +796,15 @@
       <option name="project" value="LOCAL" />
       <updated>1742254513151</updated>
     </task>
-    <option name="localTasksCounter" value="84" />
+    <task id="LOCAL-00084" summary="Что-то читаемое">
+      <option name="closed" value="true" />
+      <created>1742514126942</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1742514126943</updated>
+    </task>
+    <option name="localTasksCounter" value="85" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -861,7 +863,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Удобство" />
     <MESSAGE value="Добавление изучения принадлежности вероятных точек ряду" />
     <MESSAGE value="hard count" />
     <MESSAGE value="float ебаный" />
@@ -886,7 +887,8 @@
     <MESSAGE value="Рабочие логи" />
     <MESSAGE value="Разные размеры" />
     <MESSAGE value="floatы" />
-    <option name="LAST_COMMIT_MESSAGE" value="floatы" />
+    <MESSAGE value="Что-то читаемое" />
+    <option name="LAST_COMMIT_MESSAGE" value="Что-то читаемое" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -913,7 +915,7 @@
     <SUITE FILE_PATH="coverage/Prediction_after_the_horizont_of_predictability$zero_case_main.coverage" NAME="zero_case_main Coverage Results" MODIFIED="1741729898478" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mysrc" />
     <SUITE FILE_PATH="coverage/Prediction_after_the_horizont_of_predictability$Patterns.coverage" NAME="Patterns Coverage Results" MODIFIED="1735131041810" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mysrc" />
     <SUITE FILE_PATH="coverage/Prediction_after_the_horizont_of_predictability$GetSeries.coverage" NAME="GetSeries Coverage Results" MODIFIED="1733228689504" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mysrc" />
-    <SUITE FILE_PATH="coverage/Prediction_after_the_horizont_of_predictability$main.coverage" NAME="main Coverage Results" MODIFIED="1742513286213" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mysrc" />
+    <SUITE FILE_PATH="coverage/Prediction_after_the_horizont_of_predictability$main.coverage" NAME="main Coverage Results" MODIFIED="1742513745020" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mysrc" />
     <SUITE FILE_PATH="coverage/Prediction_after_the_horizont_of_predictability$theory.coverage" NAME="theory Coverage Results" MODIFIED="1738238377102" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/archive" />
     <SUITE FILE_PATH="coverage/Prediction_after_the_horizont_of_predictability$thery.coverage" NAME="thery Coverage Results" MODIFIED="1738237468438" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/archive" />
     <SUITE FILE_PATH="coverage/Prediction_after_the_horizont_of_predictability$QuickSelect.coverage" NAME="QuickSelect Coverage Results" MODIFIED="1733356586025" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mysrc" />
