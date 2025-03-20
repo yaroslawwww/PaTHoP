@@ -7,9 +7,9 @@ import concurrent.futures
 
 
 
-def process_epsilon(deviation, shares, size, divisor):
+def process_deviation(deviation, shares, size):
     result = parallel_research(r_values=[28,28, 28 + deviation],
-                               ts_size=(np.array([200000] + list(np.array(shares) * size * divisor))).astype(np.uint64),
+                               ts_size=(np.array([20000] + list(np.array(shares) * size))).astype(np.uint64),
                                gap_number=1000,
                                test_size_constant=50)
     return result[0], result[1], result[2]
@@ -18,14 +18,12 @@ def process_epsilon(deviation, shares, size, divisor):
 
 
 def main():
-    divisor = 10
     shares = [1,0]
     size = 25000
     deviation = 0
-
-    rmse, np_points , mean_affiliation = process_epsilon(deviation, shares, size, divisor)
-    with open(f"/home/ikvasilev/fast_epsilon_counter/rmses_np_points_affiliation_shares.txt", "a") as f:
-        f.write(str(shares) + "," + str(rmse) + "," + str(np_points) + "," + str(mean_affiliation) + "\n")
+    rmses, np_points , mean_affiliation = process_deviation(deviation, shares, size)
+    with open(f"/home/ikvasilev/fast_epsilon_counter/rmses_np_points_affiliation_.txt", "a") as f:
+        f.write(str(deviation) + "," + str(size) + "," + str(rmses) + "," + str(np_points) + "," + str(mean_affiliation) + "\n")
 
 
 if __name__ == '__main__':
