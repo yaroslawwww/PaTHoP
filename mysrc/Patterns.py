@@ -78,11 +78,6 @@ class Templates:
 
             self.add_data_to_train_set(data, all_train_sets)
             self.add_data_to_affiliation_matrix(data, affiliation_matrix, i)
-            if time_series.after_test_train is not None and len(
-                    time_series.after_test_train) > self.max_template_spread * self.template_length * 2:
-                data = np.array(time_series.after_test_train)
-                self.add_data_to_train_set(data, all_train_sets)
-                self.add_data_to_affiliation_matrix(data, affiliation_matrix, i)
         if all_train_sets:
             self.train_set = np.concatenate(all_train_sets, axis=1)
             self.affiliation_matrix = np.concatenate(affiliation_matrix, axis=1)
