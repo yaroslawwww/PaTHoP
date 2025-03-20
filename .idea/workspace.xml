@@ -126,7 +126,7 @@
       <recent name="$PROJECT_DIR$/mysrc" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.main">
+  <component name="RunManager" selected="Python.zero_case_main">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Prediction_after_the_horizont_of_predictability" />
       <option name="ENV_FILES" value="" />
@@ -179,8 +179,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.main" />
         <item itemvalue="Python.zero_case_main" />
+        <item itemvalue="Python.main" />
       </list>
     </recent_temporary>
   </component>
