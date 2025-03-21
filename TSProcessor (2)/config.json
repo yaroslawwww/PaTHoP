@@ -1,0 +1,8 @@
+{
+    "split": 1000,
+    "eps": 0.01,
+    "steps": 5,
+    "time_series": "lorenz.txt",
+    "max_template_spread": 10,
+    "points_in_template": 4
+}
