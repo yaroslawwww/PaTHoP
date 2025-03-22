@@ -52,11 +52,13 @@ def research(gap_number, r_values, ts_size, window_size, dt,
         return pred_values[-1], is_np_point, np.NaN, real_values[-1]
     elif np.isnan(affiliation_result[0]):
         return pred_values[-1], is_np_point, np.NaN, real_values[-1]
+    elif affiliation_result[1] == 0:
+        return pred_values[-1], is_np_point, 0, real_values[-1]
     else:
         return pred_values[-1], is_np_point, affiliation_result[1] / (affiliation_result[0] + affiliation_result[1]), real_values[-1]
 
 
-def parallel_research(r_values=None, ts_size=None, gap_number=0, test_size_constant=100, dt=0.001, epsilon=0.01,
+def parallel_research(r_values=None, ts_size=None, gap_number=0, test_size_constant=100, dt=0.01, epsilon=0.01,
                       template_length_constant=4,
                       template_spread_constant=4):
     pred_points_values = []

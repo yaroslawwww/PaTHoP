@@ -13,7 +13,7 @@ def process_deviation(deviation, shares, size):
     # Я брал в качестве тестирующей выборки всегда первый ряд.Остальные создавались для тренировочной.
     result = parallel_research(r_values=[28, 28, 28 + deviation],
                                ts_size=(np.array([20000] + list(np.array(shares) * size))).astype(np.uint64),
-                               gap_number=1000,
+                               gap_number=1,
                                test_size_constant=50)
     return result[0], result[1], result[2]
 

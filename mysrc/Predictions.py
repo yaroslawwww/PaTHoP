@@ -1,4 +1,5 @@
 # coding: utf-8
+from os import getpid
 
 from TimeSeries import TimeSeries
 from Patterns import Templates
@@ -52,7 +53,7 @@ class TSProcessor:
         values = np.array(values)
         values.resize(size_of_series + steps)
         values[-steps:] = np.nan
-        n_trajectories = 21
+        n_trajectories = 1
         forecast_trajectories = np.full((steps, n_trajectories), np.nan)
         x_dim, y_dim, z_dim = self.templates_.train_set.shape
         vectors_continuation = np.full([x_dim, steps, z_dim], fill_value=np.inf)
@@ -66,7 +67,6 @@ class TSProcessor:
         observation_indexes = self.templates_.observation_indexes
         affiliation_result = []
 
-        # y_dim = train_vectors.shape[1]
         prev_pred = np.full((steps, 3), np.nan)
         prev_size = np.full((steps, 3), np.nan)
         prev_spread = np.full((steps, 3), np.nan)
@@ -77,7 +77,7 @@ class TSProcessor:
                 distance_mask = distance_matrix < eps
                 points = train_vectors[distance_mask][:, -1]
                 affiliation_indexes = affiliation_vectors[distance_mask][:, -1]
-                forecast_point, affiliation_step_result = self.freeze_point(points[~np.isnan(points)], 'cl', affiliation_indexes)
+                forecast_point, affiliation_step_result = self.freeze_point(points[~np.isnan(points)], 'cl', affiliation_indexes[~np.isnan(points)])
                 size = np.sum(affiliation_step_result)
                 # отсев по росту размера кластеров
                 prev_size[step][2] = size
@@ -98,16 +98,15 @@ class TSProcessor:
                 affiliation_result.append(affiliation_step_result)
                 forecast_trajectories[step, trajectory] = forecast_point
                 values[size_of_series + step] = forecast_point
-                new_train_vectors = values[:size_of_series + step + 1][observation_indexes]
+                new_train_vectors = values[:size_of_series + step + 1][np.hstack((observation_indexes-1, np.repeat(-1, x_dim).reshape(-1, 1)))]
                 train_vectors[:, y_dim + step, :] = new_train_vectors
             train_vectors[:,y_dim,:] = np.inf
             values[-steps:] = np.nan
-        unified_predictions = []
         for step in range(steps):
             points_pool = forecast_trajectories[step, :]
             if (len(points_pool[~np.isnan(points_pool)])) > int(
                     len(points_pool) * 3 / 4):  # кол-во нанов в множестве не более 1/4
-                unified_prediction, size = self.freeze_point(points_pool[~np.isnan(points_pool)], 'cl',affiliation_indexes)
+                unified_prediction, size = self.freeze_point(points_pool[~np.isnan(points_pool)], 'cl',np.array([0] * len(points_pool[~np.isnan(points_pool)])))
             else:
                 unified_prediction = np.nan
             values[-steps+step] = unified_prediction
@@ -119,6 +118,7 @@ class TSProcessor:
     def freeze_point(self, points_pool, how, affiliation_indexes):
         result = None
         affiliation_result = np.full(self.ts_number,0)
+
         if points_pool.size == 0:
             result = np.nan
             return result,affiliation_result
