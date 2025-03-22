@@ -43,7 +43,7 @@ def research(gap_number, r_values, ts_size, window_size, dt,
     is_np_point = 1 if np.isnan(pred_values[-1]) else 0
     mask = ~np.isnan(real_values) & ~np.isnan(pred_values)
     # print(real_values,pred_values)
-    print("res:",abs(real_values[mask]-pred_values[mask]).round(2))
+    # print("res:",abs(real_values[mask]-pred_values[mask]).round(2))
     # print(affiliation_result)
     if len(affiliation_result) == 1:
         #случай когда 1 ряд
