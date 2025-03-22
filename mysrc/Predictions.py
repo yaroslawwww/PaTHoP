@@ -79,22 +79,22 @@ class TSProcessor:
                 affiliation_indexes = affiliation_vectors[distance_mask][:, -1]
                 forecast_point, affiliation_step_result = self.freeze_point(points[~np.isnan(points)], 'cl', affiliation_indexes[~np.isnan(points)],self.threshold)
                 size = np.sum(affiliation_step_result)
-                # # отсев по росту размера кластеров
-                # prev_size[step][2] = size
-                # if step >= 1:
-                #     prev_size[step][1] = np.copy(prev_size[step - 1][2])
-                # if step >= 2:
-                #     prev_size[step][0] = np.copy(prev_size[step - 1][1])
-                #     if prev_size[step][0] < prev_size[step][1] < prev_size[step][2]:
-                #         forecast_point = np.nan
-                # отсев по росту разброса
-                prev_spread[step][2] = np.max(points)-np.min(points) if points.shape[0] > 0 else 0
+                # отсев по росту размера кластеров
+                prev_size[step][2] = size
                 if step >= 1:
-                    prev_spread[step][1] = np.copy(prev_spread[step - 1][2])
+                    prev_size[step][1] = np.copy(prev_size[step - 1][2])
                 if step >= 2:
-                    prev_spread[step][0] = np.copy(prev_spread[step - 1][1])
-                    if prev_spread[step][0] < prev_spread[step][1] < prev_spread[step][2]:
+                    prev_size[step][0] = np.copy(prev_size[step - 1][1])
+                    if prev_size[step][0] < prev_size[step][1] < prev_size[step][2]:
                         forecast_point = np.nan
+                # отсев по росту разброса
+                # prev_spread[step][2] = np.max(points)-np.min(points) if points.shape[0] > 0 else 0
+                # if step >= 1:
+                #     prev_spread[step][1] = np.copy(prev_spread[step - 1][2])
+                # if step >= 2:
+                #     prev_spread[step][0] = np.copy(prev_spread[step - 1][1])
+                #     if prev_spread[step][0] < prev_spread[step][1] < prev_spread[step][2]:
+                #         forecast_point = np.nan
                 affiliation_result.append(affiliation_step_result)
                 forecast_trajectories[step, trajectory] = forecast_point
                 values[size_of_series + step] = forecast_point
