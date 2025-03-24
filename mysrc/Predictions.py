@@ -79,22 +79,22 @@ class TSProcessor:
                 affiliation_indexes = affiliation_vectors[distance_mask][:, -1]
                 forecast_point, affiliation_step_result = self.freeze_point(points[~np.isnan(points)], 'cl', affiliation_indexes[~np.isnan(points)],self.threshold)
                 size = np.sum(affiliation_step_result)
-                # отсев по росту размера кластеров
-                prev_size[step][2] = size
-                if step >= 1:
-                    prev_size[step][1] = np.copy(prev_size[step - 1][2])
-                if step >= 2:
-                    prev_size[step][0] = np.copy(prev_size[step - 1][1])
-                    if prev_size[step][0] < prev_size[step][1] < prev_size[step][2]:
-                        forecast_point = np.nan
-                # отсев по росту разброса
-                # prev_spread[step][2] = np.max(points)-np.min(points) if points.shape[0] > 0 else 0
+                # # отсев по росту размера кластеров
+                # prev_size[step][2] = size
                 # if step >= 1:
-                #     prev_spread[step][1] = np.copy(prev_spread[step - 1][2])
+                #     prev_size[step][1] = np.copy(prev_size[step - 1][2])
                 # if step >= 2:
-                #     prev_spread[step][0] = np.copy(prev_spread[step - 1][1])
-                #     if prev_spread[step][0] < prev_spread[step][1] < prev_spread[step][2]:
+                #     prev_size[step][0] = np.copy(prev_size[step - 1][1])
+                #     if prev_size[step][0] < prev_size[step][1] < prev_size[step][2]:
                 #         forecast_point = np.nan
+                # отсев по росту разброса
+                prev_spread[step][2] = np.max(points)-np.min(points) if points.shape[0] > 0 else 0
+                if step >= 1:
+                    prev_spread[step][1] = np.copy(prev_spread[step - 1][2])
+                if step >= 2:
+                    prev_spread[step][0] = np.copy(prev_spread[step - 1][1])
+                    if prev_spread[step][0] < prev_spread[step][1] < prev_spread[step][2]:
+                        forecast_point = np.nan
                 affiliation_result.append(affiliation_step_result)
                 forecast_trajectories[step, trajectory] = forecast_point
                 values[size_of_series + step] = forecast_point
@@ -118,19 +118,16 @@ class TSProcessor:
             points, counts = np.unique(points_pool, return_counts=True)
             result = points[counts.argmax()]
         elif how == 'cl':
-            if len(points_pool) < self.k:
-                wishart = Wishart(k=len(points_pool), mu=0.45)
-            else:
-                wishart = Wishart(k=self.k, mu=self.mu)
-            wishart.fit(points_pool.reshape(-1, 1))
+            dbs = DBSCAN(0.01,min_samples=17)
+            dbs.fit(points_pool.reshape(-1, 1))
             # print(np.unique(points_pool,return_counts=True))
-            cluster_labels, cluster_sizes = np.unique(wishart.labels_[wishart.labels_ > -1], return_counts=True)
+            cluster_labels, cluster_sizes = np.unique(dbs.labels_[dbs.labels_ > -1], return_counts=True)
             # print(cluster_sizes.argmax() / sum(cluster_sizes))
             if cluster_labels.size > 0:
-                biggest_cluster_center = points_pool[wishart.labels_ == cluster_labels[cluster_sizes.argmax()]].mean()
+                biggest_cluster_center = points_pool[dbs.labels_ == cluster_labels[cluster_sizes.argmax()]].mean()
 
                 affiliation_result = count_elements_sorted(
-                    affiliation_indexes[wishart.labels_ == cluster_labels[cluster_sizes.argmax()]],
+                    affiliation_indexes[dbs.labels_ == cluster_labels[cluster_sizes.argmax()]],
                     range(self.ts_number))
                 result = biggest_cluster_center
             else:
