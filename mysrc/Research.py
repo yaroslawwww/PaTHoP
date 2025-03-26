@@ -42,7 +42,7 @@ def research(gap_number, r_values, ts_size, window_size, dt,
     pred_values = np.array(values[-window_size:])
     is_np_point = 1 if np.isnan(pred_values[-1]) else 0
     mask = ~np.isnan(real_values) & ~np.isnan(pred_values)
-    # print(real_values,pred_values)
+    # print(real_values[-1],pred_values[-1])
     # print("res:",abs(real_values[mask]-pred_values[mask]).round(2))
     # print(affiliation_result)
     if len(affiliation_result) == 1:
@@ -56,14 +56,13 @@ def research(gap_number, r_values, ts_size, window_size, dt,
         return pred_values[-1], is_np_point, affiliation_result[1] / (affiliation_result[0] + affiliation_result[1]), real_values[-1]
 
 
-def parallel_research(r_values=None, ts_size=None, gap_number=0, test_size_constant=100, dt=0.01, epsilon=0.01,
+def parallel_research(r_values, ts_size, gap_number, test_size_constant, dt=0.01, epsilon=0.01,
                       template_length_constant=4,
                       template_spread_constant=4):
     pred_points_values = []
     is_np_points = []
     affiliations_list = []
     real_points_values = []
-
     with ProcessPoolExecutor() as executor:
         futures = [executor.submit(research, gap, r_values, ts_size, test_size_constant,
                                    dt,

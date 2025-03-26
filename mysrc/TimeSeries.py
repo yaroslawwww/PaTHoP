@@ -22,6 +22,7 @@ class TimeSeries:
         self.val = []
         self.time = [i for i in range(len(self.values))]
     def split_train_val_test(self,window_index, test_size = 100):
+        window_index = int(window_index)
         if window_index + test_size > len(self.values):
             raise ValueError("test index out of range")
 
