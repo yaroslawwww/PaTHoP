@@ -67,6 +67,7 @@ class TSProcessor:
         affiliation_vectors = np.hstack([self.templates_.affiliation_matrix, affiliation_continuation])
         observation_indexes = self.templates_.observation_indexes
         affiliation_result = []
+        prev_size=np.full((steps, 4), np.nan)
         for step in range(steps):
             test_vectors = values[:size_of_series + step][observation_indexes]
             distance_matrix = calc_distance_matrix(test_vectors, train_vectors, steps, y_dim)
@@ -74,6 +75,14 @@ class TSProcessor:
             points = train_vectors[distance_mask][:, -1]
             affiliation_indexes = affiliation_vectors[distance_mask][:, -1]
             forecast_point, affiliation_step_result = self.freeze_point(points, 'cl', affiliation_indexes)
+            share = affiliation_step_result[1] / affiliation_step_result[0] if affiliation_step_result[1] != 0 else 0
+            prev_size[step][2] = share
+            if step >= 1:
+                prev_size[step][1] = np.copy(prev_size[step - 1][2])
+            if step >= 2:
+                prev_size[step][0] = np.copy(prev_size[step - 1][1])
+                if prev_size[step][0] > prev_size[step][1] > prev_size[step][2]:
+                    forecast_point = np.nan
             affiliation_result.append(affiliation_step_result)
             forecast_trajectories[step, 0] = forecast_point
             values[size_of_series + step] = forecast_point
@@ -99,7 +108,7 @@ class TSProcessor:
             #     wishart = Wishart(k=len(points_pool), mu=0.45)
             # else:
             #     wishart = Wishart(k=self.k, mu=self.mu)
-            dbs = DBSCAN(0.01, min_samples=17)
+            dbs = DBSCAN(eps = 0.01,min_samples=10)
             dbs.fit(points_pool.reshape(-1, 1))
             cluster_labels, cluster_sizes = np.unique(dbs.labels_[dbs.labels_ > -1], return_counts=True)
             if cluster_labels.size > 0 and (np.count_nonzero(((cluster_sizes / cluster_sizes.max()).round(2) > 0.8)) == 1):
