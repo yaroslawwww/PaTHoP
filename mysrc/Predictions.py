@@ -1,5 +1,7 @@
 # coding: utf-8
-from WishartClusterizationAlgorithm import Wishart
+from sklearn.cluster import DBSCAN
+
+from WishartClusterizationAlgorithm import OptimizedWishart as Wishart
 # coding: utf-8
 from TimeSeries import TimeSeries
 import numpy as np
@@ -175,19 +177,20 @@ class TSProcessor:
             points, counts = np.unique(points_pool, return_counts=True)
             result = points[counts.argmax()]
         elif how == 'cl':
-            if len(points_pool) < self.k:
-                wishart = Wishart(k=len(points_pool), mu=0.45)
-            else:
-                wishart = Wishart(k=self.k, mu=self.mu)
-            wishart.fit(points_pool.reshape(-1, 1))
+            # if len(points_pool) < self.k:
+            #     dbs = Wishart(k=len(points_pool), mu=0.45)
+            # else:
+            #     dbs = Wishart(k=self.k, mu=self.mu)
+            dbs = DBSCAN(eps = 0.01,min_samples=17)
+            dbs.fit(points_pool.reshape(-1, 1))
             # print(np.unique(points_pool,return_counts=True))
-            cluster_labels, cluster_sizes = np.unique(wishart.labels_[wishart.labels_ > -1], return_counts=True)
+            cluster_labels, cluster_sizes = np.unique(dbs.labels_[dbs.labels_ > -1], return_counts=True)
             if cluster_labels.size > 0 and (
-                    np.count_nonzero(((cluster_sizes / cluster_sizes.max()).round(2) > 0.8)) == 1):
-                biggest_cluster_center = points_pool[wishart.labels_ == cluster_labels[cluster_sizes.argmax()]].mean()
+                    np.count_nonzero(((cluster_sizes / cluster_sizes.max()).round(2) > 0.2)) == 1):
+                biggest_cluster_center = points_pool[dbs.labels_ == cluster_labels[cluster_sizes.argmax()]].mean()
 
                 affiliation_result = count_elements_sorted(
-                    affiliation_indexes[wishart.labels_ == cluster_labels[cluster_sizes.argmax()]],
+                    affiliation_indexes[dbs.labels_ == cluster_labels[cluster_sizes.argmax()]],
                     range(self.ts_number))
                 result = biggest_cluster_center
             else:

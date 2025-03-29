@@ -22,7 +22,7 @@ def main():
     size = 10000
     deviation = float(sys.argv[1])
     rmses, np_points, mean_affiliation,mape = process_deviation(deviation, shares, size)
-    with open(f"/home/ikvasilev/fast_epsilon_counter/rmses_np_points_affiliation_final_.txt", "a") as f:
+    with open(f"/home/ikvasilev/fast_epsilon_counter/rmses_np_points_affiliation_final_dbs.txt", "a") as f:
         f.write(str(deviation) + "," + str(size) + "," + str(rmses) + "," + str(np_points) + "," + str(mape) + "," + str(mean_affiliation) + "\n")
 
 

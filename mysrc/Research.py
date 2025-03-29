@@ -47,9 +47,9 @@ def pull_handler(gap_number, window_size,
     real_values = np.array(ts.values[window_index:window_index + window_size])
     pred_values = np.array(values[-window_size:])
     is_np_point = 1 if np.isnan(pred_values[-1]) else 0
-    # mask = ~np.isnan(real_values) & ~np.isnan(pred_values)
+    mask = ~np.isnan(real_values) & ~np.isnan(pred_values)
     # print(real_values,pred_values)
-    # print("res:",abs(real_values[mask]-pred_values[mask]).round(2))
+    print("res:",abs(real_values[mask]-pred_values[mask]).round(2))
     # print(affiliation_result)
 
     if len(affiliation_result) == 1:
