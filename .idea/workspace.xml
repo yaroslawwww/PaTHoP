@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="Важное обновление. Повышена читаемость кода, перенесен блок, который замедлял программу, добавлены метки на bash,пересмотрен метод считывания массива.">
+    <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="Забыл учесть, что надо в разные файлы с девиацией">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysrc/bash" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/bash" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -429,22 +428,6 @@
       <workItem from="1742478249098" duration="3220000" />
       <workItem from="1742511795431" duration="2331000" />
     </task>
-    <task id="LOCAL-00037" summary="fast">
-      <option name="closed" value="true" />
-      <created>1739511716980</created>
-      <option name="number" value="00037" />
-      <option name="presentableId" value="LOCAL-00037" />
-      <option name="project" value="LOCAL" />
-      <updated>1739511716980</updated>
-    </task>
-    <task id="LOCAL-00038" summary="ошибка в 10">
-      <option name="closed" value="true" />
-      <created>1739517082382</created>
-      <option name="number" value="00038" />
-      <option name="presentableId" value="LOCAL-00038" />
-      <option name="project" value="LOCAL" />
-      <updated>1739517082382</updated>
-    </task>
     <task id="LOCAL-00039" summary="ошибка в 10">
       <option name="closed" value="true" />
       <created>1739518056244</created>
@@ -821,7 +804,23 @@
       <option name="project" value="LOCAL" />
       <updated>1743234002493</updated>
     </task>
-    <option name="localTasksCounter" value="86" />
+    <task id="LOCAL-00086" summary="Убраны русские слова">
+      <option name="closed" value="true" />
+      <created>1743234731899</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1743234731900</updated>
+    </task>
+    <task id="LOCAL-00087" summary="Забыл учесть, что надо в разные файлы с девиацией">
+      <option name="closed" value="true" />
+      <created>1743234996611</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1743234996611</updated>
+    </task>
+    <option name="localTasksCounter" value="88" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -880,8 +879,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="hard count" />
-    <MESSAGE value="float ебаный" />
     <MESSAGE value="Исправил прогу" />
     <MESSAGE value="Нулевой случай" />
     <MESSAGE value="Нулевой случай + eps = 0.001 + gaps = 10" />
@@ -905,7 +902,9 @@
     <MESSAGE value="floatы" />
     <MESSAGE value="Что-то читаемое" />
     <MESSAGE value="Важное обновление. Повышена читаемость кода, перенесен блок, который замедлял программу, добавлены метки на bash,пересмотрен метод считывания массива." />
-    <option name="LAST_COMMIT_MESSAGE" value="Важное обновление. Повышена читаемость кода, перенесен блок, который замедлял программу, добавлены метки на bash,пересмотрен метод считывания массива." />
+    <MESSAGE value="Убраны русские слова" />
+    <MESSAGE value="Забыл учесть, что надо в разные файлы с девиацией" />
+    <option name="LAST_COMMIT_MESSAGE" value="Забыл учесть, что надо в разные файлы с девиацией" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
