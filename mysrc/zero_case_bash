@@ -6,14 +6,11 @@
 source /home/ikvasilev/my_env/bin/activate
 
 
-
-# Проверка наличия параметра
 if [ -z "$1" ]; then
-    echo "Ошибка: Параметр не предоставлен."
+    echo ""
     exit 1
 fi
 
-# Обновляем имя задачи с использованием переданного параметра
 scontrol update job=$SLURM_JOB_ID JobName="zero_case_prediction_$1"
 
 python ./zero_case_main.py $1
