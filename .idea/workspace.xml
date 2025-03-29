@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="Забыл учесть, что надо в разные файлы с девиацией">
+    <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="Не знал, как работает np.savez">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -428,14 +428,6 @@
       <workItem from="1742478249098" duration="3220000" />
       <workItem from="1742511795431" duration="2331000" />
     </task>
-    <task id="LOCAL-00039" summary="ошибка в 10">
-      <option name="closed" value="true" />
-      <created>1739518056244</created>
-      <option name="number" value="00039" />
-      <option name="presentableId" value="LOCAL-00039" />
-      <option name="project" value="LOCAL" />
-      <updated>1739518056244</updated>
-    </task>
     <task id="LOCAL-00040" summary="ошибка в 10">
       <option name="closed" value="true" />
       <created>1739518431413</created>
@@ -820,7 +812,15 @@
       <option name="project" value="LOCAL" />
       <updated>1743234996611</updated>
     </task>
-    <option name="localTasksCounter" value="88" />
+    <task id="LOCAL-00088" summary="Не знал, как работает np.savez">
+      <option name="closed" value="true" />
+      <created>1743235955872</created>
+      <option name="number" value="00088" />
+      <option name="presentableId" value="LOCAL-00088" />
+      <option name="project" value="LOCAL" />
+      <updated>1743235955872</updated>
+    </task>
+    <option name="localTasksCounter" value="89" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -879,7 +879,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Исправил прогу" />
     <MESSAGE value="Нулевой случай" />
     <MESSAGE value="Нулевой случай + eps = 0.001 + gaps = 10" />
     <MESSAGE value="Тест для успешной работы" />
@@ -904,7 +903,8 @@
     <MESSAGE value="Важное обновление. Повышена читаемость кода, перенесен блок, который замедлял программу, добавлены метки на bash,пересмотрен метод считывания массива." />
     <MESSAGE value="Убраны русские слова" />
     <MESSAGE value="Забыл учесть, что надо в разные файлы с девиацией" />
-    <option name="LAST_COMMIT_MESSAGE" value="Забыл учесть, что надо в разные файлы с девиацией" />
+    <MESSAGE value="Не знал, как работает np.savez" />
+    <option name="LAST_COMMIT_MESSAGE" value="Не знал, как работает np.savez" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
