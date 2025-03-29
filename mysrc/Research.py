@@ -1,4 +1,5 @@
 # coding: utf-8
+import sys
 
 from Predictions import *
 import numpy as np
@@ -45,35 +46,29 @@ def pull_handler(gap_number, window_size,
     fort, values, affiliation_result = ts_processor.pull(ts, window_index, window_size, epsilon)
     real_values = np.array(ts.values[window_index:window_index + window_size])
     pred_values = np.array(values[-window_size:])
-    is_np_point = 1 if np.isnan(pred_values[-1]) else 0
+    # is_np_point = 1 if np.isnan(pred_values[-1]) else 0
     # mask = ~np.isnan(real_values) & ~np.isnan(pred_values)
     # print(real_values,pred_values)
     # print("res:",abs(real_values[mask]-pred_values[mask]).round(2))
     # print(affiliation_result)
-    global deviation
-    np.savez(
-        f'/home/ikvasilev/fast_epsilon_counter/data{deviation}.npz',
-        pred=pred_values,
-        real=real_values
-    )
-    if len(affiliation_result) == 1:
-        # случай когда 1 ряд
-        return pred_values[-1], is_np_point, 0, real_values[-1]
-    elif np.isnan(affiliation_result[1]):
-        return pred_values[-1], is_np_point, np.NaN, real_values[-1]
-    elif np.isnan(affiliation_result[0]):
-        return pred_values[-1], is_np_point, np.NaN, real_values[-1]
-    else:
-        return pred_values[-1], is_np_point, affiliation_result[1] / (affiliation_result[0] + affiliation_result[1]), \
-        real_values[-1]
+
+    # if len(affiliation_result) == 1:
+    #     # случай когда 1 ряд
+    #     return pred_values[-1], is_np_point, 0, real_values[-1]
+    # elif np.isnan(affiliation_result[1]):
+    #     return pred_values[-1], is_np_point, np.NaN, real_values[-1]
+    # elif np.isnan(affiliation_result[0]):
+    #     return pred_values[-1], is_np_point, np.NaN, real_values[-1]
+    # else:
+    #     return pred_values[-1], is_np_point, affiliation_result[1] / (affiliation_result[0] + affiliation_result[1]), \
+    #     real_values[-1]
+    return pred_values,real_values
 
 
 def parallel_research(r_values=None, ts_size=None, gap_number=0, test_size_constant=50, dt=0.01, epsilon=0.01,
                       template_length_constant=4,
                       template_spread_constant=4):
     pred_points_values = []
-    is_np_points = []
-    affiliations_list = []
     real_points_values = []
     list_ts = []
     for i, r in enumerate(r_values):
@@ -86,10 +81,12 @@ def parallel_research(r_values=None, ts_size=None, gap_number=0, test_size_const
     with ProcessPoolExecutor() as executor:
         futures = [executor.submit(pull_handler, gap, test_size_constant, epsilon, list_ts[0], tsproc)
                    for gap in range(gap_number)]
-        # for future in futures:
-        #     result = future.result()
-        #     if result is not None and len(result) > 0:
-        #         pred_points_values.append(result[0])
-        #         is_np_points.append(result[1])
-        #         affiliations_list.append(result[2])
-        #         real_points_values.append(result[3])
+        for future in futures:
+            result = future.result()
+            if result is not None and len(result) > 0:
+                pred_points_values.append(result[0])
+                real_points_values.append(result[1])
+    np.savez(f'/home/ikvasilev/fast_epsilon_counter/final_result_{float(sys.argv[1])}.npz',
+        pred=np.array(pred_points_values),
+        real=np.array(real_points_values)
+             )
