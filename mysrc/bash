@@ -1,17 +1,15 @@
 #!/bin/bash
-#SBATCH --job-name=prediction  # Временное имя, будет обновлено
+#SBATCH --job-name=prediction
 #SBATCH -c 1
 #SBATCH --time=72:00:00
 #SBATCH --output=/home/ikvasilev/logs/prediction_multiple_ts_1_%j.log
 source /home/ikvasilev/my_env/bin/activate
 
-# Проверка наличия параметра
 if [ -z "$1" ]; then
-    echo "Ошибка: Параметр не предоставлен."
+    echo "huy"
     exit 1
 fi
 
-# Обновляем имя задачи с использованием переданного параметра
 scontrol update job=$SLURM_JOB_ID JobName="prediction_$1"
 
 python ./main.py $1
