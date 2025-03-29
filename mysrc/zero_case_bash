@@ -4,5 +4,16 @@
 #SBATCH --time=72:00:00
 #SBATCH --output=/home/ikvasilev/logs/prediction_multiple_ts_1_%j.log
 source /home/ikvasilev/my_env/bin/activate
-python ./zero_case_main.py $1
 
+
+
+# Проверка наличия параметра
+if [ -z "$1" ]; then
+    echo "Ошибка: Параметр не предоставлен."
+    exit 1
+fi
+
+# Обновляем имя задачи с использованием переданного параметра
+scontrol update job=$SLURM_JOB_ID JobName="zero_case_prediction_$1"
+
+python ./zero_case_main.py $1
