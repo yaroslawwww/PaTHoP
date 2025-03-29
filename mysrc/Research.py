@@ -50,8 +50,9 @@ def pull_handler(gap_number, window_size,
     # print(real_values,pred_values)
     # print("res:",abs(real_values[mask]-pred_values[mask]).round(2))
     # print(affiliation_result)
+    global deviation
     np.savez(
-        '/home/ikvasilev/fast_epsilon_counter/data.npz',
+        f'/home/ikvasilev/fast_epsilon_counter/data{deviation}.npz',
         pred=pred_values,
         real=real_values
     )
