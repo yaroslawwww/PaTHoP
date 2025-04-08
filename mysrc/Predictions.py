@@ -151,7 +151,7 @@ class TSProcessor:
             test_vectors = values[:size_of_series + step][observation_indexes]
             distance_matrix = calc_distance_matrix(test_vectors, train_vectors)
             distance_mask = distance_matrix < eps
-            points = train_vectors[distance_mask][:, -1]
+            points = train_vectors[distance_mask]
             affiliation_indexes = affiliation_vectors[distance_mask][:, -1]
             forecast_point, affiliation_step_result = self.freeze_point(points, 'cl', affiliation_indexes)
             affiliation_result.append(affiliation_step_result)
@@ -179,12 +179,12 @@ class TSProcessor:
                 wishart = Wishart(k=len(points_pool), mu=0.45)
             else:
                 wishart = Wishart(k=self.k, mu=self.mu)
-            wishart.fit(points_pool.reshape(-1, 1))
+            wishart.fit(points_pool)
             # print(np.unique(points_pool,return_counts=True))
             cluster_labels, cluster_sizes = np.unique(wishart.labels_[wishart.labels_ > -1], return_counts=True)
             if cluster_labels.size > 0 and (
                     np.count_nonzero(((cluster_sizes / cluster_sizes.max()).round(2) > 0.8)) == 1):
-                biggest_cluster_center = points_pool[wishart.labels_ == cluster_labels[cluster_sizes.argmax()]].mean()
+                biggest_cluster_center = points_pool[wishart.labels_ == cluster_labels[cluster_sizes.argmax()]][:,-1].mean()
 
                 affiliation_result = count_elements_sorted(
                     affiliation_indexes[wishart.labels_ == cluster_labels[cluster_sizes.argmax()]],
