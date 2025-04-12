@@ -1,5 +1,5 @@
 # coding: utf-8
-from WishartClusterizationAlgorithm import Wishart
+from WishartClusterizationAlgorithm import WishartGPU as Wishart
 # coding: utf-8
 from TimeSeries import TimeSeries
 import numpy as np

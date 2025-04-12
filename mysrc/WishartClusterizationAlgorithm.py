@@ -7,102 +7,102 @@ from math import gamma
 import numpy as np
 from scipy.spatial.distance import squareform, pdist
 from QuickSelect import QuickSelect
-
+import cupy as cp
+from cupyx.scipy.spatial.distance import cdist
+from itertools import product
+from collections import defaultdict
+import math
 
 def volume(radius, dim):
     return np.pi ** (dim / 2) * radius ** dim / gamma(dim / 2 + 1)
 
 
-class Wishart:
+class WishartGPU:
     def __init__(self, k, mu):
         self.k, self.mu = k, mu
         self.labels_ = None
-        self.distances = None
-        self.clusters_ = None
         self.clusters_centers_ = None
         self.center = None
-    def significant(self, cluster, significance_values_of_point):
-        max_diff = max(abs(significance_values_of_point[i] - significance_values_of_point[j]) for i, j in
-                       product(cluster, cluster))
-        return max_diff >= self.mu
 
-    def merge(self, first_cl, second_cl, clusters, labels):
-        for i in clusters[second_cl]:
-            labels[i] = first_cl
+    def significant(self, cluster_significances):
+        return cluster_significances.max() - cluster_significances.min() >= self.mu
+
+    def merge(self, target_label, source_label, labels):
+        mask = (labels == source_label)
+        labels[mask] = target_label
 
     def fit(self, x):
-        n = len(x)
-        x = np.array(x)
-        if isinstance(x[0], list):
-            dim = len(x[0])
-        else:
-            dim = 1
-        self.distances = squareform(pdist(x))
-        distances = copy.deepcopy(self.distances)
-        distances_to_k_nearest_neighbours = []
-        if len(distances) < self.k:
-            print("insufficient number of neighbors")
-            return
-        for i in range(n):
-            distances_to_k_nearest_neighbours.append(QuickSelect(distances[i], self.k))
-        #далее присутствует костыль без которого не работает решение(max)
-        significance_of_each_point = [self.k / (max(volume(distances_to_k_nearest_neighbours[i], dim),0.000000001) * n) for i in
-                                      range(n)]
-        labels = [0] * n
+        x_gpu = cp.asarray(x)  # Перенос данных на GPU
+        n, dim = x_gpu.shape
+        labels = cp.zeros(n, dtype=int)
         completed = {0: False}
-        number_of_clusters = 1
-        vertices = set()
-        for d, i in sorted(zip(distances_to_k_nearest_neighbours, range(n))):
-            neighbours = set()
-            neighbour_labels = set()
-            clusters = defaultdict(list)
-            for j in vertices:
-                if self.distances[i][j] <= distances_to_k_nearest_neighbours[i]:
-                    neighbours.add(j)
-                    neighbour_labels.add(labels[j])
-                    clusters[labels[j]].append(j)
-            vertices.add(i)
-            if len(neighbours) == 0:
-                labels[i] = number_of_clusters
-                completed[number_of_clusters] = False
-                number_of_clusters += 1
+        cluster_counter = 1
+
+        # 1. Вычисление k-расстояний на GPU
+        pairwise_dist = cdist(x_gpu, x_gpu, 'euclidean')
+        cp.fill_diagonal(pairwise_dist, cp.inf)
+        k_distances = cp.partition(pairwise_dist, self.k, axis=1)[:, self.k]
+
+        # 2. Вычисление значимостей
+        significance_values = self.k / (cp.maximum(
+            cp.array([volume(r, dim) for r in k_distances.get()]), 1e-10) * n)
+
+        # 3. Сортировка индексов по k-distance
+        processed_order = cp.argsort(k_distances).get()
+
+        # 4. Основной цикл обработки (частично на CPU)
+        for i in processed_order:
+            neighbors = cp.where(pairwise_dist[i] <= k_distances[i])[0].get()
+            neighbors = neighbors[neighbors != i]
+
+            if len(neighbors) == 0:
+                labels[i] = cluster_counter
+                completed[cluster_counter] = False
+                cluster_counter += 1
                 continue
-            if len(neighbour_labels) == 1:
-                cluster = next(iter(neighbour_labels))
-                if completed[cluster]:
-                    labels[i] = 0
-                else:
-                    labels[i] = cluster
+
+            neighbor_labels = cp.unique(labels[neighbors]).get().tolist()
+            neighbor_labels = [l for l in neighbor_labels if l != 0]
+
+            if not neighbor_labels:
                 continue
-            if all(completed[wj] for wj in neighbour_labels):
+
+            if all(completed.get(l, False) for l in neighbor_labels):
                 labels[i] = 0
                 continue
-            significant_clusters = set(cluster for cluster in neighbour_labels if
-                                       self.significant(clusters[cluster], significance_of_each_point))
+
+            # 5. Проверка значимости кластеров
+            significant_clusters = []
+            for l in neighbor_labels:
+                mask = (labels == l) & (pairwise_dist[i] <= k_distances[i])
+                if cp.sum(mask) > 0:
+                    cluster_sig = significance_values[cp.where(mask)]
+                    if self.significant(cluster_sig):
+                        significant_clusters.append(l)
+
             if len(significant_clusters) > 1:
                 labels[i] = 0
-                for cluster in neighbour_labels:
-                    if cluster in significant_clusters:
-                        completed[cluster] = (cluster != 0)
-                    else:
-                        self.merge(0, cluster, clusters, labels)
+                for l in neighbor_labels:
+                    completed[l] = (l in significant_clusters)
                 continue
-            if len(significant_clusters) == 0:
-                most_suitable_cluster = next(iter(neighbour_labels))
-            else:
-                most_suitable_cluster = next(iter(significant_clusters))
-            labels[i] = most_suitable_cluster
-            for cluster in neighbour_labels:
-                self.merge(most_suitable_cluster, cluster, clusters, labels)
-        self.labels_ = np.array(labels)
-        self.clusters_ = defaultdict(list)
-        self.clusters_centers_ = defaultdict(list)
-        for i, label in enumerate(self.labels_):
-            self.clusters_[label].append(x[i])
-        for cl in self.clusters_.keys():
-            t = x[self.labels_ == cl]
-            self.clusters_centers_[cl] = x[self.labels_ == cl].mean(axis = 0)
-        self.center = x.mean(axis = 0)
+
+            target_label = min(neighbor_labels) if not significant_clusters else significant_clusters[0]
+            labels[i] = target_label
+
+            for l in neighbor_labels:
+                if l != target_label:
+                    self.merge(target_label, l, labels)
+
+        # Перенос результатов обратно на CPU
+        self.labels_ = labels.get()
+        unique_labels = cp.unique(labels).get()
+
+        self.clusters_centers_ = {}
+        x_cpu = x_gpu.get()
+        for l in unique_labels:
+            self.clusters_centers_[int(l)] = x_cpu[self.labels_ == l].mean(axis=0)
+
+        self.center = x_cpu.mean(axis=0)
         return self
 
 #Test Wishart
