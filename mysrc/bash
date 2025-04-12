@@ -12,4 +12,4 @@ fi
 
 scontrol update job=$SLURM_JOB_ID JobName="prediction_$1"
 
-python ./main.py $1
+python ./main.py $1 $2 $3 $4 $5

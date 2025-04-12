@@ -8,10 +8,10 @@ epsilon=$lower_bound
 prediction_size = 10
 general_size = 10000
 
+sbatch ./bash 0 $prediction_size $general_size 1 0
 
 for i in $(seq 1 $num_iterations); do
   sbatch ./bash $epsilon $prediction_size $general_size 0.5 0.5
   epsilon=$(echo "scale=10; $epsilon + $step" | bc)
 done
 
-sbatch ./bash 0 $prediction_size $general_size 1 0
