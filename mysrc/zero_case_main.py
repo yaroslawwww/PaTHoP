@@ -14,7 +14,7 @@ def process_deviation(deviation, shares, size):
     result = parallel_research(r_values=[28, 28, 28 + deviation],
                                ts_size=(np.array([np.array(shares)[0] * size + 1250] + list(np.array(shares) * size))).astype(np.uint64),
                                gap_number=1000,
-                               test_size_constant=50)
+                               test_size_constant=10)
     return result[0], result[1], result[2],result[3]
 
 def main():

@@ -1,5 +1,7 @@
 # coding: utf-8
-from WishartClusterizationAlgorithm import WishartGPU as Wishart
+from sklearn.cluster import DBSCAN
+
+from WishartClusterizationAlgorithm import Wishart
 # coding: utf-8
 from TimeSeries import TimeSeries
 import numpy as np
@@ -118,16 +120,22 @@ class TSProcessor:
         self.templates_ = None
         self.time_series_ = None
         self.k, self.mu = k, mu
-
+        self.motivs = None
     def fit(self, time_series_list, template_length,
             max_template_spread):
         self.templates_ = Templates(template_length, max_template_spread)
         self.templates_.create_train_set(time_series_list)
         self.ts_number = len(time_series_list)
         wishart = Wishart(k=self.k, mu=self.mu)
-        wishart.fit(np.hstack(self.templates_.train_set))
-        for i, motiv in enumerate(np.hstack(self.templates_.train_set)):
-            print(motiv,wishart.labels_[i])
+        train_set = self.templates_.train_set
+        z_vectors = train_set.reshape(-1,train_set.shape[2])
+        z_vectors = z_vectors[~np.isinf(z_vectors).any(axis=1)]
+        wishart.fit(z_vectors)
+        cluster_labels, cluster_sizes = np.unique(wishart.labels_[wishart.labels_ > -1], return_counts=True)
+        motivs = [z_vectors[wishart.labels_ == i].mean(axis = 0) for i in cluster_labels]
+        self.motivs = np.array(motivs).reshape(1,len(motivs),len(motivs[0]))
+        # for i in cluster_labels:
+            # print(z_vectors[wishart.labels_ == i].mean(axis = 0))
     def pull(self, time_series, window_index, test_size, eps):
         self.time_series_ = time_series
         self.time_series_.split_train_val_test(window_index, test_size)
@@ -139,61 +147,63 @@ class TSProcessor:
         values.resize(size_of_series + steps)
         values[-steps:] = np.nan
         forecast_trajectories = np.full((steps, 1), np.nan)
-        x_dim, y_dim, z_dim = self.templates_.train_set.shape
+        x_dim, y_dim, z_dim = self.motivs.shape
         vectors_continuation = np.full([x_dim, steps, z_dim], fill_value=np.inf)
         affiliation_continuation = np.full([x_dim, steps, z_dim], fill_value=0)
-        train_vectors = np.hstack([self.templates_.train_set, vectors_continuation])
+        train_vectors = np.hstack([self.motivs, vectors_continuation])
         # Мы создаем параллельно с обучающими векторами вектора,
         # которые имеют ту же форму и заполнены числами, равными номеру ряда,
         # по которому был получен обучающий вектор.
         # По ним можно определить принадлежность тому или иному ряду.
-        affiliation_vectors = np.hstack([self.templates_.affiliation_matrix, affiliation_continuation])
+        # affiliation_vectors = np.hstack([self.templates_.affiliation_matrix, affiliation_continuation])
         observation_indexes = self.templates_.observation_indexes
-        affiliation_result = []
+        # affiliation_result = []
         for step in range(steps):
             test_vectors = values[:size_of_series + step][observation_indexes]
             distance_matrix = calc_distance_matrix(test_vectors, train_vectors)
             distance_mask = distance_matrix < eps
             points = train_vectors[distance_mask]
-            affiliation_indexes = affiliation_vectors[distance_mask][:, -1]
-            forecast_point, affiliation_step_result = self.freeze_point(points, 'cl', affiliation_indexes)
-            affiliation_result.append(affiliation_step_result)
+            # affiliation_indexes = affiliation_vectors[distance_mask][:, -1]
+            forecast_point, affiliation_step_result = self.freeze_point(points, 'cl')
+            # affiliation_result.append(affiliation_step_result)
             forecast_trajectories[step, 0] = forecast_point
             values[size_of_series + step] = forecast_point
-        changed_aff = np.array(affiliation_result)
-        if len(changed_aff) == 0:
-            return forecast_trajectories, values, np.full(self.ts_number, 0)
-        return forecast_trajectories, values, changed_aff[-1]
+        # changed_aff = np.array(affiliation_result)
+        # if len(changed_aff) == 0:
+        #     return forecast_trajectories, values, np.full(self.ts_number, 0)
+        return forecast_trajectories, values
 
-    def freeze_point(self, points_pool, how, affiliation_indexes):
+    def freeze_point(self, motivs_pool, how):
         result = None
         affiliation_result = np.full(self.ts_number, np.NaN)
-        if points_pool.size == 0:
+        if motivs_pool.size == 0:
             result = np.nan
             return result, affiliation_result
         if how == 'mean':
-            result = float(points_pool.mean())
+            result = float(motivs_pool.mean())
 
         elif how == 'mf':
-            points, counts = np.unique(points_pool, return_counts=True)
+            points, counts = np.unique(motivs_pool, return_counts=True)
             result = points[counts.argmax()]
         elif how == 'cl':
-            if len(points_pool) < self.k:
-                wishart = Wishart(k=len(points_pool), mu=0.45)
-            else:
-                wishart = Wishart(k=self.k, mu=self.mu)
-            wishart.fit(points_pool)
+            # if len(motivs_pool) < self.k:
+            #     dbs = Wishart(k=len(motivs_pool), mu=0.45)
+            # else:
+            #     dbs = Wishart(k=self.k, mu=self.mu)
+            dbs = DBSCAN(0.01,min_samples=17)
+            # print(motivs_pool)
+            dbs.fit(motivs_pool[:,-1])
             # print(np.unique(points_pool,return_counts=True))
-            cluster_labels, cluster_sizes = np.unique(wishart.labels_[wishart.labels_ > -1], return_counts=True)
+            cluster_labels, cluster_sizes = np.unique(dbs.labels_[dbs.labels_ > -1], return_counts=True)
             if cluster_labels.size > 0 and (
                     np.count_nonzero(((cluster_sizes / cluster_sizes.max()).round(2) > 0.8)) == 1):
 
-                mask = (wishart.labels_ == cluster_labels[cluster_sizes.argmax()]) & (affiliation_indexes == 0)
-                biggest_cluster_center = points_pool[mask][:,-1].mean()
+                mask = (dbs.labels_ == cluster_labels[cluster_sizes.argmax()])
+                biggest_cluster_center = motivs_pool[mask].mean()
 
-                affiliation_result = count_elements_sorted(
-                    affiliation_indexes[wishart.labels_ == cluster_labels[cluster_sizes.argmax()]],
-                    range(self.ts_number))
+                # affiliation_result = count_elements_sorted(
+                #     affiliation_indexes[wishart.labels_ == cluster_labels[cluster_sizes.argmax()]],
+                #     range(self.ts_number))
                 result = biggest_cluster_center
             else:
                 result = np.nan
