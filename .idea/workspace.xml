@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="Не знал, как работает np.savez">
+    <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="Рабочая версия алгоритма с кластеризацией z-векторов до мотивов.Полезно добавить сохранение результатов фиттингa в файл, чтобы затем его загружать.Надо проверить корректность алгоритма Вишарта по сравнению с прошлыми версиями(я его переписал с помощью deepseek, и он стал работать быстрее).">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysrc/Predictions.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/Predictions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysrc/Research.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/Research.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysrc/WishartClusterizationAlgorithm.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/WishartClusterizationAlgorithm.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,34 +82,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.GetSeries.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Patterns.executor&quot;: &quot;Debug&quot;,
-    &quot;Python.Predictions.executor&quot;: &quot;Debug&quot;,
-    &quot;Python.QuickSelect.executor&quot;: &quot;Run&quot;,
-    &quot;Python.TimeSeries.executor&quot;: &quot;Run&quot;,
-    &quot;Python.WishartClusterizationAlgorithm.executor&quot;: &quot;Debug&quot;,
-    &quot;Python.dtw.executor&quot;: &quot;Run&quot;,
-    &quot;Python.interactiveshell.executor&quot;: &quot;Debug&quot;,
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;Python.theory.executor&quot;: &quot;Run&quot;,
-    &quot;Python.thery.executor&quot;: &quot;Run&quot;,
-    &quot;Python.wisharp.executor&quot;: &quot;Run&quot;,
-    &quot;Python.zero_case_main.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/media/yarik/NewDisk2/nesuper&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;debugger.dataViews.python.type.renderers&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.GetSeries.executor": "Run",
+    "Python.Patterns.executor": "Debug",
+    "Python.Predictions.executor": "Debug",
+    "Python.QuickSelect.executor": "Run",
+    "Python.TimeSeries.executor": "Run",
+    "Python.WishartClusterizationAlgorithm.executor": "Run",
+    "Python.dtw.executor": "Run",
+    "Python.interactiveshell.executor": "Debug",
+    "Python.main.executor": "Run",
+    "Python.theory.executor": "Run",
+    "Python.thery.executor": "Run",
+    "Python.wisharp.executor": "Run",
+    "Python.zero_case_main.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "gpu",
+    "last_opened_file_path": "/media/yarik/NewDisk2/git-rep/PaTHoP",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "debugger.dataViews.python.type.renderers",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/mysrc" />
@@ -119,7 +118,7 @@
       <recent name="$PROJECT_DIR$/mysrc" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.zero_case_main">
+  <component name="RunManager">
     <configuration name="dtw" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Prediction_after_the_horizont_of_predictability" />
       <option name="ENV_FILES" value="" />
@@ -158,7 +157,7 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/mysrc/main.py" />
-      <option name="PARAMETERS" value="1" />
+      <option name="PARAMETERS" value="0 10 10000 1 0" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -196,8 +195,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.zero_case_main" />
         <item itemvalue="Python.main" />
+        <item itemvalue="Python.zero_case_main" />
         <item itemvalue="Python.dtw" />
         <item itemvalue="Python.main" />
         <item itemvalue="Python.dtw" />
@@ -431,46 +430,9 @@
       <workItem from="1742475165817" duration="513000" />
       <workItem from="1742478249098" duration="3220000" />
       <workItem from="1742511795431" duration="2331000" />
-    </task>
-    <task id="LOCAL-00040" summary="ошибка в 10">
-      <option name="closed" value="true" />
-      <created>1739518431413</created>
-      <option name="number" value="00040" />
-      <option name="presentableId" value="LOCAL-00040" />
-      <option name="project" value="LOCAL" />
-      <updated>1739518431413</updated>
-    </task>
-    <task id="LOCAL-00041" summary="Пробный 3-х мерный график">
-      <option name="closed" value="true" />
-      <created>1739521207018</created>
-      <option name="number" value="00041" />
-      <option name="presentableId" value="LOCAL-00041" />
-      <option name="project" value="LOCAL" />
-      <updated>1739521207018</updated>
-    </task>
-    <task id="LOCAL-00042" summary="Удобство">
-      <option name="closed" value="true" />
-      <created>1739522701749</created>
-      <option name="number" value="00042" />
-      <option name="presentableId" value="LOCAL-00042" />
-      <option name="project" value="LOCAL" />
-      <updated>1739522701749</updated>
-    </task>
-    <task id="LOCAL-00043" summary="Добавление изучения принадлежности вероятных точек ряду">
-      <option name="closed" value="true" />
-      <created>1739963322216</created>
-      <option name="number" value="00043" />
-      <option name="presentableId" value="LOCAL-00043" />
-      <option name="project" value="LOCAL" />
-      <updated>1739963322216</updated>
-    </task>
-    <task id="LOCAL-00044" summary="Добавление изучения принадлежности вероятных точек ряду">
-      <option name="closed" value="true" />
-      <created>1740563766263</created>
-      <option name="number" value="00044" />
-      <option name="presentableId" value="LOCAL-00044" />
-      <option name="project" value="LOCAL" />
-      <updated>1740563766263</updated>
+      <workItem from="1744451320533" duration="2545000" />
+      <workItem from="1744460008956" duration="5789000" />
+      <workItem from="1744472068878" duration="12678000" />
     </task>
     <task id="LOCAL-00045" summary="hard count">
       <option name="closed" value="true" />
@@ -824,7 +786,47 @@
       <option name="project" value="LOCAL" />
       <updated>1743235955872</updated>
     </task>
-    <option name="localTasksCounter" value="89" />
+    <task id="LOCAL-00089" summary="Кластеризация z-векторов по громовски.">
+      <option name="closed" value="true" />
+      <created>1744451815385</created>
+      <option name="number" value="00089" />
+      <option name="presentableId" value="LOCAL-00089" />
+      <option name="project" value="LOCAL" />
+      <updated>1744451815385</updated>
+    </task>
+    <task id="LOCAL-00090" summary="Кластеризация z-векторов по громовски.">
+      <option name="closed" value="true" />
+      <created>1744455981484</created>
+      <option name="number" value="00090" />
+      <option name="presentableId" value="LOCAL-00090" />
+      <option name="project" value="LOCAL" />
+      <updated>1744455981484</updated>
+    </task>
+    <task id="LOCAL-00091" summary="Кластеризация z-векторов по громовски.">
+      <option name="closed" value="true" />
+      <created>1744466479936</created>
+      <option name="number" value="00091" />
+      <option name="presentableId" value="LOCAL-00091" />
+      <option name="project" value="LOCAL" />
+      <updated>1744466479937</updated>
+    </task>
+    <task id="LOCAL-00092" summary="save">
+      <option name="closed" value="true" />
+      <created>1744486240108</created>
+      <option name="number" value="00092" />
+      <option name="presentableId" value="LOCAL-00092" />
+      <option name="project" value="LOCAL" />
+      <updated>1744486240108</updated>
+    </task>
+    <task id="LOCAL-00093" summary="Рабочая версия алгоритма с кластеризацией z-векторов до мотивов.Полезно добавить сохранение результатов фиттингa в файл, чтобы затем его загружать.Надо проверить корректность алгоритма Вишарта по сравнению с прошлыми версиями(я его переписал с помощью deepseek, и он стал работать быстрее).">
+      <option name="closed" value="true" />
+      <created>1744486792918</created>
+      <option name="number" value="00093" />
+      <option name="presentableId" value="LOCAL-00093" />
+      <option name="project" value="LOCAL" />
+      <updated>1744486792918</updated>
+    </task>
+    <option name="localTasksCounter" value="94" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -864,28 +866,13 @@
         </entry>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="FILTERS">
-                <map>
-                  <entry key="branch">
-                    <value>
-                      <list>
-                        <option value="clusters_revision" />
-                      </list>
-                    </value>
-                  </entry>
-                </map>
-              </option>
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Нулевой случай + eps = 0.001 + gaps = 10" />
-    <MESSAGE value="Тест для успешной работы" />
-    <MESSAGE value="rmse with nan" />
     <MESSAGE value="final test" />
     <MESSAGE value="temp" />
     <MESSAGE value="Отдебаганная версия(epsilon = 0.001,gaps = 1000,window = 100)" />
@@ -908,7 +895,10 @@
     <MESSAGE value="Забыл учесть, что надо в разные файлы с девиацией" />
     <MESSAGE value="Не знал, как работает np.savez" />
     <MESSAGE value="Что-то с мотивами" />
-    <option name="LAST_COMMIT_MESSAGE" value="Что-то с мотивами" />
+    <MESSAGE value="Кластеризация z-векторов по громовски." />
+    <MESSAGE value="save" />
+    <MESSAGE value="Рабочая версия алгоритма с кластеризацией z-векторов до мотивов.Полезно добавить сохранение результатов фиттингa в файл, чтобы затем его загружать.Надо проверить корректность алгоритма Вишарта по сравнению с прошлыми версиями(я его переписал с помощью deepseek, и он стал работать быстрее)." />
+    <option name="LAST_COMMIT_MESSAGE" value="Рабочая версия алгоритма с кластеризацией z-векторов до мотивов.Полезно добавить сохранение результатов фиттингa в файл, чтобы затем его загружать.Надо проверить корректность алгоритма Вишарта по сравнению с прошлыми версиями(я его переписал с помощью deepseek, и он стал работать быстрее)." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -922,11 +912,6 @@
           <url>file://$PROJECT_DIR$/../../Громовское/IMOEX.csv (3)/x.py</url>
           <line>33</line>
           <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/mysrc/Predictions.py</url>
-          <line>187</line>
-          <option name="timeStamp" value="6" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -942,10 +927,13 @@
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Prediction_after_the_horizont_of_predictability$TimeSeries.coverage" NAME="TimeSeries Coverage Results" MODIFIED="1735118676582" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mysrc" />
     <SUITE FILE_PATH="coverage/Prediction_after_the_horizont_of_predictability$WishartClusterizationAlgorithm.coverage" NAME="WishartClusterizationAlgorithm Coverage Results" MODIFIED="1735124631016" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mysrc" />
+    <SUITE FILE_PATH="coverage/PaTHoP$WishartClusterizationAlgorithm.coverage" NAME="WishartClusterizationAlgorithm Coverage Results" MODIFIED="1744487229084" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mysrc" />
     <SUITE FILE_PATH="coverage/Prediction_after_the_horizont_of_predictability$zero_case_main.coverage" NAME="zero_case_main Coverage Results" MODIFIED="1744191636690" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mysrc" />
+    <SUITE FILE_PATH="coverage/PaTHoP$main.coverage" NAME="main Coverage Results" MODIFIED="1744486437453" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mysrc" />
     <SUITE FILE_PATH="coverage/Prediction_after_the_horizont_of_predictability$Patterns.coverage" NAME="Patterns Coverage Results" MODIFIED="1735131041810" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mysrc" />
     <SUITE FILE_PATH="coverage/Prediction_after_the_horizont_of_predictability$GetSeries.coverage" NAME="GetSeries Coverage Results" MODIFIED="1733228689504" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mysrc" />
     <SUITE FILE_PATH="coverage/Prediction_after_the_horizont_of_predictability$main.coverage" NAME="main Coverage Results" MODIFIED="1743233541420" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mysrc" />
+    <SUITE FILE_PATH="coverage/PaTHoP$zero_case_main.coverage" NAME="zero_case_main Coverage Results" MODIFIED="1744486420103" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mysrc" />
     <SUITE FILE_PATH="coverage/Prediction_after_the_horizont_of_predictability$theory.coverage" NAME="theory Coverage Results" MODIFIED="1738238377102" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/archive" />
     <SUITE FILE_PATH="coverage/Prediction_after_the_horizont_of_predictability$thery.coverage" NAME="thery Coverage Results" MODIFIED="1738237468438" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/archive" />
     <SUITE FILE_PATH="coverage/Prediction_after_the_horizont_of_predictability$QuickSelect.coverage" NAME="QuickSelect Coverage Results" MODIFIED="1733356586025" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mysrc" />

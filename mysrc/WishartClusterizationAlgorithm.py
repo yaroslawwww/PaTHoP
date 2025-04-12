@@ -5,141 +5,154 @@ from itertools import product
 from math import gamma
 
 import numpy as np
+import pandas as pd
 from scipy.spatial.distance import squareform, pdist
-from QuickSelect import QuickSelect
+from sklearn.neighbors import NearestNeighbors, BallTree
+from tqdm import tqdm
 
+from QuickSelect import QuickSelect
+# import cupy as cp
+# from cupyx.scipy.spatial.distance import cdist
+# from itertools import product
+from collections import defaultdict
+import math
 
 def volume(radius, dim):
     return np.pi ** (dim / 2) * radius ** dim / gamma(dim / 2 + 1)
+
+
+class UnionFind:
+    def __init__(self):
+        self.parent = {}
+
+    def find(self, x):
+        if x not in self.parent:
+            self.parent[x] = x
+        if self.parent[x] != x:
+            self.parent[x] = self.find(self.parent[x])
+        return self.parent[x]
+
+    def union(self, x, y):
+        fx = self.find(x)
+        fy = self.find(y)
+        if fx != fy:
+            self.parent[fy] = fx
 
 
 class Wishart:
     def __init__(self, k, mu):
         self.k, self.mu = k, mu
         self.labels_ = None
-        self.distances = None
-        self.clusters_ = None
         self.clusters_centers_ = None
         self.center = None
-    def significant(self, cluster, significance_values_of_point):
-        max_diff = max(abs(significance_values_of_point[i] - significance_values_of_point[j]) for i, j in
-                       product(cluster, cluster))
+
+    def significant(self, cluster_points_significances):
+        """Реализация как в Wishartprev: max разница между всеми парами точек."""
+        max_diff = 0
+        # Перебор всех пар точек в кластере
+        for i, j in product(cluster_points_significances, repeat=2):
+            diff = abs(i - j)
+            if diff > max_diff:
+                max_diff = diff
         return max_diff >= self.mu
 
-    def merge(self, first_cl, second_cl, clusters, labels):
-        for i in clusters[second_cl]:
-            labels[i] = first_cl
-
-    def fit(self, x):
-        n = len(x)
-        x = np.array(x)
-        if isinstance(x[0], list):
-            dim = len(x[0])
-        else:
-            dim = 1
-        self.distances = squareform(pdist(x))
-        distances = copy.deepcopy(self.distances)
-        distances_to_k_nearest_neighbours = []
-        if len(distances) < self.k:
-            print("insufficient number of neighbors")
-            return
-        for i in range(n):
-            distances_to_k_nearest_neighbours.append(QuickSelect(distances[i], self.k))
-        #далее присутствует костыль без которого не работает решение(max)
-        significance_of_each_point = [self.k / (max(volume(distances_to_k_nearest_neighbours[i], dim),0.000000001) * n) for i in
-                                      range(n)]
-        labels = [0] * n
+    def fit(self, z_vectors,tqdms = False):
+        z_vectors = np.asarray(z_vectors)
+        n, dim = z_vectors.shape
+        labels = np.zeros(n, dtype=int)
         completed = {0: False}
-        number_of_clusters = 1
-        vertices = set()
-        for d, i in sorted(zip(distances_to_k_nearest_neighbours, range(n))):
-            neighbours = set()
-            neighbour_labels = set()
-            clusters = defaultdict(list)
-            for j in vertices:
-                if self.distances[i][j] <= distances_to_k_nearest_neighbours[i]:
-                    neighbours.add(j)
-                    neighbour_labels.add(labels[j])
-                    clusters[labels[j]].append(j)
-            vertices.add(i)
-            if len(neighbours) == 0:
-                labels[i] = number_of_clusters
-                completed[number_of_clusters] = False
-                number_of_clusters += 1
+        cluster_counter = 1
+        uf = UnionFind()
+
+        # Compute k-distances using NearestNeighbors
+        knn = NearestNeighbors(n_neighbors=self.k + 1)
+        knn.fit(z_vectors)
+        k_distances = knn.kneighbors(z_vectors, return_distance=True)[0][:, self.k]
+
+        # Precompute significance values
+        r = k_distances
+        volumes = (np.pi ** (dim / 2) * r ** dim) / math.gamma(dim / 2 + 1)
+        significance_values = self.k / (volumes * n)
+
+        processed_order = np.argsort(k_distances)
+
+        # Build BallTree for range queries
+        tree = BallTree(z_vectors)
+        processed_order = tqdm(processed_order) if tqdms else processed_order
+        for i in processed_order:
+            xi = z_vectors[i:i + 1]
+            neighbors = tree.query_radius(xi, r=k_distances[i])[0]
+            neighbors = np.setdiff1d(neighbors, [i])  # Exclude self
+
+            neighbor_roots = set()
+            cluster_members = {}
+            for n in neighbors:
+                lbl = labels[n]
+                if lbl == 0:
+                    continue
+                root = uf.find(lbl)
+                neighbor_roots.add(root)
+                if root not in cluster_members:
+                    cluster_members[root] = []
+                cluster_members[root].append(n)
+
+            neighbor_roots = [r for r in neighbor_roots if not completed.get(r, False)]
+
+            if len(neighbor_roots) == 0:
+                new_label = cluster_counter
+                labels[i] = new_label
+                uf.union(new_label, new_label)  # Ensure parent exists
+                completed[new_label] = False
+                cluster_counter += 1
                 continue
-            if len(neighbour_labels) == 1:
-                cluster = next(iter(neighbour_labels))
-                if completed[cluster]:
-                    labels[i] = 0
-                else:
-                    labels[i] = cluster
+
+            if len(neighbor_roots) == 1:
+                target = neighbor_roots[0]
+                labels[i] = target
                 continue
-            if all(completed[wj] for wj in neighbour_labels):
-                labels[i] = 0
-                continue
-            significant_clusters = set(cluster for cluster in neighbour_labels if
-                                       self.significant(clusters[cluster], significance_of_each_point))
+
+            cluster_significances = {}
+            for root in neighbor_roots:
+                members = cluster_members[root]
+                if not members:
+                    continue
+                cluster_significances[root] = significance_values[members]
+
+            significant_clusters = [
+                r for r in cluster_significances
+                if self.significant(cluster_significances[r])
+            ]
+
             if len(significant_clusters) > 1:
                 labels[i] = 0
-                for cluster in neighbour_labels:
-                    if cluster in significant_clusters:
-                        completed[cluster] = (cluster != 0)
-                    else:
-                        self.merge(0, cluster, clusters, labels)
+                for r in significant_clusters:
+                    completed[r] = True
                 continue
-            if len(significant_clusters) == 0:
-                most_suitable_cluster = next(iter(neighbour_labels))
-            else:
-                most_suitable_cluster = next(iter(significant_clusters))
-            labels[i] = most_suitable_cluster
-            for cluster in neighbour_labels:
-                self.merge(most_suitable_cluster, cluster, clusters, labels)
-        self.labels_ = np.array(labels)
-        self.clusters_ = defaultdict(list)
-        self.clusters_centers_ = defaultdict(list)
-        for i, label in enumerate(self.labels_):
-            self.clusters_[label].append(x[i])
-        for cl in self.clusters_.keys():
-            t = x[self.labels_ == cl]
-            self.clusters_centers_[cl] = x[self.labels_ == cl].mean(axis = 0)
-        self.center = x.mean(axis = 0)
-        return self
 
-#Test Wishart
-# from sklearn.datasets import  make_blobs
-# # import matplotlib as plt
-# import seaborn as sns
-# X,y,centers = make_blobs(n_samples = 100,centers= 10,n_features=2,center_box=(2,100),shuffle=True,return_centers=True,random_state=666)
-# X = pd.DataFrame(data = X,columns=["x","y"])
-# X.head()
-# # plt.figure(figsize=(10,6))
-#
-# plt.rc('axes',labelsize = 20)
-# sns.scatterplot(data = X,x = 'x',y = 'y',hue = y,palette='rocket')
-# plt.scatter(centers[:,0],centers[:,1],s=50,c='g',marker = 'o')
-# plt.title('Clusters Visualization')
-# plt.xlabel('X axis')
-# plt.ylabel('Y axis')
-# plt.legend()
-# plt.show()
-# wishart = Wishart(k = 4,mu = 0.2)
-# x_list = X.values.tolist()
-# # print(x_list)
-# wishart.fit(x_list)
-# print(wishart.labels_)
-# clusters = wishart.labels_
-# cluster_centers = wishart.clusters_centers_
-# print(cluster_centers)
-# from matplotlib import colormaps
-# unique_clusters = set(clusters)
-# colors = plt.get_cmap('plasma', len(unique_clusters))
-# for cluster in unique_clusters:
-#     cluster_points = X[clusters == cluster]
-#     plt.scatter(cluster_points['x'], cluster_points['y'],
-#                 color=colors(cluster), label=f'Cluster {cluster}')
-#     plt.scatter(cluster_centers[cluster][0],cluster_centers[cluster][1],color = 'green')
-# plt.title('Clusters Visualization')
-# plt.xlabel('X axis')
-# plt.ylabel('Y axis')
-# plt.legend()
-# plt.show()
+            if significant_clusters:
+                target = significant_clusters[0]
+            else:
+                target = min(neighbor_roots, key=lambda r: np.mean(z_vectors[labels == r], axis=0).sum())
+
+            labels[i] = target
+            for r in neighbor_roots:
+                if r != target:
+                    uf.union(target, r)
+
+        # Resolve final labels using union-find
+        for i in range(n):
+            if labels[i] != 0:
+                labels[i] = uf.find(labels[i])
+
+        # Update cluster centers and labels
+        unique_labels = np.unique(labels)
+        self.clusters_centers_ = {}
+        for l in unique_labels:
+            if l == 0:
+                continue
+            mask = (labels == l)
+            self.clusters_centers_[l] = z_vectors[mask].mean(axis=0)
+
+        self.labels_ = labels
+        self.center = z_vectors.mean(axis=0)
+        return self
