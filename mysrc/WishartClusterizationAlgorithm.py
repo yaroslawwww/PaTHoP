@@ -48,7 +48,7 @@ class Wishart:
     def significant(self, cluster_significances):
         return max(cluster_significances) - min(cluster_significances) >= self.mu
 
-    def fit(self, z_vectors):
+    def fit(self, z_vectors,tqdms = False):
         z_vectors = np.asarray(z_vectors)
         n, dim = z_vectors.shape
         labels = np.zeros(n, dtype=int)
@@ -70,7 +70,7 @@ class Wishart:
 
         # Build BallTree for range queries
         tree = BallTree(z_vectors)
-
+        processed_order = tqdm(processed_order) if tqdms else processed_order
         for i in processed_order:
             xi = z_vectors[i:i + 1]
             neighbors = tree.query_radius(xi, r=k_distances[i])[0]
