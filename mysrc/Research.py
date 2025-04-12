@@ -47,17 +47,17 @@ def predict_handler(gap_number, window_size,
     real_values = np.array(ts.values[window_index:window_index + window_size])
     pred_values = np.array(values[-window_size:])
     is_np_point = 1 if np.isnan(pred_values[-1]) else 0
+    # Проверка результата предсказания на глаз
     mask = ~np.isnan(real_values) & ~np.isnan(pred_values)
     print("res:",abs(real_values[mask]-pred_values[mask]).round(2))
     return pred_values[-1], is_np_point, real_values[-1]
 
 
-def parallel_research(r_values=None, ts_size=None, gap_number=0, test_size_constant=50, dt=0.01, epsilon=0.01,
+def parallel_research(r_values, ts_size, how_many_gaps, test_size_constant, dt=0.01, epsilon=0.01,
                       template_length_constant=4,
                       template_spread_constant=10):
     pred_points_values = []
     is_np_points = []
-    affiliations_list = []
     real_points_values = []
     list_ts = []
     for i, r in enumerate(r_values):
@@ -67,10 +67,9 @@ def parallel_research(r_values=None, ts_size=None, gap_number=0, test_size_const
         list_ts.append(ts)
     tsproc = TSProcessor()
     tsproc.fit(list_ts[1:], template_length_constant, template_spread_constant)
-    # predict_handler(1, test_size_constant, epsilon, list_ts[0], tsproc)
-    with ProcessPoolExecutor(max_workers=1) as executor:
+    with ProcessPoolExecutor() as executor:
         futures = [executor.submit(predict_handler, gap, test_size_constant, epsilon, list_ts[0], tsproc)
-                   for gap in range(gap_number)]
+                   for gap in range(how_many_gaps)]
         for future in futures:
             result = future.result()
             if result is not None and len(result) > 0:

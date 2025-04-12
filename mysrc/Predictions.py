@@ -133,9 +133,8 @@ class TSProcessor:
             temp_z_v = z_vectors[template][inf_mask]
             wishart.fit(temp_z_v)
             cluster_labels, cluster_sizes = np.unique(wishart.labels_[wishart.labels_ > -1], return_counts=True)
-            motivs = [temp_z_v[wishart.labels_ == i].mean(axis = 0) for i in cluster_labels]
-            self.motifs[template] = np.array(motivs).reshape(-1, len(motivs[0]))
-            # print(self.motifs[template].shape)
+            motifs = [temp_z_v[wishart.labels_ == i].mean(axis = 0) for i in cluster_labels]
+            self.motifs[template] = np.array(motifs).reshape(-1, len(motifs[0]))
     def predict(self, time_series, window_index, test_size, eps):
         print("Predicting\n")
         self.time_series_ = time_series
