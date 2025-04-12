@@ -5,6 +5,7 @@ from itertools import product
 from math import gamma
 
 import numpy as np
+import pandas as pd
 from scipy.spatial.distance import squareform, pdist
 from sklearn.neighbors import NearestNeighbors, BallTree
 from tqdm import tqdm
@@ -45,8 +46,15 @@ class Wishart:
         self.clusters_centers_ = None
         self.center = None
 
-    def significant(self, cluster_significances):
-        return max(cluster_significances) - min(cluster_significances) >= self.mu
+    def significant(self, cluster_points_significances):
+        """Реализация как в Wishartprev: max разница между всеми парами точек."""
+        max_diff = 0
+        # Перебор всех пар точек в кластере
+        for i, j in product(cluster_points_significances, repeat=2):
+            diff = abs(i - j)
+            if diff > max_diff:
+                max_diff = diff
+        return max_diff >= self.mu
 
     def fit(self, z_vectors,tqdms = False):
         z_vectors = np.asarray(z_vectors)
@@ -108,13 +116,11 @@ class Wishart:
                 members = cluster_members[root]
                 if not members:
                     continue
-                sig_min = np.min(significance_values[members])
-                sig_max = np.max(significance_values[members])
-                cluster_significances[root] = (sig_min, sig_max)
+                cluster_significances[root] = significance_values[members]
 
             significant_clusters = [
                 r for r in cluster_significances
-                if (cluster_significances[r][1] - cluster_significances[r][0]) >= self.mu
+                if self.significant(cluster_significances[r])
             ]
 
             if len(significant_clusters) > 1:
@@ -150,42 +156,3 @@ class Wishart:
         self.labels_ = labels
         self.center = z_vectors.mean(axis=0)
         return self
-
-#Test Wishart
-# from sklearn.datasets import  make_blobs
-# # import matplotlib as plt
-# import seaborn as sns
-# X,y,centers = make_blobs(n_samples = 100,centers= 10,n_features=2,center_box=(2,100),shuffle=True,return_centers=True,random_state=666)
-# X = pd.DataFrame(data = X,columns=["x","y"])
-# X.head()
-# # plt.figure(figsize=(10,6))
-#
-# plt.rc('axes',labelsize = 20)
-# sns.scatterplot(data = X,x = 'x',y = 'y',hue = y,palette='rocket')
-# plt.scatter(centers[:,0],centers[:,1],s=50,c='g',marker = 'o')
-# plt.title('Clusters Visualization')
-# plt.xlabel('X axis')
-# plt.ylabel('Y axis')
-# plt.legend()
-# plt.show()
-# wishart = Wishart(k = 4,mu = 0.2)
-# x_list = X.values.tolist()
-# # print(x_list)
-# wishart.fit(x_list)
-# print(wishart.labels_)
-# clusters = wishart.labels_
-# cluster_centers = wishart.clusters_centers_
-# print(cluster_centers)
-# from matplotlib import colormaps
-# unique_clusters = set(clusters)
-# colors = plt.get_cmap('plasma', len(unique_clusters))
-# for cluster in unique_clusters:
-#     cluster_points = X[clusters == cluster]
-#     plt.scatter(cluster_points['x'], cluster_points['y'],
-#                 color=colors(cluster), label=f'Cluster {cluster}')
-#     plt.scatter(cluster_centers[cluster][0],cluster_centers[cluster][1],color = 'green')
-# plt.title('Clusters Visualization')
-# plt.xlabel('X axis')
-# plt.ylabel('Y axis')
-# plt.legend()
-# plt.show()
