@@ -124,7 +124,10 @@ class TSProcessor:
         self.templates_ = Templates(template_length, max_template_spread)
         self.templates_.create_train_set(time_series_list)
         self.ts_number = len(time_series_list)
-
+        wishart = Wishart(k=self.k, mu=self.mu)
+        wishart.fit(np.hstack(self.templates_.train_set))
+        for i, motiv in enumerate(np.hstack(self.templates_.train_set)):
+            print(motiv,wishart.labels_[i])
     def pull(self, time_series, window_index, test_size, eps):
         self.time_series_ = time_series
         self.time_series_.split_train_val_test(window_index, test_size)
