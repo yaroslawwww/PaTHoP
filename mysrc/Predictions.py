@@ -4,6 +4,7 @@ import sys
 
 from scipy.spatial.distance import cdist
 from sklearn.cluster import DBSCAN
+from sympy.physics.optics import deviation
 from tqdm import tqdm
 
 from WishartClusterizationAlgorithm import Wishart
@@ -13,7 +14,7 @@ import numpy as np
 
 
 class Templates:
-    def __init__(self, template_length, max_template_spread):
+    def __init__(self, template_length, max_template_spread,last_step_spread):
         self.train_set = None
         self.affiliation_matrix = None
         self.template_length = template_length
@@ -25,8 +26,10 @@ class Templates:
         for i in range(1, template_length):
             step_size = max_template_spread ** (template_length - i - 1)
             repeat_count = max_template_spread ** i
-
-            block = np.repeat(np.arange(1, max_template_spread + 1), step_size)
+            if i != template_length - 1:
+                block = np.repeat(np.arange(1, max_template_spread + 1), step_size)
+            else:
+                block = np.repeat(np.arange(1+last_step_spread, max_template_spread + 1 + last_step_spread), step_size)
             templates[:, i] = np.tile(block, repeat_count // max_template_spread) + templates[:, i - 1]
 
         self.templates = templates
@@ -122,7 +125,7 @@ class TSProcessor:
     def fit(self, time_series_list, template_length,
             max_template_spread):
         print("Fisting\n")
-        self.templates_ = Templates(template_length, max_template_spread)
+        self.templates_ = Templates(template_length, max_template_spread,100)
         self.templates_.create_train_set(time_series_list)
         self.ts_number = len(time_series_list)
         wishart = Wishart(k=self.k, mu=self.mu)
@@ -131,10 +134,28 @@ class TSProcessor:
         for template in tqdm(range(z_vectors.shape[0])):
             inf_mask = ~np.isinf(z_vectors[template]).any(axis=1)
             temp_z_v = z_vectors[template][inf_mask]
-            wishart.fit(temp_z_v)
-            cluster_labels, cluster_sizes = np.unique(wishart.labels_[wishart.labels_ > -1], return_counts=True)
-            motifs = [temp_z_v[wishart.labels_ == i].mean(axis = 0) for i in cluster_labels]
-            self.motifs[template] = np.array(motifs).reshape(-1, len(motifs[0]))
+            self.motifs[template] = np.array(temp_z_v).reshape(-1, len(temp_z_v[0]))
+        # file_path = f"saved_labels/{max_template_spread}_{sys.argv[1]}.npz"
+        # if os.path.exists(file_path):
+        #     save_labels = np.load(file_path)
+        #     for template in tqdm(range(z_vectors.shape[0])):
+        #         inf_mask = ~np.isinf(z_vectors[template]).any(axis=1)
+        #         temp_z_v = z_vectors[template][inf_mask]
+        #         wishart.labels_ = save_labels[f"arr_{template}"]
+        #         cluster_labels, cluster_sizes = np.unique(wishart.labels_[wishart.labels_ > -1], return_counts=True)
+        #         motifs = [temp_z_v[wishart.labels_ == i].mean(axis = 0) for i in cluster_labels]
+        #         self.motifs[template] = np.array(motifs).reshape(-1, len(motifs[0]))
+        # else:
+        #     save_labels = []
+        #     for template in tqdm(range(z_vectors.shape[0])):
+        #         inf_mask = ~np.isinf(z_vectors[template]).any(axis=1)
+        #         temp_z_v = z_vectors[template][inf_mask]
+        #         wishart.fit(temp_z_v)
+        #         cluster_labels, cluster_sizes = np.unique(wishart.labels_[wishart.labels_ > -1], return_counts=True)
+        #         save_labels.append(wishart.labels_)
+        #         motifs = [temp_z_v[wishart.labels_ == i].mean(axis = 0) for i in cluster_labels]
+        #         self.motifs[template] = np.array(motifs).reshape(-1, len(motifs[0]))
+        #     np.savez(file_path,*save_labels)
     def predict(self, time_series, window_index, test_size, eps):
         print("Predicting\n")
         self.time_series_ = time_series
@@ -147,10 +168,11 @@ class TSProcessor:
         values = np.array(values)
         forecast_trajectories = np.full((steps, 1), np.nan)
         observation_indexes = self.templates_.observation_indexes
-
-        for step in tqdm(range(steps)):
+        for step in [steps-1]:
             test_vectors = values[:size_of_series + step][observation_indexes]
+
             motifs_pool = []
+
             for template in self.motifs.keys():
                 train_truncated_vectors_template = self.motifs[template][:,:-1]
                 distance_matrix = calc_distance_matrix([test_vectors[template]], train_truncated_vectors_template)
@@ -158,6 +180,7 @@ class TSProcessor:
                 best_motifs = self.motifs[template][distance_mask]
                 motifs_pool.extend(best_motifs)
             motifs_pool = np.array(motifs_pool)
+            print(motifs_pool)
             forecast_point = self.freeze_point(motifs_pool)
             forecast_trajectories[step, 0] = forecast_point
             values[size_of_series + step] = forecast_point
@@ -168,11 +191,12 @@ class TSProcessor:
             result = np.nan
             return result
         points_pool = motifs_pool[:, -1].reshape(-1, 1)
-        dbs = DBSCAN(0.01,min_samples=4)
+        dbs = DBSCAN(0.01,min_samples=17)
         dbs.fit(points_pool)
         cluster_labels, cluster_sizes = np.unique(dbs.labels_[dbs.labels_ > -1], return_counts=True)
+        print(cluster_sizes)
         if cluster_labels.size > 0 and (
-                np.count_nonzero(((cluster_sizes / cluster_sizes.max()).round(2) > 0.8)) == 1):
+                np.count_nonzero(((cluster_sizes / cluster_sizes.max()).round(2) > 0.70)) == 1):
             mask = (dbs.labels_ == cluster_labels[cluster_sizes.argmax()])
             biggest_cluster_center = points_pool[mask].mean()
             result = biggest_cluster_center
