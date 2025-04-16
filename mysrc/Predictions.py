@@ -1,7 +1,9 @@
 # coding: utf-8
 import os.path
 import sys
+from collections import defaultdict
 
+from pygments.lexer import default
 from scipy.spatial.distance import cdist
 from sklearn.cluster import DBSCAN
 from tqdm import tqdm
@@ -66,34 +68,20 @@ class Templates:
 
         all_train_sets.append(individual_train_set)
 
-    def add_data_to_affiliation_matrix(self, data, affiliation_matrix, index):
-        x_dim = self.templates.shape[0]
-        y_dim = 0
-        for i in range(x_dim):
-            template_window = self.templates[i][-1]
-            y_dim = max(len(data) - template_window, y_dim)
-
-        z_dim = self.templates.shape[1]
-        affiliation_matrix.append(np.full((x_dim, y_dim, z_dim), index, dtype=int))
-
-    def create_train_set(self, time_series_list):
+    def create_train_set(self, time_series):
         all_train_sets = []  # Список для хранения train_set каждого временного ряда
-        affiliation_matrix = []
-        for i, time_series in enumerate(time_series_list):
-            if time_series.train is not None:
-                data = np.array(time_series.train)
-            else:
-                data = np.array(time_series.values)
+        if time_series.train is not None:
+            data = np.array(time_series.train)
+        else:
+            data = np.array(time_series.values)
 
-            self.add_data_to_train_set(data, all_train_sets)
-            self.add_data_to_affiliation_matrix(data, affiliation_matrix, i)
+        self.add_data_to_train_set(data, all_train_sets)
         if all_train_sets:
             self.train_set = np.concatenate(all_train_sets, axis=1)
-            self.affiliation_matrix = np.concatenate(affiliation_matrix, axis=1)
 
 
 def calc_distance_matrix(test_vectors, train_vectors):
-    return np.squeeze(cdist(test_vectors, train_vectors, 'euclidean'),axis = 0)
+    return np.squeeze(cdist(test_vectors, train_vectors, 'euclidean'), axis=0)
 
 
 def count_elements_sorted(arr, elements):
@@ -119,22 +107,61 @@ class TSProcessor:
         self.time_series_ = None
         self.k, self.mu = k, mu
         self.motifs = None
+        self.affiliation = None
+
     def fit(self, time_series_list, template_length,
             max_template_spread):
-        print("Fisting\n")
+        print("Fitting\n")
         self.templates_ = Templates(template_length, max_template_spread)
-        self.templates_.create_train_set(time_series_list)
-        self.ts_number = len(time_series_list)
         wishart = Wishart(k=self.k, mu=self.mu)
         self.motifs = dict()
-        z_vectors = self.templates_.train_set
-        for template in tqdm(range(z_vectors.shape[0])):
-            inf_mask = ~np.isinf(z_vectors[template]).any(axis=1)
-            temp_z_v = z_vectors[template][inf_mask]
-            wishart.fit(temp_z_v)
-            cluster_labels, cluster_sizes = np.unique(wishart.labels_[wishart.labels_ > -1], return_counts=True)
-            motifs = [temp_z_v[wishart.labels_ == i].mean(axis = 0) for i in cluster_labels]
-            self.motifs[template] = np.array(motifs).reshape(-1, len(motifs[0]))
+        self.affiliation = dict()
+        file_path = f"saved_labels/{max_template_spread}_{sys.argv[1]}.npz"
+        if os.path.exists(file_path):
+            save_labels = np.load(file_path)
+            for i, ts in enumerate(time_series_list):
+                self.templates_.create_train_set(ts)
+                z_vectors = self.templates_.train_set
+                for template in tqdm(range(z_vectors.shape[0])):
+                    inf_mask = ~np.isinf(z_vectors[template]).any(axis=1)
+                    temp_z_v = z_vectors[template][inf_mask]
+                    wishart.labels_ = save_labels[f"arr_{template}"]
+                    cluster_labels, cluster_sizes = np.unique(wishart.labels_[wishart.labels_ > -1], return_counts=True)
+                    motifs = [temp_z_v[wishart.labels_ == i].mean(axis=0) for i in cluster_labels]
+                    if template in self.motifs:
+                        self.motifs[template] += list(np.array(motifs).reshape(-1, len(motifs[0])))
+                    else:
+                        self.motifs[template] = list(np.array(motifs).reshape(-1, len(motifs[0])))
+                    if template in self.affiliation:
+                        self.affiliation[template] += list(np.full(fill_value=i, shape=len(np.array(motifs).reshape(-1, len(motifs[0])))))
+                    else:
+                        self.affiliation[template] = list(np.full(fill_value=i, shape=len(np.array(motifs).reshape(-1, len(motifs[0])))))
+        else:
+            save_labels = []
+            for i, ts in enumerate(time_series_list):
+                self.templates_.create_train_set(ts)
+                z_vectors = self.templates_.train_set
+                for template in tqdm(range(z_vectors.shape[0])):
+                    inf_mask = ~np.isinf(z_vectors[template]).any(axis=1)
+                    temp_z_v = z_vectors[template][inf_mask]
+                    wishart.fit(temp_z_v)
+                    cluster_labels, cluster_sizes = np.unique(wishart.labels_[wishart.labels_ > -1], return_counts=True)
+                    save_labels.append(wishart.labels_)
+                    motifs = [temp_z_v[wishart.labels_ == i].mean(axis=0) for i in cluster_labels]
+                    if template in self.motifs:
+                        self.motifs[template] += list(np.array(motifs).reshape(-1, len(motifs[0])))
+                    else:
+                        self.motifs[template] = list(np.array(motifs).reshape(-1, len(motifs[0])))
+                    if template in self.affiliation:
+                        self.affiliation[template] += list(np.full(fill_value=i, shape=len(np.array(motifs).reshape(-1, len(motifs[0])))))
+                    else:
+                        self.affiliation[template] = list(np.full(fill_value=i, shape=len(np.array(motifs).reshape(-1, len(motifs[0])))))
+
+            np.savez(file_path, *save_labels)
+        for template in self.motifs.keys():
+            self.motifs[template] = np.array(self.motifs[template])
+        for template in self.affiliation.keys():
+            self.affiliation[template] = np.array(self.affiliation[template])
     def predict(self, time_series, window_index, test_size, eps):
         print("Predicting\n")
         self.time_series_ = time_series
@@ -147,28 +174,35 @@ class TSProcessor:
         values = np.array(values)
         forecast_trajectories = np.full((steps, 1), np.nan)
         observation_indexes = self.templates_.observation_indexes
-
-        for step in tqdm(range(steps)):
+        mean_affil = 0
+        for step in range(steps):
             test_vectors = values[:size_of_series + step][observation_indexes]
             motifs_pool = []
+            motifs_affil = []
             for template in self.motifs.keys():
-                train_truncated_vectors_template = self.motifs[template][:,:-1]
+                train_truncated_vectors_template = np.array(self.motifs[template])[:, :-1]
                 distance_matrix = calc_distance_matrix([test_vectors[template]], train_truncated_vectors_template)
                 distance_mask = distance_matrix < eps
                 best_motifs = self.motifs[template][distance_mask]
                 motifs_pool.extend(best_motifs)
+                # print(distance_mask.shape)
+                # print(np.array(self.affiliation[template]).shape)
+                # print(self.affiliation[template])
+                motifs_affil.extend(self.affiliation[template][distance_mask])
             motifs_pool = np.array(motifs_pool)
             forecast_point = self.freeze_point(motifs_pool)
             forecast_trajectories[step, 0] = forecast_point
             values[size_of_series + step] = forecast_point
-        return forecast_trajectories, values
+            # print(motifs_affil)
+            mean_affil += np.mean(np.array(motifs_affil)) / steps if len(motifs_affil) > 0 else 0
+        return mean_affil, values
 
     def freeze_point(self, motifs_pool):
         if motifs_pool.size == 0:
             result = np.nan
             return result
         points_pool = motifs_pool[:, -1].reshape(-1, 1)
-        dbs = DBSCAN(0.01,min_samples=4)
+        dbs = DBSCAN(0.01, min_samples=4)
         dbs.fit(points_pool)
         cluster_labels, cluster_sizes = np.unique(dbs.labels_[dbs.labels_ > -1], return_counts=True)
         if cluster_labels.size > 0 and (
