@@ -4,7 +4,6 @@ import sys
 
 from scipy.spatial.distance import cdist
 from sklearn.cluster import DBSCAN
-from sympy.physics.optics import deviation
 from tqdm import tqdm
 
 from WishartClusterizationAlgorithm import Wishart
@@ -125,7 +124,7 @@ class TSProcessor:
     def fit(self, time_series_list, template_length,
             max_template_spread):
         print("Fisting\n")
-        self.templates_ = Templates(template_length, max_template_spread,100)
+        self.templates_ = Templates(template_length, max_template_spread,int(sys.argv[2]))
         self.templates_.create_train_set(time_series_list)
         self.ts_number = len(time_series_list)
         wishart = Wishart(k=self.k, mu=self.mu)
