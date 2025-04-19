@@ -5,11 +5,5 @@
 #SBATCH --output=/home/ikvasilev/logs/prediction_multiple_ts_1_%j.log
 source /home/ikvasilev/my_env/bin/activate
 
-if [ -z "$1" ]; then
-    echo "huy"
-    exit 1
-fi
 
-scontrol update job=$SLURM_JOB_ID JobName="prediction_$1"
-
-python ./main.py $1 $2 $3 $4 $5
+python ./main.py

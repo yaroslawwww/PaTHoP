@@ -1,4 +1,5 @@
 # coding: utf-8
+import random
 import sys
 
 from Predictions import *
@@ -18,7 +19,7 @@ def rmse(y_true, y_pred):
     y_pred_masked = y_pred[mask]
 
     if len(y_true_masked) == 0:
-        return np.nan
+        return 0
 
     mse = np.mean((y_true_masked - y_pred_masked) ** 2)
     return np.sqrt(mse)
@@ -32,7 +33,8 @@ def mape(y_true, y_pred):
     mask = ~np.isnan(y_true) & ~np.isnan(y_pred)
     y_true_masked = y_true[mask]
     y_pred_masked = y_pred[mask]
-
+    if len(y_true_masked) == 0:
+        return 0
     # Проверка на наличие нулей в y_true
     zero_mask = y_true_masked != 0
     if not np.any(zero_mask):
@@ -63,24 +65,19 @@ def predict_handler(gap_number, window_size,
     return pred_values[-1], is_np_point, real_values[-1]
 
 
-def parallel_research(r_values, ts_size, how_many_gaps, test_size_constant, dt=0.01, epsilon=0.007,
-                      template_length_constant=4,
-                      template_spread_constant=10):
+def validation(template_spread_constant,epsilon,threshold,dbs_neighboors,dbs_eps,window_size,dt=0.01):
+    ts_valid_test = TimeSeries("Lorentz", size=20000, r=28, dt=dt)
+    ts = TimeSeries("Lorentz", size=10000, r=28, dt=dt)
+    list_ts = [ts_valid_test,ts]
+    tsproc = TSProcessor(dbs_neighboors=dbs_neighboors,dbs_eps=dbs_eps,threshold=threshold)
+    tsproc.fit(list_ts[1:], 4, template_spread_constant,window_size)
+
     pred_points_values = []
     is_np_points = []
     real_points_values = []
-    list_ts = []
-    for i, r in enumerate(r_values):
-        if ts_size[i] == 0:
-            continue
-        ts = TimeSeries("Lorentz", size=ts_size[i], r=r, dt=dt)
-        list_ts.append(ts)
-    tsproc = TSProcessor()
-    tsproc.fit(list_ts[1:], template_length_constant, template_spread_constant)
-    # predict_handler(1, test_size_constant, epsilon, list_ts[0], tsproc)
     with ProcessPoolExecutor(max_workers=1) as executor:
-        futures = [executor.submit(predict_handler, gap, test_size_constant, epsilon, list_ts[0], tsproc)
-                   for gap in range(how_many_gaps)]
+        futures = [executor.submit(predict_handler, gap, window_size, epsilon, list_ts[0], tsproc)
+                   for gap in np.random.randint(1001,2000,size=100)]
         for future in futures:
             result = future.result()
             if result is not None and len(result) > 0:
@@ -88,3 +85,28 @@ def parallel_research(r_values, ts_size, how_many_gaps, test_size_constant, dt=0
                 is_np_points.append(result[1])
                 real_points_values.append(result[2])
     return rmse(pred_points_values, real_points_values), np.mean(is_np_points),mape(pred_points_values, real_points_values)
+# def parallel_research(r_values, ts_size, how_many_gaps, test_size_constant, dt=0.01, epsilon=0.007,
+#                       template_length_constant=4,
+#                       template_spread_constant=10):
+#     pred_points_values = []
+#     is_np_points = []
+#     real_points_values = []
+#     list_ts = []
+#     for i, r in enumerate(r_values):
+#         if ts_size[i] == 0:
+#             continue
+#         ts = TimeSeries("Lorentz", size=ts_size[i], r=r, dt=dt)
+#         list_ts.append(ts)
+#     tsproc = TSProcessor()
+#     tsproc.fit(list_ts[1:], template_length_constant, template_spread_constant)
+#     # predict_handler(1, test_size_constant, epsilon, list_ts[0], tsproc)
+#     with ProcessPoolExecutor(max_workers=1) as executor:
+#         futures = [executor.submit(predict_handler, gap, test_size_constant, epsilon, list_ts[0], tsproc)
+#                    for gap in range(how_many_gaps)]
+#         for future in futures:
+#             result = future.result()
+#             if result is not None and len(result) > 0:
+#                 pred_points_values.append(result[0])
+#                 is_np_points.append(result[1])
+#                 real_points_values.append(result[2])
+#     return rmse(pred_points_values, real_points_values), np.mean(is_np_points),mape(pred_points_values, real_points_values)
