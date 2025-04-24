@@ -1,5 +1,8 @@
 # coding: utf-8
+import json
+import subprocess
 import sys
+import time
 
 import numpy as np
 import optuna
@@ -11,39 +14,64 @@ from matplotlib import pyplot as plt
 import concurrent.futures
 
 
+def submit_slurm_job(epsilon, threshold, dbs_neighbours, dbs_eps, result_file):
+    sbatch_cmd = f"sbatch optuna_bash {epsilon} {threshold} {dbs_neighbours} {dbs_eps} {result_file}"
+    subprocess.run(sbatch_cmd, shell=True, check=True)
+
+def wait_for_result(result_file, timeout=50 * 60, check_interval=100):
+    start_time = time.time()
+    while time.time() - start_time < timeout:
+        if os.path.exists(result_file):
+            with open(result_file, 'r') as f:
+                result = json.load(f)
+            os.remove(result_file)  # Очистка
+            return result['metric']
+        time.sleep(check_interval)
+    raise optuna.TrialPruned("Timeout waiting for result")
+
 def objective(trial):
     # Гиперпараметры
     epsilon = trial.suggest_float("epsilon", 0.001, 0.01)
-    threshold = trial.suggest_float("threshold", 0.2, 0.8)
-    dbs_eps = trial.suggest_float("dbs_eps", 0.01, 0.02)
-    dbs_neighboors = trial.suggest_int("dbs_neighboors", 5, 20)
-    mape, rmse, np_metric = validation(10, epsilon, threshold, dbs_neighboors,dbs_eps,window_size=100)
-    penalty_factor = 2.5
-    if np_metric == 1:
-        rmse = 0.5
-        mape = 50
-    if np_metric > 0.9:
-        mape *= penalty_factor
-        rmse *= penalty_factor
-    return mape, rmse, np_metric
+    threshold = trial.suggest_float("threshold", 0.2, 0.5)
+    dbs_neighbours = trial.suggest_int("dbs_neighboors", 5, 20)
+    dbs_eps = trial.suggest_float("dbs_eps", 0.01, 0.03)
 
+    result_file = f"/home/ikvasilev/jsons/result_trial_{trial.number}.json"
+    submit_slurm_job(epsilon, threshold, dbs_neighbours, dbs_eps, result_file)
+    print(1)
+    result = wait_for_result(result_file)
+    rmse = result['rmse']
+    np_metric = result['np_metric']
+    mape = result['mape']
+    trial.set_user_attr("RMSE", rmse)
+    trial.set_user_attr("NP_metric", np_metric)
+    trial.set_user_attr("MAPE", mape)
+
+    penalty = np_metric / 2 if np_metric > 0.7 else 0
+    return mape + rmse + penalty
+import multiprocessing
+import math
+
+# Функция для создания нагрузки на ядро
+def cpu_loader():
+    while True:
+        # Интенсивные вычисления (можно регулировать сложность)
+        math.factorial(10000)  # Пример "тяжелой" операции
 
 def main():
-    study = optuna.create_study(
-        directions=["minimize", "minimize", "minimize"],
-        sampler=NSGAIISampler()
-    )
-    study.optimize(objective, n_trials=100)
-    # plot_pareto_front(study, targets=lambda t: (t.values[0], t.values[1])).show()
-    for i, trial in enumerate(study.best_trials):
-        print(f"Решение #{i + 1}:")
-        print(f"  Метрики: MAPE={trial.values[0]:.4f}, RMSE={trial.values[1]:.4f}, NP={trial.values[2]:.4f}")
-        print(f"  Параметры: epsilon={trial.params['epsilon']:.5f},"
-            f" threshold={trial.params['threshold']:.2f},"
-            f" dbs_eps={trial.params['dbs_eps']},"
-            f"dbs_neighboors={trial.params['dbs_neighboors']}")
-        print("-" * 50)
+    study = optuna.create_study(direction="minimize")
+    study.optimize(objective, n_trials=400,n_jobs = 31)
+    best_trial = study.best_trial
+    print(f"Лучшая комбинированная ошибка: {best_trial.value:.4f}")
+    print("Метрики лучшего trial:")
+    print(f"RMSE: {best_trial.user_attrs['RMSE']:.4f}")
+    print(f"MAPE: {best_trial.user_attrs['MAPE']:.4f}")
+    print(f"NP_metric: {best_trial.user_attrs['NP_metric']:.4f}")
 
 
 if __name__ == '__main__':
+    loader_process = multiprocessing.Process(target=cpu_loader)
+    loader_process.daemon = True  # Процесс завершится автоматически с основной программой
+    loader_process.start()
     main()
+

@@ -123,18 +123,18 @@ class TSProcessor:
         self.motifs = None
     def fit(self, time_series_list, template_length,
             max_template_spread,last_step_spread):
-        print("Fisting\n")
+        # print("Fisting\n")
         self.templates_ = Templates(template_length, max_template_spread,last_step_spread)
         self.templates_.create_train_set(time_series_list)
         self.ts_number = len(time_series_list)
         self.motifs = list()
         z_vectors = self.templates_.train_set
-        for template in tqdm(range(z_vectors.shape[0])):
+        for template in range(z_vectors.shape[0]):
             inf_mask = ~np.isinf(z_vectors[template]).any(axis=1)
             temp_z_v = z_vectors[template][inf_mask]
             self.motifs.append(np.array(temp_z_v).reshape(-1, len(temp_z_v[0])))
     def predict(self, time_series, window_index, test_size, eps):
-        print("Predicting\n")
+        # print("Predicting\n")
         self.time_series_ = time_series
         self.time_series_.split_train_val_test(window_index, test_size)
         steps = len(self.time_series_.test)
@@ -169,7 +169,7 @@ class TSProcessor:
         dbs = DBSCAN(self.dbs_eps,min_samples=self.dbs_neighboors)
         dbs.fit(points_pool)
         cluster_labels, cluster_sizes = np.unique(dbs.labels_[dbs.labels_ > -1], return_counts=True)
-        print(cluster_sizes)
+        # print(cluster_sizes)
         if cluster_labels.size > 0 and (
                 np.count_nonzero(((cluster_sizes / cluster_sizes.max()).round(2) > self.threshold)) == 1):
             mask = (dbs.labels_ == cluster_labels[cluster_sizes.argmax()])

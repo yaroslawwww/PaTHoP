@@ -45,7 +45,7 @@ def mape(y_true, y_pred):
     y_pred_non_zero = y_pred_masked[zero_mask]
 
     # Расчет абсолютной процентной ошибки
-    ape = np.abs((y_true_non_zero - y_pred_non_zero) / y_true_non_zero) * 100
+    ape = np.abs((y_true_non_zero - y_pred_non_zero) / y_true_non_zero)
     return np.mean(ape)
 
 def predict_handler(gap_number, window_size,
@@ -61,7 +61,7 @@ def predict_handler(gap_number, window_size,
     print(real_values[-1], pred_values[-1])
     # Проверка результата предсказания на глаз
     mask = ~np.isnan(real_values[-1]) & ~np.isnan(pred_values[-1])
-    print("res:",abs(real_values[-1][mask]-pred_values[-1][mask]).round(2))
+    # print("res:",abs(real_values[-1][mask]-pred_values[-1][mask]).round(2))
     return pred_values[-1], is_np_point, real_values[-1]
 
 
@@ -75,15 +75,17 @@ def validation(template_spread_constant,epsilon,threshold,dbs_neighboors,dbs_eps
     pred_points_values = []
     is_np_points = []
     real_points_values = []
-    with ProcessPoolExecutor(max_workers=1) as executor:
+    gaps = np.random.randint(1001, 9999, size=1000)
+    with ProcessPoolExecutor() as executor:
         futures = [executor.submit(predict_handler, gap, window_size, epsilon, list_ts[0], tsproc)
-                   for gap in np.random.randint(1001,2000,size=100)]
+                   for gap in gaps]
         for future in futures:
             result = future.result()
             if result is not None and len(result) > 0:
                 pred_points_values.append(result[0])
                 is_np_points.append(result[1])
                 real_points_values.append(result[2])
+    print("f")
     return rmse(pred_points_values, real_points_values), np.mean(is_np_points),mape(pred_points_values, real_points_values)
 # def parallel_research(r_values, ts_size, how_many_gaps, test_size_constant, dt=0.01, epsilon=0.007,
 #                       template_length_constant=4,
