@@ -18,14 +18,14 @@ def submit_slurm_job(epsilon, threshold, dbs_neighbours, dbs_eps, result_file):
     sbatch_cmd = f"sbatch optuna_bash {epsilon} {threshold} {dbs_neighbours} {dbs_eps} {result_file}"
     subprocess.run(sbatch_cmd, shell=True, check=True)
 
-def wait_for_result(result_file, timeout=50 * 60, check_interval=100):
+def wait_for_result(result_file, timeout=1500 * 60, check_interval=100):
     start_time = time.time()
     while time.time() - start_time < timeout:
         if os.path.exists(result_file):
             with open(result_file, 'r') as f:
                 result = json.load(f)
             os.remove(result_file)  # Очистка
-            return result['metric']
+            return result
         time.sleep(check_interval)
     raise optuna.TrialPruned("Timeout waiting for result")
 
@@ -38,7 +38,6 @@ def objective(trial):
 
     result_file = f"/home/ikvasilev/jsons/result_trial_{trial.number}.json"
     submit_slurm_job(epsilon, threshold, dbs_neighbours, dbs_eps, result_file)
-    print(1)
     result = wait_for_result(result_file)
     rmse = result['rmse']
     np_metric = result['np_metric']
@@ -47,7 +46,7 @@ def objective(trial):
     trial.set_user_attr("NP_metric", np_metric)
     trial.set_user_attr("MAPE", mape)
 
-    penalty = np_metric / 2 if np_metric > 0.7 else 0
+    penalty = np_metric / 2 if np_metric > 0.83 else 0
     return mape + rmse + penalty
 import multiprocessing
 import math
@@ -73,5 +72,6 @@ if __name__ == '__main__':
     loader_process = multiprocessing.Process(target=cpu_loader)
     loader_process.daemon = True  # Процесс завершится автоматически с основной программой
     loader_process.start()
+
     main()
 

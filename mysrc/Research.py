@@ -58,7 +58,7 @@ def predict_handler(gap_number, window_size,
     real_values = np.array(ts.values[window_index:window_index + window_size])
     pred_values = np.array(values[-window_size:])
     is_np_point = 1 if np.isnan(pred_values[-1]) else 0
-    print(real_values[-1], pred_values[-1])
+    #print(real_values[-1], pred_values[-1])
     # Проверка результата предсказания на глаз
     mask = ~np.isnan(real_values[-1]) & ~np.isnan(pred_values[-1])
     # print("res:",abs(real_values[-1][mask]-pred_values[-1][mask]).round(2))
@@ -75,7 +75,7 @@ def validation(template_spread_constant,epsilon,threshold,dbs_neighboors,dbs_eps
     pred_points_values = []
     is_np_points = []
     real_points_values = []
-    gaps = np.random.randint(1001, 9999, size=1000)
+    gaps = np.random.randint(1001, 9999, size=200)
     with ProcessPoolExecutor() as executor:
         futures = [executor.submit(predict_handler, gap, window_size, epsilon, list_ts[0], tsproc)
                    for gap in gaps]
@@ -85,7 +85,7 @@ def validation(template_spread_constant,epsilon,threshold,dbs_neighboors,dbs_eps
                 pred_points_values.append(result[0])
                 is_np_points.append(result[1])
                 real_points_values.append(result[2])
-    print("f")
+    #print("f")
     return rmse(pred_points_values, real_points_values), np.mean(is_np_points),mape(pred_points_values, real_points_values)
 # def parallel_research(r_values, ts_size, how_many_gaps, test_size_constant, dt=0.01, epsilon=0.007,
 #                       template_length_constant=4,
