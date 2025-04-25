@@ -24,7 +24,7 @@ def wait_for_result(result_file, timeout=1500 * 60, check_interval=100):
         if os.path.exists(result_file):
             with open(result_file, 'r') as f:
                 result = json.load(f)
-            os.remove(result_file)  # Очистка
+            os.remove(result_file)
             return result
         time.sleep(check_interval)
     raise optuna.TrialPruned("Timeout waiting for result")
