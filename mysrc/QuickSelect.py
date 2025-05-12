@@ -20,6 +20,8 @@ def QuickSelectWithLR(array, left, right, k):
         if index - left > k - 1:
             return QuickSelectWithLR(array, left, index - 1, k)
         return QuickSelectWithLR(array, index + 1, right,
-                           k - index + left - 1)
-def QuickSelect(array,k):
-    return QuickSelectWithLR(array,0,len(array)-1,k)
+                                 k - index + left - 1)
+
+
+def QuickSelect(array, k):
+    return QuickSelectWithLR(array, 0, len(array) - 1, k)
