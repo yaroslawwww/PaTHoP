@@ -17,6 +17,7 @@ from QuickSelect import QuickSelect
 from collections import defaultdict
 import math
 
+
 def volume(radius, dim):
     return np.pi ** (dim / 2) * radius ** dim / gamma(dim / 2 + 1)
 
@@ -56,7 +57,7 @@ class Wishart:
                 max_diff = diff
         return max_diff >= self.mu
 
-    def fit(self, z_vectors,tqdms = False):
+    def fit(self, z_vectors, tqdms=False):
         z_vectors = np.asarray(z_vectors)
         n, dim = z_vectors.shape
         labels = np.zeros(n, dtype=int)

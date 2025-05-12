@@ -2,8 +2,6 @@
 import os.path
 import sys
 from collections import defaultdict
-
-from pygments.lexer import default
 from scipy.spatial.distance import cdist
 from sklearn.cluster import DBSCAN
 from tqdm import tqdm
@@ -116,7 +114,7 @@ class TSProcessor:
         wishart = Wishart(k=self.k, mu=self.mu)
         self.motifs = dict()
         self.affiliation = dict()
-        file_path = f"saved_labels/{max_template_spread}_{sys.argv[1]}.npz"
+        file_path = f"labels/{max_template_spread}_{sys.argv[1]}_{sys.argv[2]}_{sys.argv[3]}_{sys.argv[4]}_{sys.argv[5]}.npz"
         if os.path.exists(file_path):
             save_labels = np.load(file_path)
             for i, ts in enumerate(time_series_list):
@@ -133,9 +131,11 @@ class TSProcessor:
                     else:
                         self.motifs[template] = list(np.array(motifs).reshape(-1, len(motifs[0])))
                     if template in self.affiliation:
-                        self.affiliation[template] += list(np.full(fill_value=i, shape=len(np.array(motifs).reshape(-1, len(motifs[0])))))
+                        self.affiliation[template] += list(
+                            np.full(fill_value=i, shape=len(np.array(motifs).reshape(-1, len(motifs[0])))))
                     else:
-                        self.affiliation[template] = list(np.full(fill_value=i, shape=len(np.array(motifs).reshape(-1, len(motifs[0])))))
+                        self.affiliation[template] = list(
+                            np.full(fill_value=i, shape=len(np.array(motifs).reshape(-1, len(motifs[0])))))
         else:
             save_labels = []
             for i, ts in enumerate(time_series_list):
@@ -153,15 +153,18 @@ class TSProcessor:
                     else:
                         self.motifs[template] = list(np.array(motifs).reshape(-1, len(motifs[0])))
                     if template in self.affiliation:
-                        self.affiliation[template] += list(np.full(fill_value=i, shape=len(np.array(motifs).reshape(-1, len(motifs[0])))))
+                        self.affiliation[template] += list(
+                            np.full(fill_value=i, shape=len(np.array(motifs).reshape(-1, len(motifs[0])))))
                     else:
-                        self.affiliation[template] = list(np.full(fill_value=i, shape=len(np.array(motifs).reshape(-1, len(motifs[0])))))
+                        self.affiliation[template] = list(
+                            np.full(fill_value=i, shape=len(np.array(motifs).reshape(-1, len(motifs[0])))))
 
             np.savez(file_path, *save_labels)
         for template in self.motifs.keys():
             self.motifs[template] = np.array(self.motifs[template])
         for template in self.affiliation.keys():
             self.affiliation[template] = np.array(self.affiliation[template])
+
     def predict(self, time_series, window_index, test_size, eps):
         print("Predicting\n")
         self.time_series_ = time_series
@@ -170,7 +173,7 @@ class TSProcessor:
         values = self.time_series_.train
         values += self.time_series_.val
         size_of_series = len(values)
-        values.extend([np.NaN] * steps)
+        values.extend([np.nan] * steps)
         values = np.array(values)
         forecast_trajectories = np.full((steps, 1), np.nan)
         observation_indexes = self.templates_.observation_indexes
@@ -206,7 +209,7 @@ class TSProcessor:
         dbs.fit(points_pool)
         cluster_labels, cluster_sizes = np.unique(dbs.labels_[dbs.labels_ > -1], return_counts=True)
         if cluster_labels.size > 0 and (
-                np.count_nonzero(((cluster_sizes / cluster_sizes.max()).round(2) > 0.8)) == 1):
+                np.count_nonzero(((cluster_sizes / cluster_sizes.max()).round(2) > 0.3)) == 1):
             mask = (dbs.labels_ == cluster_labels[cluster_sizes.argmax()])
             biggest_cluster_center = points_pool[mask].mean()
             result = biggest_cluster_center
