@@ -1,0 +1,3 @@
+ssh -p 2222 ikvasilev@cluster.hpc.hse.ru << EOF
+scancel -u ikvasilev
+EOF
