@@ -5,23 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="Расчет валидации на 100 шаблонов">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysrc/requirements.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/cat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/false_start" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/start" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Prediction_after_the_horizont_of_predictability.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Prediction_after_the_horizont_of_predictability.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysrc/Lorentz.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/Lorentz.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mysrc/Predictions.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/Predictions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysrc/QuickSelect.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/QuickSelect.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysrc/Research.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/Research.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysrc/TimeSeries.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/TimeSeries.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysrc/WishartClusterizationAlgorithm.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/WishartClusterizationAlgorithm.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysrc/bash" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/bash" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysrc/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysrc/main_bash" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/main_bash" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/start" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/start" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,7 +36,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="e6c592b108d1d378b12b588d49699e58690e711d" />
+        <entry key="$PROJECT_DIR$" value="cranes" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -172,7 +158,7 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/mysrc/main.py" />
-      <option name="PARAMETERS" value="0 10 10000 1 0" />
+      <option name="PARAMETERS" value="20 10 10000 0.5 0.5" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -896,6 +882,11 @@
                   <option value="master" />
                 </option>
               </RecentGroup>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="origin/waaagh" />
+                </option>
+              </RecentGroup>
             </list>
           </value>
         </entry>
@@ -929,7 +920,19 @@
         </entry>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -975,6 +978,11 @@
           <url>file://$USER_HOME$/Громовское/IMOEX.csv (3)/x.py</url>
           <line>33</line>
           <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/mysrc/Predictions.py</url>
+          <line>198</line>
+          <option name="timeStamp" value="16" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
