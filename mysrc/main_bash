@@ -10,8 +10,8 @@ experiment_name="size_experiment"
 
 if [ -f "/home/ikvasilev/PaTHoP/results/$experiment_name" ]; then
     # Перемещаем файл
-    mv "/home/ikvasilev/PaTHoP/results/$experiment_name" "../../save/"
-    echo "Файл успешно перемещён в ../../save/"
+    mv --backup=simple "/home/ikvasilev/PaTHoP/results/$experiment_name" "home/ikvasilev/save/"
+    echo "Файл успешно перемещён в home/ikvasilev/save/"
 else
     echo "файл не создан"
 fi
