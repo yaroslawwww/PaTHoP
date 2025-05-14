@@ -2,8 +2,20 @@
 
 # Параметры
 start=10000
-end=100000
+end=30000
 steps=32
+mkdir -p "home/ikvasilev/save"
+
+experiment_name="size_experiment"
+
+if [ -f "/home/ikvasilev/PaTHoP/results/$experiment_name" ]; then
+    # Перемещаем файл
+    mv "/home/ikvasilev/PaTHoP/results/$experiment_name" "../../save/"
+    echo "Файл успешно перемещён в ../../save/"
+else
+    echo "файл не создан"
+fi
+
 
 # Вычисляем шаг
 step=$(( (end - start) / (steps - 1) ))
@@ -11,12 +23,12 @@ step=$(( (end - start) / (steps - 1) ))
 for (( i=0; i<steps; i++ )); do
     size=$(( start + i * step ))
     echo "Submitting job with size=$size"
-    sbatch ./bash 10 10 $size 1 0
+     sbatch -A proj_1685 ./bash 10 10 $size 1 0 $experiment_name
 done
 
 # Цикл по всем значениям size
 for (( i=0; i<steps; i++ )); do
     size=$(( start + i * step ))
     echo "Submitting job with size=$size"
-    sbatch ./bash 10 10 $size 0.5 0.5
+    sbatch -A proj_1685 ./bash 10 10 $size 0.5 0.5 $experiment_name
 done

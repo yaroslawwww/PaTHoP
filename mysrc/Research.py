@@ -27,16 +27,25 @@ def rmse(y_true, y_pred):
 def mape(y_true, y_pred):
     y_pred = np.array(y_pred)
     y_true = np.array(y_true)
-    mask = ~np.isnan(y_true) & ~np.isnan(y_pred)
 
+    # Маска для исключения NaN
+    mask = ~np.isnan(y_true) & ~np.isnan(y_pred)
     y_true_masked = y_true[mask]
     y_pred_masked = y_pred[mask]
-
     if len(y_true_masked) == 0:
-        return np.nan
+        return 0
+    # Проверка на наличие нулей в y_true
+    zero_mask = y_true_masked != 0
+    if not np.any(zero_mask):
+        return np.nan  # Если все значения в y_true равны нулю после маски
 
-    mape = np.mean(np.abs(y_true_masked - y_pred_masked))
-    return mape
+    # Вычисление MAPE только для ненулевых значений
+    y_true_non_zero = y_true_masked[zero_mask]
+    y_pred_non_zero = y_pred_masked[zero_mask]
+
+    # Расчет абсолютной процентной ошибки
+    ape = np.abs((y_true_non_zero - y_pred_non_zero) / y_true_non_zero)
+    return np.mean(ape)
 
 
 def predict_handler(gap_number, window_size,

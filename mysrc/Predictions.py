@@ -114,7 +114,7 @@ class TSProcessor:
         wishart = Wishart(k=self.k, mu=self.mu)
         self.motifs = dict()
         self.affiliation = dict()
-        file_path = f"labels/{max_template_spread}_{sys.argv[1]}_{sys.argv[2]}_{sys.argv[3]}_{sys.argv[4]}_{sys.argv[5]}.npz"
+        file_path = f"../labels/{max_template_spread}_{sys.argv[1]}_{sys.argv[2]}_{sys.argv[3]}_{sys.argv[4]}_{sys.argv[5]}.npz"
         if os.path.exists(file_path):
             save_labels = np.load(file_path)
             for i, ts in enumerate(time_series_list):
