@@ -5,23 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="Расчет валидации на 100 шаблонов">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysrc/requirements.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/cat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/false_start" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/start" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Prediction_after_the_horizont_of_predictability.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Prediction_after_the_horizont_of_predictability.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/install" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/save_res" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysrc/Lorentz.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/Lorentz.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mysrc/Predictions.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/Predictions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysrc/QuickSelect.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/QuickSelect.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mysrc/Research.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/Research.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysrc/TimeSeries.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/TimeSeries.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysrc/WishartClusterizationAlgorithm.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/WishartClusterizationAlgorithm.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mysrc/bash" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/bash" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mysrc/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mysrc/main_bash" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/main_bash" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysrc/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/cat" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/cat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/false_start" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/false_start" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/start" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/start" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,7 +45,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="e6c592b108d1d378b12b588d49699e58690e711d" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -96,35 +91,35 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.GetSeries.executor": "Run",
-    "Python.Patterns.executor": "Debug",
-    "Python.Predictions.executor": "Debug",
-    "Python.QuickSelect.executor": "Run",
-    "Python.TimeSeries.executor": "Run",
-    "Python.WishartClusterizationAlgorithm.executor": "Run",
-    "Python.dtw.executor": "Run",
-    "Python.interactiveshell.executor": "Debug",
-    "Python.main.executor": "Run",
-    "Python.theory.executor": "Run",
-    "Python.thery.executor": "Run",
-    "Python.wisharp.executor": "Run",
-    "Python.zero_case_main.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SHELLCHECK.PATH": "/home/yarik/.local/share/JetBrains/PyCharmCE2025.1/Shell Script/shellcheck",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "/home/yarik/Gromov/PaTHoP",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "reference.settings.ide.settings.notifications",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.GetSeries.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Patterns.executor&quot;: &quot;Debug&quot;,
+    &quot;Python.Predictions.executor&quot;: &quot;Debug&quot;,
+    &quot;Python.QuickSelect.executor&quot;: &quot;Run&quot;,
+    &quot;Python.TimeSeries.executor&quot;: &quot;Run&quot;,
+    &quot;Python.WishartClusterizationAlgorithm.executor&quot;: &quot;Run&quot;,
+    &quot;Python.dtw.executor&quot;: &quot;Run&quot;,
+    &quot;Python.interactiveshell.executor&quot;: &quot;Debug&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.theory.executor&quot;: &quot;Run&quot;,
+    &quot;Python.thery.executor&quot;: &quot;Run&quot;,
+    &quot;Python.wisharp.executor&quot;: &quot;Run&quot;,
+    &quot;Python.zero_case_main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHELLCHECK.PATH&quot;: &quot;/home/yarik/.local/share/JetBrains/PyCharmCE2025.1/Shell Script/shellcheck&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;cranes&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/yarik/Gromov/PaTHoP&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.ide.settings.notifications&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/mysrc" />
@@ -210,8 +205,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.main" />
         <item itemvalue="Python.zero_case_main" />
+        <item itemvalue="Python.main" />
         <item itemvalue="Python.dtw" />
         <item itemvalue="Python.main" />
         <item itemvalue="Python.zero_case_main" />
