@@ -15,7 +15,7 @@ import numpy as np
 
 
 class Templates:
-    def __init__(self, template_length, max_template_spread):
+    def __init__(self, template_length, max_template_spread,last_step_spread = 100):
         self.train_set = None
         self.affiliation_matrix = None
         self.template_length = template_length
@@ -27,10 +27,12 @@ class Templates:
         for i in range(1, template_length):
             step_size = max_template_spread ** (template_length - i - 1)
             repeat_count = max_template_spread ** i
-
-            block = np.repeat(np.arange(1, max_template_spread + 1), step_size)
-            templates[:, i] = np.tile(block, repeat_count // max_template_spread) + templates[:, i - 1]
-
+            if i != template_length - 1:
+                block = np.repeat(np.arange(1, max_template_spread + 1), step_size)
+                templates[:, i] = np.tile(block, repeat_count // max_template_spread) + templates[:, i - 1]
+            else:
+                block = np.repeat(np.arange(1 + last_step_spread, max_template_spread + 1 + last_step_spread), step_size)
+                templates[:, i] = np.tile(block, repeat_count // max_template_spread) + templates[:, i - 1]
         self.templates = templates
 
         shapes = np.diff(templates, axis=1)
@@ -173,8 +175,7 @@ class TSProcessor:
         values = np.array(values)
         forecast_trajectories = np.full((steps, 1), np.nan)
         observation_indexes = self.templates_.observation_indexes
-        mean_affil = 0
-        for step in range(steps):
+        for step in [1]:
             test_vectors = values[:size_of_series + step][observation_indexes]
             motifs_pool = []
             motifs_affil = []
@@ -188,7 +189,6 @@ class TSProcessor:
             forecast_point = self.freeze_point(motifs_pool)
             forecast_trajectories[step, 0] = forecast_point
             values[size_of_series + step] = forecast_point
-            # print(motifs_affil)
         return values
 
     def freeze_point(self, motifs_pool):
@@ -199,8 +199,14 @@ class TSProcessor:
         dbs = DBSCAN(0.01, min_samples=4)
         dbs.fit(points_pool)
         cluster_labels, cluster_sizes = np.unique(dbs.labels_[dbs.labels_ > -1], return_counts=True)
+        clusters = dict()
+        for i,cluster in enumerate(cluster_labels):
+            mask = (dbs.labels_ == cluster)
+            biggest_cluster_center = points_pool[mask].mean()
+            clusters[int(cluster_sizes[i])] = float(biggest_cluster_center)
+        print(sorted(clusters.items(), key=lambda item: item[0],reverse=True))
         if cluster_labels.size > 0 and (
-                np.count_nonzero(((cluster_sizes / cluster_sizes.max()).round(2) > 0.3)) == 1):
+                np.count_nonzero(((cluster_sizes / cluster_sizes.max()).round(2) > 0.5)) == 1):
             mask = (dbs.labels_ == cluster_labels[cluster_sizes.argmax()])
             biggest_cluster_center = points_pool[mask].mean()
             result = biggest_cluster_center
