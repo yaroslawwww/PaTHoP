@@ -1,11 +1,7 @@
 # coding: utf-8
 import sys
 
-import numpy as np
-
 from Research import *
-from matplotlib import pyplot as plt
-import concurrent.futures
 
 
 def main():
@@ -14,7 +10,7 @@ def main():
     general_size = int(sys.argv[3])
     shares = [float(sys.argv[4]), float(sys.argv[5])]
     experiment = sys.argv[6]
-    rmses, np_points, mape, mean_affil = parallel_research(r_values=[28, 28, 28 + deviation],
+    rmses, np_points, mape = parallel_research(r_values=[28, 28, 28 + deviation],
                                                            ts_size=(np.array(
                                                                [np.array(shares)[0] * general_size + 1250] + list(
                                                                    np.array(shares) * general_size))).astype(
@@ -23,7 +19,7 @@ def main():
                                                            test_size_constant=prediction_size)
     with open(f"/home/ikvasilev/PaTHoP/results/{experiment}", "a") as f:
         f.write(str(deviation) + "," + str(general_size) + "," + str(prediction_size) + "," + str(rmses) + "," + str(
-            np_points) + "," + str(mape) + "," + str(mean_affil) + "," + "\n")
+            np_points) + "," + str(mape) + "," + "\n")
 
 
 if __name__ == '__main__':
