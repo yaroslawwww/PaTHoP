@@ -6,9 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="Расчет валидации на 100 шаблонов">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysrc/Research.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/Research.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mysrc/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/cat" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/cat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/size_experiment" beforeDir="false" afterPath="$PROJECT_DIR$/results/size_experiment" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/start" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/start" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -159,7 +159,7 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/mysrc/main.py" />
-      <option name="PARAMETERS" value="0 10 10000 1 0" />
+      <option name="PARAMETERS" value="0 10 10000 1 0 t" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -197,8 +197,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.zero_case_main" />
         <item itemvalue="Python.main" />
+        <item itemvalue="Python.zero_case_main" />
         <item itemvalue="Python.dtw" />
         <item itemvalue="Python.zero_case_main" />
         <item itemvalue="Python.main" />

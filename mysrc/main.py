@@ -19,7 +19,7 @@ def main():
                                                            test_size_constant=prediction_size)
     with open(f"/home/ikvasilev/PaTHoP/results/{experiment}", "a") as f:
         f.write(str(deviation) + "," + str(general_size) + "," + str(prediction_size) + "," + str(rmses) + "," + str(
-            np_points) + "," + str(mape) + "," + "\n")
+            np_points) + "," + str(mape) + "," + str(shares[0]) + "\n")
 
 
 if __name__ == '__main__':
