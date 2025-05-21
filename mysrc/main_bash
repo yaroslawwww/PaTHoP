@@ -1,34 +1,38 @@
 #!/bin/bash
 
-# Параметры
-start=10000
-end=30000
-steps=32
-mkdir -p "home/ikvasilev/save"
 
-experiment_name="size_experiment"
-
-if [ -f "/home/ikvasilev/PaTHoP/results/$experiment_name" ]; then
-    # Перемещаем файл
-    mv --backup=simple "/home/ikvasilev/PaTHoP/results/$experiment_name" "home/ikvasilev/save/"
-    echo "Файл успешно перемещён в home/ikvasilev/save/"
-else
-    echo "файл не создан"
-fi
+sbatch -A proj_1685 ./bash
 
 
-# Вычисляем шаг
-step=$(( (end - start) / (steps - 1) ))
-# Цикл по всем значениям size
-for (( i=0; i<steps; i++ )); do
-    size=$(( start + i * step ))
-    echo "Submitting job with size=$size"
-     sbatch -A proj_1685 ./bash 10 10 $size 1 0 $experiment_name
-done
-
-# Цикл по всем значениям size
-for (( i=0; i<steps; i++ )); do
-    size=$(( start + i * step ))
-    echo "Submitting job with size=$size"
-    sbatch -A proj_1685 ./bash 10 10 $size 0.5 0.5 $experiment_name
-done
+## Параметры
+#start=10000
+#end=30000
+#steps=32
+#mkdir -p "home/ikvasilev/save"
+#
+#experiment_name="size_experiment"
+#
+#if [ -f "/home/ikvasilev/PaTHoP/results/$experiment_name" ]; then
+#    # Перемещаем файл
+#    mv --backup=simple "/home/ikvasilev/PaTHoP/results/$experiment_name" "home/ikvasilev/save/"
+#    echo "Файл успешно перемещён в home/ikvasilev/save/"
+#else
+#    echo "файл не создан"
+#fi
+#
+#
+## Вычисляем шаг
+#step=$(( (end - start) / (steps - 1) ))
+## Цикл по всем значениям size
+#for (( i=0; i<steps; i++ )); do
+#    size=$(( start + i * step ))
+#    echo "Submitting job with size=$size"
+#     sbatch -A proj_1685 ./bash 10 10 $size 1 0 $experiment_name
+#done
+#
+## Цикл по всем значениям size
+#for (( i=0; i<steps; i++ )); do
+#    size=$(( start + i * step ))
+#    echo "Submitting job with size=$size"
+#    sbatch -A proj_1685 ./bash 10 10 $size 0.5 0.5 $experiment_name
+#done
