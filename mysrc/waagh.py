@@ -178,7 +178,7 @@ class TSProcessor:
         wishart = Wishart(k=self.k, mu=self.mu)
 
     def predict(self, time_series, window_index, eps):
-        print("Predicting\n", flush=True)
+        # print("Predicting\n", flush=True)
         self.time_series_ = time_series
         steps = 5
         values = self.time_series_.values[:window_index]
@@ -211,7 +211,7 @@ class TSProcessor:
         if motifs_pool.size == 0:
             return np.nan
         points_pool = motifs_pool[:, -1].reshape(-1, 1)
-        dbs = DBSCAN(eps=0.01, min_samples=4)
+        dbs = DBSCAN(eps=0.01, min_samples=17)
         dbs.fit(points_pool)
         cluster_labels, cluster_sizes = np.unique(dbs.labels_[dbs.labels_ > -1], return_counts=True)
         cluster_centers = [float(points_pool[dbs.labels_ == i].mean()) for i in cluster_labels]
@@ -219,7 +219,7 @@ class TSProcessor:
             indices_smallest = np.argpartition(cluster_sizes, -3)[-3:]
             mask = np.zeros_like(cluster_sizes, dtype=bool)
             mask[indices_smallest] = True
-            print(np.array(cluster_sizes)[mask], np.array(cluster_centers)[mask])
+            # print(np.array(cluster_sizes)[mask], np.array(cluster_centers)[mask])
         if cluster_labels.size > 0 and np.count_nonzero((cluster_sizes / cluster_sizes.max()).round(2) > 0.3) == 1:
             mask = (dbs.labels_ == cluster_labels[cluster_sizes.argmax()])
             biggest_cluster_center = points_pool[mask].mean()
@@ -235,10 +235,10 @@ def predict_handler(gap_number, window_size, epsilon, ts, ts_processor):
     real_values = np.array(ts.values[window_index:window_index + window_size])
     pred_values = np.array(list(values)[window_index:window_index + window_size])
     is_np_point = 1 if np.isnan(pred_values[-1]) else 0
-    print(real_values[-1], pred_values[-1])
+    # print(real_values[-1], pred_values[-1])
     mask = ~np.isnan(real_values[-1]) & ~np.isnan(pred_values[-1])
-    print("res:", abs(real_values[-1][mask] - pred_values[-1][mask]).round(2))
-    print("Finish Prediction\n", flush=True)
+    # print("res:", abs(real_values[-1][mask] - pred_values[-1][mask]).round(2))
+    # print("Finish Prediction\n", flush=True)
     return pred_values[-1], is_np_point, real_values[-1]
 
 from concurrent.futures import as_completed
@@ -260,68 +260,71 @@ def main():
     # Инициализация параметров
     r = 28
     dt = 0.001
-    total_steps = 30000
+    total_steps = 12500
     train_size = 10000
-    test_size = 10000
+    test_size = 12500
     template_length = 4
-    max_template_spread = 15
+    max_template_spread = 13
     val_size = 0
-    eps = 0.005
-    total_predictions = 1000  # Общее количество прогнозов
+    for eps in np.arange(0.005, 0.03,0.003):
+        for max_template_spread in range(10,20):
 
-    # Инициализация временного ряда
-    ts = TimeSeries("Lorentz", size=total_steps, r=r, dt=dt)
-    ts.train = ts.values[:train_size]
-    ts.test = ts.values[train_size + val_size:train_size + val_size + test_size]
-    list_ts = [ts]
+            total_predictions = 1000  # Общее количество прогнозов
 
-    # Инициализация процессора
-    tsproc = TSProcessor()
-    print("Starting model fitting...", flush=True)
-    tsproc.fit(list_ts, template_length, max_template_spread)
-    print("Model fitting completed.", flush=True)
+            # Инициализация временного ряда
+            ts = TimeSeries("Lorentz", size=total_steps, r=r, dt=dt)
+            ts.train = ts.values[:train_size]
+            ts.test = ts.values[train_size + val_size:train_size + val_size + test_size]
+            list_ts = [ts]
 
-    # Подготовка батчей
-    batches = batch_tasks(total_predictions,20)
-    print(f"Using {len(batches)} batches for {os.cpu_count()} cores", flush=True)
+            # Инициализация процессора
+            tsproc = TSProcessor()
+            print("Starting model fitting...", flush=True)
+            tsproc.fit(list_ts, template_length, max_template_spread)
+            print("Model fitting completed.", flush=True)
 
-    pred_points_values = []
-    is_np_points = []
-    real_points_values = []
+            # Подготовка батчей
+            batches = batch_tasks(total_predictions,32)
+            print(f"Using {len(batches)} batches for {os.cpu_count()} cores", flush=True)
 
-    with ProcessPoolExecutor(max_workers=os.cpu_count()) as executor:
-        # Отправка батчей в обработку
-        futures = {
-            executor.submit(
-                process_batch,
-                batch,
-                list_ts[0],
-                tsproc,
-                eps
-            ): batch for batch in batches
-        }
+            pred_points_values = []
+            is_np_points = []
+            real_points_values = []
 
-        # Обработка результатов с прогресс-баром
-        for future in tqdm(
-            as_completed(futures),
-            total=len(futures),
-            desc="Processing batches",
-            smoothing=0,
-            file=sys.stdout
-        ):
-            batch_results = future.result()
-            for result in batch_results:
-                if result:
-                    pred, is_np, real = result
-                    pred_points_values.append(pred)
-                    is_np_points.append(is_np)
-                    real_points_values.append(real)
+            with ProcessPoolExecutor(max_workers=os.cpu_count()) as executor:
+                # Отправка батчей в обработку
+                futures = {
+                    executor.submit(
+                        process_batch,
+                        batch,
+                        list_ts[0],
+                        tsproc,
+                        eps
+                    ): batch for batch in batches
+                }
 
-    # Вывод итоговых метрик
-    print("\nFinal metrics:", flush=True)
-    print(f"RMSE: {rmse(real_points_values, pred_points_values):.4f}", flush=True)
-    print(f"NaN ratio: {np.mean(is_np_points):.2%}", flush=True)
-    print(f"MAPE: {mape(real_points_values, pred_points_values):.2%}", flush=True)
+                # Обработка результатов с прогресс-баром
+                for future in tqdm(
+                    as_completed(futures),
+                    total=len(futures),
+                    desc="Processing batches",
+                    smoothing=0,
+                    file=sys.stdout
+                ):
+                    batch_results = future.result()
+                    for result in batch_results:
+                        if result:
+                            pred, is_np, real = result
+                            pred_points_values.append(pred)
+                            is_np_points.append(is_np)
+                            real_points_values.append(real)
+
+            # Вывод итоговых метрик
+            print(eps,max_template_spread)
+            print("\nFinal metrics:", flush=True)
+            print(f"RMSE: {rmse(real_points_values, pred_points_values):.4f}", flush=True)
+            print(f"NaN ratio: {np.mean(is_np_points):.2%}", flush=True)
+            print(f"MAPE: {mape(real_points_values, pred_points_values):.2%}", flush=True)
 
 if __name__ == '__main__':
     import sys
