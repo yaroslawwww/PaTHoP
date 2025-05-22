@@ -1,9 +1,10 @@
 #!/bin/bash
 #SBATCH --job-name=prediction
-#SBATCH -c 1
+#SBATCH -c 20
 #SBATCH --time=72:00:00
 #SBATCH --output=/home/ikvasilev/PaTHoP/logs/prediction_multiple_ts_%j.log
-source /home/ikvasilev/my_env/bin/activate
+source ~/.bashrc
+conda activate myenv
 
 #scontrol update job=$SLURM_JOB_ID JobName="prediction_$1_$2_$3_$4_$5_$6"
 #
