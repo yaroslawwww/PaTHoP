@@ -6,9 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="Исправил bash файл">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysrc/bash" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/bash" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysrc/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/requirements.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mysrc/waagh.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/waagh.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/start" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/start" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,7 +36,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="a1e53aec78d98c8e1f6e67a8d2a86afa009b2051" />
+        <entry key="$PROJECT_DIR$" value="482e80fb104e2d3c4adde4ed3736d16082736059" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -227,8 +226,8 @@
         <item itemvalue="Python.zero_case_main" />
         <item itemvalue="Python.main" />
         <item itemvalue="Python.dtw" />
-        <item itemvalue="Python.main" />
         <item itemvalue="Python.zero_case_main" />
+        <item itemvalue="Python.main" />
       </list>
     </recent_temporary>
   </component>
