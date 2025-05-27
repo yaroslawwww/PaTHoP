@@ -221,8 +221,8 @@ class TSProcessor:
             test_vectors = values[:size_of_series + step][observation_indexes]
             motifs_pool = []
             for template in range(self.templates_.train_set.shape[0]):
-                inf_mask = ~np.isinf(self.templates_.train_set[template]).any(axis=1)
-                train_vectors = self.templates_.train_set[template][inf_mask]
+                inf_mask = ~np.isinf(self.motifs[template]).any(axis=1)
+                train_vectors = self.motifs[template][inf_mask]
                 if train_vectors.size == 0:
                     continue
                 train_truncated_vectors = train_vectors[:, :-1]
@@ -240,7 +240,7 @@ class TSProcessor:
         if motifs_pool.size == 0:
             return np.nan
         points_pool = motifs_pool[:, -1].reshape(-1, 1)
-        dbs = DBSCAN(eps=0.01, min_samples=17)
+        dbs = DBSCAN(eps=0.01, min_samples=10)
         dbs.fit(points_pool)
         cluster_labels, cluster_sizes = np.unique(dbs.labels_[dbs.labels_ > -1], return_counts=True)
         cluster_centers = [float(points_pool[dbs.labels_ == i].mean()) for i in cluster_labels]
@@ -287,7 +287,7 @@ def process_lts(lts):
     max_template_spread = 10
     val_size = 0
     total_predictions = 3000
-    eps = 0.011
+    eps = 0.01
 
     # Initialize time series
     ts = TimeSeries("Lorentz", size=total_steps, r=r, dt=dt)
