@@ -6,8 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="Исправил bash файл">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysrc/waagh.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/waagh.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/start" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/start" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysrc/temp.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/temp.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,7 +120,7 @@
       <recent name="$PROJECT_DIR$/mysrc" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.waagh">
+  <component name="RunManager">
     <configuration name="dtw" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Prediction_after_the_horizont_of_predictability" />
       <option name="ENV_FILES" value="" />

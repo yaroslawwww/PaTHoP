@@ -12,9 +12,6 @@ from WishartClusterizationAlgorithm import Wishart
 
 
 
-def calc_distance_matrix(test_vectors, train_vectors):
-    return np.squeeze(cdist(test_vectors, train_vectors, 'euclidean'),axis = 0)
-
 
 def rmse(y_true, y_pred):
     y_pred = np.array(y_pred)
@@ -171,7 +168,7 @@ class TSProcessor:
         wishart = Wishart(k=self.k, mu=self.mu)
         self.motifs = dict()
         self.templates_.create_train_set(time_series_list)
-        file_path = f"../labels/{max_template_spread}.npz"
+        file_path = f"../labels/{max_template_spread}_100.npz"
         if os.path.exists(file_path):
             save_labels = np.load(file_path)
             z_vectors = self.templates_.train_set
@@ -214,7 +211,7 @@ class TSProcessor:
             [(template, idx) for idx in np.where(distance_mask)[0]]
         )
 
-    def motifs_validation(self, validation_set, prediction_size, eps = 0.02, beta=0.05, filter_threshold=0.2):
+    def motifs_validation(self, validation_set, prediction_size, eps, beta=0.05, filter_threshold=0.2):
         beta = 0.05
         values = self.time_series_.train.copy()
         size_of_series = len(values)
@@ -235,23 +232,13 @@ class TSProcessor:
             motifs_pool = []
             motifs_indices = []
             for template in self.motifs.keys():
-                train_truncated_vectors_template = self.motifs[template][:,:-1]
-                distance_matrix = calc_distance_matrix([test_vectors[template]], train_truncated_vectors_template)
-                # distance_mask = distance_matrix < eps
-                # best_motifs = self.motifs[template][distance_mask]
-                min_value = min(distance_matrix)
-                min_index = list(distance_matrix).index(min_value)
-                indices_smallest = np.argpartition(distance_matrix, 10)[:10]
-
-                # Создаем маску
-                mask = np.zeros_like(distance_matrix, dtype=bool)
-                mask[indices_smallest] = True
-                # mask = np.zeros(len(distance_matrix), dtype=bool)
-                # mask[min_index] = True
-                best_motifs = self.motifs[template][mask]
+                train_truncated_vectors_template = self.motifs[template][:, :-1]
+                distance_matrix = cdist([test_vectors[template]], train_truncated_vectors_template, 'euclidean')
+                distance_mask = distance_matrix[0] < eps
+                best_motifs = self.motifs[template][distance_mask]
+                best_indices = np.where(distance_mask)[0]
                 motifs_pool.extend(best_motifs)
-                motifs_indices.extend([(template, idx) for idx in indices_smallest])
-
+                motifs_indices.extend([(template, idx) for idx in best_indices])
             motifs_pool = np.array(motifs_pool)
             forecast_point = self.freeze_point(motifs_pool)
             actual_point = validation_set[step]
@@ -370,7 +357,7 @@ class TSProcessor:
         if motifs_pool.size == 0:
             return np.nan
         points_pool = motifs_pool[:, -1].reshape(-1, 1)
-        dbs = DBSCAN(0.01, min_samples=10)
+        dbs = DBSCAN(0.01, min_samples=17)
         dbs.fit(points_pool)
         cluster_labels, cluster_sizes = np.unique(dbs.labels_[dbs.labels_ > -1], return_counts=True)
         if cluster_labels.size > 0 and (np.count_nonzero(((cluster_sizes / cluster_sizes.max()).round(2) > 0.3)) == 1):
@@ -388,9 +375,9 @@ def main():
     test_size = 50000
     template_length = 4
     max_template_spread = 10
-    eps = 0.005
+    eps = 0.011
     beta = None
-    filter_threshold = 0.05
+    filter_threshold = 0.5
 
     ts = TimeSeries("Lorentz", size=total_steps, r=r, dt=dt)
     ts.train = ts.values[:train_size]
