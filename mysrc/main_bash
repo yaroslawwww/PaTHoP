@@ -2,8 +2,8 @@
 
 # Параметры
 start=10000
-end=30000
-steps=32
+end=60000
+steps=64
 mkdir -p "home/ikvasilev/save"
 
 experiment_name="size_experiment"

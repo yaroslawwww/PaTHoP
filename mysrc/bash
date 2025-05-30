@@ -3,8 +3,10 @@
 #SBATCH -c 1
 #SBATCH --time=72:00:00
 #SBATCH --output=/home/ikvasilev/PaTHoP/logs/prediction_multiple_ts_%j.log
-source /home/ikvasilev/my_env/bin/activate
+source ~/.bashrc
+conda activate myenv
 
 scontrol update job=$SLURM_JOB_ID JobName="prediction_$1_$2_$3_$4_$5_$6"
-
+#
 python ./main.py $1 $2 $3 $4 $5 $6
+#python ./waagh.py
