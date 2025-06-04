@@ -1,4 +1,5 @@
 # coding: utf-8
+import multiprocessing
 import os
 import sys
 from concurrent.futures import ProcessPoolExecutor, as_completed
@@ -10,7 +11,7 @@ from sklearn.cluster import DBSCAN
 from tqdm import tqdm
 from WishartClusterizationAlgorithm import Wishart
 import math
-
+flag = False
 def rmse(y_true, y_pred):
     y_pred = np.array(y_pred)
     y_true = np.array(y_true)
@@ -180,7 +181,7 @@ class TSProcessor:
         if os.path.exists(file_path):
             save_labels = np.load(file_path)
             z_vectors = self.templates_.train_set
-            for template in tqdm(range(z_vectors.shape[0]), desc=f"Processing templates (lts={last_step_spread})"):
+            for template in range(z_vectors.shape[0]):
                 inf_mask = ~np.isinf(z_vectors[template]).any(axis=1)
                 temp_z_v = z_vectors[template][inf_mask]
                 wishart.labels_ = save_labels[f"arr_{template}"]
@@ -193,7 +194,7 @@ class TSProcessor:
         else:
             save_labels = []
             z_vectors = self.templates_.train_set
-            for template in tqdm(range(z_vectors.shape[0]), desc=f"Processing templates (lts={last_step_spread})"):
+            for template in range(z_vectors.shape[0]):
                 inf_mask = ~np.isinf(z_vectors[template]).any(axis=1)
                 temp_z_v = z_vectors[template][inf_mask]
                 wishart.fit(temp_z_v)
@@ -221,7 +222,10 @@ class TSProcessor:
             test_vectors = values[:size_of_series + step][observation_indexes]
             motifs_pool = []
             for template in range(self.templates_.train_set.shape[0]):
+                if len(self.motifs[template]) == 0:
+                    continue
                 inf_mask = ~np.isinf(self.motifs[template]).any(axis=1)
+                # print(self.motifs[template])
                 train_vectors = self.motifs[template][inf_mask]
                 if train_vectors.size == 0:
                     continue
@@ -235,12 +239,156 @@ class TSProcessor:
             forecast_trajectories[step, 0] = forecast_point
             values[size_of_series + step] = forecast_point
         return forecast_trajectories, values
+    def _process_template(self, template, test_vector, eps):
+        """Обработка одного шаблона (вынесено в отдельный метод)"""
+        train_truncated = self.motifs[template][:, :-1]
+        distance_matrix = cdist([test_vector], train_truncated, 'euclidean')
+        distance_mask = distance_matrix[0] < eps
+        return (
+            self.motifs[template][distance_mask],
+            [(template, idx) for idx in np.where(distance_mask)[0]]
+        )
 
+    def motifs_validation(self, validation_set, prediction_size, eps, beta, filter_threshold):
+        values = self.time_series_.train.copy()
+        size_of_series = len(values)
+        steps = min(prediction_size, len(validation_set))
+        values.extend(validation_set[:steps])
+        values.extend([np.nan] * steps)
+        values = np.array(values)
+
+        predicted_val = []
+        actual_val = []
+        is_np_points = []
+        motif_errors = {t: {i: [] for i in range(len(self.motifs[t]))} for t in self.motifs}
+        motif_counts = {t: {i: 0 for i in range(len(self.motifs[t]))} for t in self.motifs}
+
+        for step in tqdm(range(steps)):
+            p = size_of_series + step
+            test_vectors = values[:p][self.templates_.observation_indexes]
+            motifs_pool = []
+            motifs_indices = []
+            for template in self.motifs.keys():
+                train_truncated_vectors_template = self.motifs[template][:, :-1]
+                distance_matrix = cdist([test_vectors[template]], train_truncated_vectors_template, 'euclidean')
+                distance_mask = distance_matrix[0] < eps
+                best_motifs = self.motifs[template][distance_mask]
+                best_indices = np.where(distance_mask)[0]
+                motifs_pool.extend(best_motifs)
+                motifs_indices.extend([(template, idx) for idx in best_indices])
+            motifs_pool = np.array(motifs_pool)
+            forecast_point = self.freeze_point(motifs_pool)
+            actual_point = validation_set[step]
+            predicted_val.append(forecast_point)
+            actual_val.append(actual_point)
+            is_np_points.append(1 if np.isnan(forecast_point) else 0)
+            if motifs_pool.size > 0:
+                pred_points = motifs_pool[:, -1]
+                errors = np.abs(pred_points - actual_point)
+                for (template, motif_idx), error in zip(motifs_indices, errors):
+                    motif_errors[template][motif_idx].append((step, error))
+                    if error < beta:
+                        motif_counts[template][motif_idx] += 1
+
+        min_counts = 10
+        active_templates = []
+        active_motifs = {}
+        for t in self.motifs.keys():
+            motif_counts_array = np.array([motif_counts[t][i] for i in range(len(self.motifs[t]))])
+            active_indices = np.where(motif_counts_array >= min_counts)[0]
+            if len(active_indices) > 0:
+                active_templates.append(t)
+                active_motifs[t] = active_indices.tolist()
+
+        if not active_templates:
+            metrics_before = {
+                "rmse": rmse(actual_val,predicted_val),
+                "mape": mape(actual_val,predicted_val),
+                "mean_is_np": np.mean(is_np_points),
+                "motif_count": sum(len(self.motifs[t]) for t in self.motifs)
+            }
+            return {
+                "before_filtering": metrics_before,
+                "after_filtering": metrics_before,
+                "prognostic_values": {}
+            }
+
+        errors_array = []
+        for t in active_templates:
+            for m_idx in active_motifs[t]:
+                for obs_idx, error in motif_errors[t][m_idx]:
+                    errors_array.append([t, m_idx, obs_idx, error])
+        errors_array = np.array(errors_array, dtype=np.float64)
+
+        prognostic_values = {}
+        # max_observations = 5000
+        # sampled_obs = np.random.choice(steps, size=min(steps, max_observations), replace=False)
+
+        for t in active_templates:
+            prognostic_values[t] = []
+            for m_idx in active_motifs[t]:
+                total_uses = len([e for o, e in motif_errors[t][m_idx]])
+                if total_uses == 0:
+                    Q_k = 0.0
+                else:
+                    Q_k = motif_counts[t][m_idx] / total_uses
+                prognostic_values[t].append(Q_k)
+            prognostic_values[t] = np.array(prognostic_values[t])
+
+        metrics_before = {
+            "rmse": rmse(actual_val,predicted_val),
+            "mape": mape(actual_val,predicted_val),
+            "mean_is_np": np.mean(is_np_points),
+            "motif_count": sum(len(self.motifs[t]) for t in self.motifs)
+        }
+
+        original_motifs = self.motifs.copy()
+        for t in active_templates:
+            if len(prognostic_values[t]) == 0:
+                continue
+            threshold = np.percentile(prognostic_values[t], filter_threshold * 100)
+            keep_mask = prognostic_values[t] >= threshold
+            self.motifs[t] = self.motifs[t][active_motifs[t]][keep_mask]
+
+        values = self.time_series_.train.copy()
+        size_of_series = len(values)
+        values.extend(validation_set[:steps])
+        values.extend([np.nan] * steps)
+        values = np.array(values)
+        predicted_val_filtered = []
+        is_np_points_filtered = []
+
+        # for step in tqdm(range(steps)):
+        #     p = size_of_series + step
+        #     test_vectors = values[:p][self.templates_.observation_indexes]
+        #     motifs_pool = []
+        #     for template in self.motifs.keys():
+        #         train_truncated_vectors_template = self.motifs[template][:, :-1]
+        #         distance_matrix = cdist([test_vectors[template]], train_truncated_vectors_template, 'euclidean')
+        #         distance_mask = distance_matrix[0] < eps
+        #         best_motifs = self.motifs[template][distance_mask]
+        #         motifs_pool.extend(best_motifs)
+        #     motifs_pool = np.array(motifs_pool)
+        #     forecast_point = self.freeze_point(motifs_pool)
+        #     predicted_val_filtered.append(forecast_point)
+        #     is_np_points_filtered.append(1 if np.isnan(forecast_point) else 0)
+        #
+        # metrics_after = {
+        #     "rmse": rmse(actual_val,predicted_val_filtered),
+        #     "mape": mape(actual_val,predicted_val_filtered),
+        #     "mean_is_np": np.mean(is_np_points_filtered),
+        #     "motif_count": sum(len(self.motifs[t]) for t in self.motifs)
+        # }
+
+        return {
+            "before_filtering": metrics_before,
+            "prognostic_values": prognostic_values
+        }
     def freeze_point(self, motifs_pool):
         if motifs_pool.size == 0:
             return np.nan
         points_pool = motifs_pool[:, -1].reshape(-1, 1)
-        dbs = DBSCAN(eps=0.01, min_samples=10)
+        dbs = DBSCAN(eps=0.01, min_samples=17)
         dbs.fit(points_pool)
         cluster_labels, cluster_sizes = np.unique(dbs.labels_[dbs.labels_ > -1], return_counts=True)
         cluster_centers = [float(points_pool[dbs.labels_ == i].mean()) for i in cluster_labels]
@@ -253,6 +401,7 @@ class TSProcessor:
             biggest_cluster_center = points_pool[mask].mean()
             return biggest_cluster_center
         return np.nan
+error_queue = multiprocessing.Queue()
 
 def predict_handler(gap_number, window_size, epsilon, ts, ts_processor):
     ts_size = len(ts.values)
@@ -278,30 +427,49 @@ def process_batch(batch, ts, ts_processor, eps):
 def process_lts(lts):
     """Process a single lts iteration"""
     # Initialize parameters
+
     r = 28
     dt = 0.001
-    total_steps = 25500
     train_size = 10000
-    test_size = 25500
+    val_size = 50000
     template_length = 4
     max_template_spread = 10
-    val_size = 0
+    test_size = 4000
     total_predictions = 3000
-    eps = 0.01
-
+    eps = 0.011
+    beta = 0.05
+    filter_threshold = 0.5
+    total_steps = train_size + val_size + test_size
     # Initialize time series
     ts = TimeSeries("Lorentz", size=total_steps, r=r, dt=dt)
     ts.train = ts.values[:train_size]
     ts.test = ts.values[train_size + val_size:train_size + val_size + test_size]
+    ts.val = ts.values[train_size:train_size + val_size]
     list_ts = [ts]
 
     # Initialize processor and fit
     tsproc = TSProcessor()
     print(f"Starting model fitting for lts={lts}...", flush=True)
     tsproc.fit(list_ts, template_length, max_template_spread, lts)
+    tsproc.time_series_ = ts
     print(f"Model fitting completed for lts={lts}.", flush=True)
 
-    # Prepare batches for prediction
+    print(f"Starting model validating for lts={lts}...", flush=True)
+    results = tsproc.motifs_validation(validation_set=np.array(ts.val), prediction_size=len(ts.val), eps=eps, beta=beta,
+                      filter_threshold=filter_threshold)
+    print(f"Model validating completed for lts={lts}.", flush=True)
+
+    # print("\nBefore Filtering:")
+    # print(f"RMSE: {results['before_filtering']['rmse']:.6f}")
+    # print(f"MAPE: {results['before_filtering']['mape']:.6f}")
+    # print(f"Mean Non-Predictable Points: {results['before_filtering']['mean_is_np']:.6f}")
+    # print(f"Motif Count: {results['before_filtering']['motif_count']}")
+    # print("\nAfter Filtering:")
+    # print(f"RMSE: {results['after_filtering']['rmse']:.6f}")
+    # print(f"MAPE: {results['after_filtering']['mape']:.6f}")
+    # print(f"Mean Non-Predictable Points: {results['after_filtering']['mean_is_np']:.6f}")
+    # print(f"Motif Count: {results['after_filtering']['motif_count']}")
+
     batches = batch_tasks(total_predictions, cpu_cores=1)
     print(f"Using {len(batches)} batches for lts={lts}", flush=True)
 
@@ -327,6 +495,13 @@ def process_lts(lts):
             smoothing=0,
             file=sys.stdout
         ):
+            if not error_queue.empty():
+                # Извлекаем первую ошибку из очереди
+                task_id, error_trace = error_queue.get()
+                print(f"Error in task {task_id}:\n{error_trace}")
+                # Аварийное завершение всех процессов
+                executor.shutdown(wait=False, cancel_futures=True)
+                sys.exit(1)  # Завершение программы с кодом ошибки
             batch_results = future.result()
             for result in batch_results:
                 if result:
@@ -369,7 +544,7 @@ def main():
     predictions.sort(key=lambda x: x[3])
 
     # Write results to file
-    with open("/home/ikvasilev/PaTHoP/results/stretched", "a") as f:
+    with open("/home/ikvasilev/PaTHoP/results/stretched_motifs.txt", "a") as f:
         for item in predictions:
             line = ",".join(map(str, item))
             f.write(line + "\n")
