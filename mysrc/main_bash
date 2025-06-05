@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Параметры
-start=10000
+start=0
 end=60000
 steps=64
 mkdir -p "home/ikvasilev/save"
@@ -17,18 +17,9 @@ else
 fi
 
 
-# Вычисляем шаг
-step=$(( (end - start) / (steps - 1) ))
 # Цикл по всем значениям size
 for (( i=0; i<steps; i++ )); do
     size=$(( start + i * step ))
     echo "Submitting job with size=$size"
-     sbatch -A proj_1685 ./bash 10 10 $size 1 0 $experiment_name
-done
-
-# Цикл по всем значениям size
-for (( i=0; i<steps; i++ )); do
-    size=$(( start + i * step ))
-    echo "Submitting job with size=$size"
-    sbatch -A proj_1685 ./bash 10 10 $size 0.5 0.5 $experiment_name
+    sbatch -A proj_1685 ./bash 0.01 10 $size $experiment_name
 done
