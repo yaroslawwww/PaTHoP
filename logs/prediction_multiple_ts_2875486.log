@@ -1,0 +1,253 @@
+Processing lts iterations:   0%|          | 0/200 [00:00<?, ?it/s]Starting model fitting for lts=12...
+Starting model fitting for lts=13...
+Fitting for lts=12
+Fitting for lts=13
+Starting model fitting for lts=10...
+Fitting for lts=10
+Starting model fitting for lts=17...
+Fitting for lts=17
+Starting model fitting for lts=9...
+Fitting for lts=9
+Starting model fitting for lts=5...
+Fitting for lts=5
+Starting model fitting for lts=16...
+Fitting for lts=16
+Starting model fitting for lts=14...
+Fitting for lts=14
+Starting model fitting for lts=15...
+Fitting for lts=15
+Starting model fitting for lts=21...
+Fitting for lts=21
+Starting model fitting for lts=11...
+Fitting for lts=11
+Starting model fitting for lts=6...
+Fitting for lts=6
+Starting model fitting for lts=4...
+Fitting for lts=4
+Starting model fitting for lts=8...
+Fitting for lts=8
+Starting model fitting for lts=3...
+Fitting for lts=3
+Starting model fitting for lts=30...
+Fitting for lts=30
+Starting model fitting for lts=29...
+Starting model fitting for lts=23...
+Starting model fitting for lts=19...
+Fitting for lts=19
+Fitting for lts=29
+Fitting for lts=23
+Starting model fitting for lts=22...
+Fitting for lts=22
+Starting model fitting for lts=27...
+Fitting for lts=27
+Starting model fitting for lts=28...
+Fitting for lts=28
+Starting model fitting for lts=26...
+Fitting for lts=26
+Starting model fitting for lts=24...
+Fitting for lts=24
+Starting model fitting for lts=25...
+Fitting for lts=25
+Starting model fitting for lts=31...
+Fitting for lts=31
+Starting model fitting for lts=18...
+Fitting for lts=18
+Starting model fitting for lts=20...
+Fitting for lts=20
+Starting model fitting for lts=7...
+Fitting for lts=7
+Starting model fitting for lts=0...
+Fitting for lts=0
+Starting model fitting for lts=2...
+Fitting for lts=2
+Starting model fitting for lts=1...
+Fitting for lts=1
+Model fitting completed for lts=15.
+Starting model validating for lts=15...
+Model fitting completed for lts=12.
+Starting model validating for lts=12...
+Model fitting completed for lts=16.
+Starting model validating for lts=16...
+Model fitting completed for lts=13.
+Starting model validating for lts=13...
+Model fitting completed for lts=11.
+Starting model validating for lts=11...
+Model fitting completed for lts=14.
+Starting model validating for lts=14...
+Model fitting completed for lts=17.
+Starting model validating for lts=17...
+Model fitting completed for lts=4.
+Starting model validating for lts=4...
+Model fitting completed for lts=10.
+Starting model validating for lts=10...
+Model fitting completed for lts=5.
+Starting model validating for lts=5...
+Model fitting completed for lts=9.
+Starting model validating for lts=9...
+Model fitting completed for lts=8.
+Starting model validating for lts=8...
+Model fitting completed for lts=30.
+Starting model validating for lts=30...
+Model fitting completed for lts=6.
+Starting model validating for lts=6...
+Model fitting completed for lts=3.
+Starting model validating for lts=3...
+Model fitting completed for lts=21.
+Starting model validating for lts=21...
+Model fitting completed for lts=31.
+Starting model validating for lts=31...
+Model fitting completed for lts=27.
+Starting model validating for lts=27...
+Model fitting completed for lts=29.
+Starting model validating for lts=29...
+Model fitting completed for lts=28.
+Starting model validating for lts=28...
+Model fitting completed for lts=18.
+Starting model validating for lts=18...
+Model fitting completed for lts=20.
+Starting model validating for lts=20...
+Model fitting completed for lts=19.
+Starting model validating for lts=19...
+Model fitting completed for lts=7.
+Starting model validating for lts=7...
+Model fitting completed for lts=26.
+Starting model validating for lts=26...
+Model fitting completed for lts=22.
+Starting model validating for lts=22...
+Model fitting completed for lts=25.
+Starting model validating for lts=25...
+Model fitting completed for lts=23.
+Starting model validating for lts=23...
+Model fitting completed for lts=24.
+Starting model validating for lts=24...
+Model fitting completed for lts=0.
+Starting model validating for lts=0...
+Model fitting completed for lts=2.
+Starting model validating for lts=2...
+Model fitting completed for lts=1.
+Starting model validating for lts=1...
+Model validating completed for lts=0.
+
+Before Filtering:
+RMSE: 0.039991
+MAPE: 0.039110
+Mean Non-Predictable Points: 0.115900
+Motif Count: 482234
+
+After Filtering:
+RMSE: 0.005979
+MAPE: 0.012221
+Mean Non-Predictable Points: 0.238280
+Motif Count: 160292
+Using 1 batches for lts=0
+Processing batches (lts=0):   0%|          | 0/1 [00:00<?, ?it/s]Model validating completed for lts=2.
+
+Before Filtering:
+RMSE: 0.051761
+MAPE: 0.056288
+Mean Non-Predictable Points: 0.172700
+Motif Count: 480769
+
+After Filtering:
+RMSE: 0.007695
+MAPE: 0.015731
+Mean Non-Predictable Points: 0.349680
+Motif Count: 133022
+Using 1 batches for lts=2
+Processing batches (lts=2):   0%|          | 0/1 [00:00<?, ?it/s]Model validating completed for lts=1.
+
+Before Filtering:
+RMSE: 0.044498
+MAPE: 0.046123
+Mean Non-Predictable Points: 0.143620
+Motif Count: 480213
+
+After Filtering:
+RMSE: 0.006969
+MAPE: 0.014140
+Mean Non-Predictable Points: 0.293660
+Motif Count: 146161
+Using 1 batches for lts=1
+Processing batches (lts=1):   0%|          | 0/1 [00:00<?, ?it/s]Processing batches (lts=0): 100%|██████████| 1/1 [56:13<00:00, 3373.84s/it]Processing batches (lts=0): 100%|██████████| 1/1 [56:13<00:00, 3373.84s/it]
+
+Metrics for lts=0:
+RMSE: 0.0362
+NaN ratio: 11.27%
+MAPE: 4.00%
+Processing lts iterations:   0%|          | 1/200 [7:41:46<1531:34:26, 27706.87s/it]Model validating completed for lts=4.
+
+Before Filtering:
+RMSE: 0.063887
+MAPE: 0.074586
+Mean Non-Predictable Points: 0.217520
+Motif Count: 484473
+
+After Filtering:
+RMSE: 0.008811
+MAPE: 0.017793
+Mean Non-Predictable Points: 0.437300
+Motif Count: 116116
+Using 1 batches for lts=4
+Processing batches (lts=4):   0%|          | 0/1 [00:00<?, ?it/s]Starting model fitting for lts=32...
+Fitting for lts=32
+Model validating completed for lts=3.
+
+Before Filtering:
+RMSE: 0.058603
+MAPE: 0.066754
+Mean Non-Predictable Points: 0.197380
+Motif Count: 481047
+
+After Filtering:
+RMSE: 0.008417
+MAPE: 0.017191
+Mean Non-Predictable Points: 0.400880
+Motif Count: 122511
+Using 1 batches for lts=3
+Processing batches (lts=3):   0%|          | 0/1 [00:00<?, ?it/s]Model fitting completed for lts=32.
+Starting model validating for lts=32...
+Model validating completed for lts=5.
+
+Before Filtering:
+RMSE: 0.069924
+MAPE: 0.082118
+Mean Non-Predictable Points: 0.236220
+Motif Count: 486920
+
+After Filtering:
+RMSE: 0.009278
+MAPE: 0.018508
+Mean Non-Predictable Points: 0.467420
+Motif Count: 110386
+Using 1 batches for lts=5
+Processing batches (lts=5):   0%|          | 0/1 [00:00<?, ?it/s]Processing batches (lts=1): 100%|██████████| 1/1 [51:20<00:00, 3080.44s/it]Processing batches (lts=1): 100%|██████████| 1/1 [51:20<00:00, 3080.45s/it]
+
+Metrics for lts=1:
+RMSE: 0.0394
+NaN ratio: 13.63%
+MAPE: 4.71%
+Processing lts iterations:   1%|          | 2/200 [8:22:21<828:53:55, 15070.89s/it] Model validating completed for lts=6.
+
+Before Filtering:
+RMSE: 0.076600
+MAPE: 0.092362
+Mean Non-Predictable Points: 0.252100
+Motif Count: 486270
+
+After Filtering:
+RMSE: 0.010644
+MAPE: 0.019980
+Mean Non-Predictable Points: 0.490580
+Motif Count: 104651
+Using 1 batches for lts=6
+Processing batches (lts=6):   0%|          | 0/1 [00:00<?, ?it/s]Processing batches (lts=2): 100%|██████████| 1/1 [55:51<00:00, 3351.31s/it]Processing batches (lts=2): 100%|██████████| 1/1 [55:51<00:00, 3351.31s/it]
+
+Metrics for lts=2:
+RMSE: 0.0422
+NaN ratio: 16.97%
+MAPE: 5.43%
+Processing lts iterations:   2%|▏         | 3/200 [8:26:48<554:40:37, 10136.23s/it]Starting model fitting for lts=33...
+Fitting for lts=33
+Starting model fitting for lts=34...
+Fitting for lts=34
+slurmstepd: error: *** JOB 2875486 ON cn-012 CANCELLED AT 2025-05-31T06:43:06 ***
