@@ -17,7 +17,9 @@ else
 fi
 
 
-# Цикл по всем значениям size
+# Вычисляем шаг
+step=$(( (end - start) / (steps - 1) ))
+
 for (( i=0; i<steps; i++ )); do
     size=$(( start + i * step ))
     echo "Submitting job with size=$size"
