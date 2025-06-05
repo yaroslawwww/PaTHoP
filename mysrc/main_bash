@@ -1,22 +1,3 @@
 #!/bin/bash
 
-# Параметры
-start=10000
-end=100000
-steps=32
-
-# Вычисляем шаг
-step=$(( (end - start) / (steps - 1) ))
-# Цикл по всем значениям size
-for (( i=0; i<steps; i++ )); do
-    size=$(( start + i * step ))
-    echo "Submitting job with size=$size"
-    sbatch ./bash 10 10 $size 1 0
-done
-
-# Цикл по всем значениям size
-for (( i=0; i<steps; i++ )); do
-    size=$(( start + i * step ))
-    echo "Submitting job with size=$size"
-    sbatch ./bash 10 10 $size 0.5 0.5
-done
+sbatch ./bash
