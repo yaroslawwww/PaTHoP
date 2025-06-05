@@ -275,7 +275,7 @@ def main():
 
     os.makedirs('/home/ikvasilev/PaTHoP/results', exist_ok=True)
 
-    with open('/home/ikvasilev/PaTHoP/results/metrics.txt', 'w') as f:
+    with open('/home/ikvasilev/PaTHoP/results/metrics_second_part.txt', 'w') as f:
         # Только основные метрики
         f.write('p,rmsstd,r2,calinski_harabasz,i_index,davies_bouldin,xie_beni,sd_index\n')
         for p, metrics in results:
