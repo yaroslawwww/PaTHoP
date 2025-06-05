@@ -222,7 +222,7 @@ class TSProcessor:
         for template in self.motifs.keys():
             self.motifs[template] = np.array(self.motifs[template])
 
-        # Усреднение метрик
+        # Усреднение только основных метрик
         if all_metrics:
             metric_names = all_metrics[0].keys()
             averaged_metrics = {}
@@ -230,17 +230,18 @@ class TSProcessor:
                 values = [metrics[name] for metrics in all_metrics if name in metrics]
                 averaged_metrics[name] = np.mean(values) if values else np.nan
         else:
-            averaged_metrics = {name: np.nan for name in
-                                ['rmsstd', 'r2', 'modified_hubert', 'calinski_harabasz', 'i_index', 'dunn',
-                                 'silhouette', 'davies_bouldin', 'xie_beni', 'sd', 'sdbw', 'cvnn2']}
+            averaged_metrics = {name: np.nan for name in [
+                'rmsstd', 'r2', 'calinski_harabasz', 'i_index',
+                'davies_bouldin', 'xie_beni', 'sd_index'
+            ]}
 
         return averaged_metrics
 
 
 def compute_for_p(p):
-    general_size = 10000  # Фиксированный размер
-    r_values = [28, 35]  # Значения r для двух рядов
-    dt = 0.001  # Шаг времени
+    general_size = 10000
+    r_values = [28, 35]
+    dt = 0.001
     shares = [p, 1 - p]
     ts_size = [int(p * general_size), int((1 - p) * general_size)]
 
@@ -253,7 +254,7 @@ def compute_for_p(p):
     template_length = 4
     max_template_spread = 10
     tsproc = TSProcessor(k=16, mu=0.45)
-    metrics = tsproc.fit(list_ts, template_length, max_template_spread,p)
+    metrics = tsproc.fit(list_ts, template_length, max_template_spread, p)
     print(metrics)
     return p, metrics
 
@@ -262,35 +263,27 @@ def main():
     proportions = np.arange(0.001, 1, 0.05)
     results = []
 
-    # Распараллеливание вычислений
     with ProcessPoolExecutor() as executor:
-        # Запускаем все задачи асинхронно
         future_to_p = {executor.submit(compute_for_p, p): p for p in proportions}
 
-        # Обрабатываем результаты по мере их поступления
         for future in as_completed(future_to_p):
             p = future_to_p[future]
-            try:
-                result = future.result()
-                results.append(result)
-            except Exception as e:
-                print(f"Ошибка для p={p}: {str(e)}")
+            result = future.result()
+            results.append(result)
 
-    # Сортировка результатов по значению p (опционально)
     results.sort(key=lambda x: x[0])
 
-    # Создаем директорию для результатов
     os.makedirs('/home/ikvasilev/PaTHoP/results', exist_ok=True)
 
-    # Сохранение результатов в файл
     with open('/home/ikvasilev/PaTHoP/results/metrics.txt', 'w') as f:
-        f.write(
-            'p,rmsstd,r2,modified_hubert,calinski_harabasz,i_index,dunn,silhouette,davies_bouldin,xie_beni,sd,sdbw,cvnn2\n')
+        # Только основные метрики
+        f.write('p,rmsstd,r2,calinski_harabasz,i_index,davies_bouldin,xie_beni,sd_index\n')
         for p, metrics in results:
             line = f'{p},'
-            for name in ['rmsstd', 'r2', 'modified_hubert', 'calinski_harabasz',
-                         'i_index', 'dunn', 'silhouette', 'davies_bouldin',
-                         'xie_beni', 'sd', 'sdbw', 'cvnn2']:
+            for name in [
+                'rmsstd', 'r2', 'calinski_harabasz', 'i_index',
+                'davies_bouldin', 'xie_beni', 'sd_index'
+            ]:
                 line += f'{metrics[name]},'
             line = line.rstrip(',')
             f.write(line + '\n')
