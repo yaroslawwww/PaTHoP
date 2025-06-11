@@ -6,14 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="Расчет валидации на 100 шаблонов">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysrc/bash" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/bash" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysrc/clusterization_metrics.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/clusterization_metrics.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mysrc/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysrc/main_bash" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/main_bash" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysrc/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/requirements.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/results/Size_experiment_script..ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/results/Size_experiment_script..ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/size_experiment" beforeDir="false" afterPath="$PROJECT_DIR$/results/size_experiment" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/stretched" beforeDir="false" afterPath="$PROJECT_DIR$/results/stretched" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/metrics.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/start" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/start" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +38,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="cranes" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -204,8 +200,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.main" />
         <item itemvalue="Python.zero_case_main" />
+        <item itemvalue="Python.main" />
         <item itemvalue="Python.dtw" />
         <item itemvalue="Python.main" />
         <item itemvalue="Python.zero_case_main" />
@@ -476,6 +472,7 @@
       <workItem from="1745598701243" duration="898000" />
       <workItem from="1745604728547" duration="325000" />
       <workItem from="1749109188479" duration="6563000" />
+      <workItem from="1749622610515" duration="3231000" />
     </task>
     <task id="LOCAL-00049" summary="Исправил прогу">
       <option name="closed" value="true" />
@@ -893,6 +890,11 @@
               </RecentGroup>
               <RecentGroup>
                 <option name="FILTER_VALUES">
+                  <option value="metrics" />
+                </option>
+              </RecentGroup>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
                   <option value="origin/waaagh" />
                 </option>
               </RecentGroup>
@@ -929,7 +931,19 @@
         </entry>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>

@@ -169,10 +169,11 @@ class TSProcessor:
         wishart = Wishart(k=self.k, mu=self.mu)
         self.motifs = dict()
         self.templates_.create_train_set(time_series_list)
-        file_path = f"../labels/{max_template_spread}_share_{p}.npz"
+        file_path = f"../labels/{max_template_spread}_share_{p}_0.01.npz"
 
         all_metrics = []  # Для хранения метрик по шаблонам
-
+        all_noise = []
+        all_size = []
         if os.path.exists(file_path):
             save_labels = np.load(file_path)
             z_vectors = self.templates_.train_set
@@ -186,14 +187,15 @@ class TSProcessor:
                     self.motifs[template] += list(np.array(motifs).reshape(-1, len(motifs[0])))
                 else:
                     self.motifs[template] = list(np.array(motifs).reshape(-1, len(motifs[0])))
-
                 # Вычисление метрик
                 assigned_mask = wishart.labels_ >= 0
                 X_assigned = temp_z_v[assigned_mask]
                 labels_assigned = wishart.labels_[assigned_mask]
                 if len(X_assigned) > 0 and len(np.unique(labels_assigned)) > 1:
-                    metrics = compute_metrics_parallel(X_assigned, labels_assigned)
+                    metrics = compute_metrics_sequential(X_assigned, labels_assigned)
                     all_metrics.append(metrics)
+                all_noise.append(np.sum(wishart.labels_ == 0) / len(cluster_labels))
+                all_size.append(len(cluster_labels))
         else:
             save_labels = []
             z_vectors = self.templates_.train_set
@@ -208,7 +210,6 @@ class TSProcessor:
                     self.motifs[template] += list(np.array(motifs).reshape(-1, len(motifs[0])))
                 else:
                     self.motifs[template] = list(np.array(motifs).reshape(-1, len(motifs[0])))
-
                 # Вычисление метрик
                 assigned_mask = wishart.labels_ >= 0
                 X_assigned = temp_z_v[assigned_mask]
@@ -216,12 +217,16 @@ class TSProcessor:
                 if len(X_assigned) > 0 and len(np.unique(labels_assigned)) > 1:
                     metrics = compute_metrics_sequential(X_assigned, labels_assigned)
                     all_metrics.append(metrics)
+                all_noise.append(np.sum(wishart.labels_ == 0) / len(cluster_labels))
+                all_size.append(len(cluster_labels))
 
             np.savez(file_path, *save_labels)
 
         for template in self.motifs.keys():
             self.motifs[template] = np.array(self.motifs[template])
 
+        average_size = np.mean(all_size)
+        average_noise = np.mean(all_noise)
         # Усреднение только основных метрик
         if all_metrics:
             metric_names = all_metrics[0].keys()
@@ -234,13 +239,12 @@ class TSProcessor:
                 'rmsstd', 'r2', 'calinski_harabasz', 'i_index',
                 'davies_bouldin', 'xie_beni', 'sd_index'
             ]}
-
-        return averaged_metrics
+        return averaged_metrics,average_size,average_noise
 
 
 def compute_for_p(p):
     general_size = 10000
-    r_values = [28, 35]
+    r_values = [28, 28 + 0.01]
     dt = 0.001
     shares = [p, 1 - p]
     ts_size = [int(p * general_size), int((1 - p) * general_size)]
@@ -254,9 +258,9 @@ def compute_for_p(p):
     template_length = 4
     max_template_spread = 10
     tsproc = TSProcessor(k=16, mu=0.45)
-    metrics = tsproc.fit(list_ts, template_length, max_template_spread, p)
-    print(metrics)
-    return p, metrics
+    metrics, average_size,average_noise = tsproc.fit(list_ts, template_length, max_template_spread, p)
+    print(average_size,average_noise)
+    return p,metrics, average_size,average_noise
 
 
 def main():
@@ -275,16 +279,18 @@ def main():
 
     os.makedirs('/home/ikvasilev/PaTHoP/results', exist_ok=True)
 
-    with open('/home/ikvasilev/PaTHoP/results/metrics_second_part.txt', 'w') as f:
+    with open('/home/ikvasilev/PaTHoP/results/metrics_0.01.txt', 'w') as f:
         # Только основные метрики
-        f.write('p,rmsstd,r2,calinski_harabasz,i_index,davies_bouldin,xie_beni,sd_index\n')
-        for p, metrics in results:
+        f.write('p,size,noise\n')
+        for p,metrics, average_size,average_noise in results:
             line = f'{p},'
             for name in [
                 'rmsstd', 'r2', 'calinski_harabasz', 'i_index',
                 'davies_bouldin', 'xie_beni', 'sd_index'
             ]:
                 line += f'{metrics[name]},'
+            line += f'{average_size},'
+            line += f'{average_noise},'
             line = line.rstrip(',')
             f.write(line + '\n')
 

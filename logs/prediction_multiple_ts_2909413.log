@@ -1,0 +1,5 @@
+Unexpected message received for job 2909413
+  File "/home/ikvasilev/PaTHoP/mysrc/./main.py", line 263
+    return p,metrics average_size,average_noise
+                     ^
+SyntaxError: invalid syntax

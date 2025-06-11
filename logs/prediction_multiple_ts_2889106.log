@@ -1,0 +1,5 @@
+Unexpected message received for job 2889106
+  File "/home/ikvasilev/PaTHoP/mysrc/./main.py", line 17
+    how_many_gaps=3000,
+                 ^
+SyntaxError: invalid syntax
