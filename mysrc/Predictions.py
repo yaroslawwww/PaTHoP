@@ -276,21 +276,3 @@ def parallel_research(r_values, ts_size, how_many_gaps, test_size_constant, dt=0
     for ts in list_ts:
         ts.close_shm()
     return rmse(pred_points_values, real_points_values), np.mean(is_np_points), mape(pred_points_values, real_points_values)
-
-def main():
-    deviation = float(sys.argv[1])
-    prediction_size = int(sys.argv[2])
-    general_size = int(sys.argv[3])
-    shares = [float(sys.argv[4]), float(sys.argv[5])]
-    experiment = sys.argv[6]
-    rmses, np_points, mape_val = parallel_research(
-        r_values=[28, 28, 28 + deviation],
-        ts_size=(np.array([shares[0] * general_size + 3250] + [s * general_size for s in shares])).astype(np.uint64),
-        how_many_gaps=3000,
-        test_size_constant=prediction_size
-    )
-    with open(f"/home/ikvasilev/PaTHoP/results/{experiment}", "a") as f:
-        f.write(f"{deviation},{general_size},{prediction_size},{rmses},{np_points},{mape_val},{shares[0]}\n")
-
-if __name__ == '__main__':
-    main()

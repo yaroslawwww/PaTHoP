@@ -25,3 +25,17 @@ for (( i=0; i<steps; i++ )); do
     echo "Submitting job with size=$size"
     sbatch -A proj_1685 ./bash 0.01 10 $size $experiment_name
 done
+
+
+for (( i=0; i<steps; i++ )); do
+    size=$(( start + i * step ))
+    echo "Submitting job with size=$size"
+    sbatch -A proj_1685 ./bash 0.1 10 $size $experiment_name
+done
+
+
+for (( i=0; i<steps; i++ )); do
+    size=$(( start + i * step ))
+    echo "Submitting job with size=$size"
+    sbatch -A proj_1685 ./bash 1 10 $size $experiment_name
+done
