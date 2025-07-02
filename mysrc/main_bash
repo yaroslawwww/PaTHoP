@@ -6,7 +6,7 @@ end=60000
 steps=64
 mkdir -p "home/ikvasilev/save"
 
-experiment_name="size_experiment"
+experiment_name="Size_experiment"
 
 if [ -f "/home/ikvasilev/PaTHoP/results/$experiment_name" ]; then
     # Перемещаем файл

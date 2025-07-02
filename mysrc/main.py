@@ -1,95 +1,34 @@
 # coding: utf-8
 import sys
-
 import numpy as np
-from sklearn.metrics import mean_squared_error
-from concurrent.futures import ProcessPoolExecutor
 import os
-import matplotlib.pyplot as plt
 from WishartClusterizationAlgorithm import Wishart
-
+from sklearn.cluster import DBSCAN
+from scipy.spatial.distance import cdist
+from tqdm import tqdm
 
 def rmse(y_true, y_pred):
     y_pred = np.array(y_pred)
     y_true = np.array(y_true)
     mask = ~np.isnan(y_true) & ~np.isnan(y_pred)
-
     y_true_masked = y_true[mask]
     y_pred_masked = y_pred[mask]
-
-    if len(y_true_masked) == 0:
-        return np.nan
-
-    mse = np.mean((y_true_masked - y_pred_masked) ** 2)
-    return np.sqrt(mse)
-
+    return np.sqrt(np.mean((y_true_masked - y_pred_masked) ** 2)) if len(y_true_masked) > 0 else np.nan
 
 def mape(y_true, y_pred):
     y_pred = np.array(y_pred)
     y_true = np.array(y_true)
-
-    # Маска для исключения NaN
     mask = ~np.isnan(y_true) & ~np.isnan(y_pred)
     y_true_masked = y_true[mask]
     y_pred_masked = y_pred[mask]
     if len(y_true_masked) == 0:
         return 0
-    # Проверка на наличие нулей в y_true
     zero_mask = y_true_masked != 0
     if not np.any(zero_mask):
-        return np.nan  # Если все значения в y_true равны нулю после маски
-
-    # Вычисление MAPE только для ненулевых значений
+        return np.nan
     y_true_non_zero = y_true_masked[zero_mask]
     y_pred_non_zero = y_pred_masked[zero_mask]
-
-    # Расчет абсолютной процентной ошибки
-    ape = np.abs((y_true_non_zero - y_pred_non_zero) / y_true_non_zero)
-    return np.mean(ape)
-
-
-def predict_handler(gap_number, window_size,
-                    epsilon, ts, ts_processor: TSProcessor):
-    ts_size = len(ts.values)
-    window_index = ts_size - (gap_number + 1) - window_size
-    if window_index > len(ts.values) or window_index < 0:
-        raise ValueError("Window index out of range")
-    values = ts_processor.predict(ts, window_index, window_size, epsilon)
-    real_values = np.array(ts.values[window_index:window_index + window_size])
-    pred_values = np.array(values[-window_size:])
-    is_np_point = 1 if np.isnan(pred_values[-1]) else 0
-    # Проверка результата предсказания на глаз
-    mask = ~np.isnan(real_values) & ~np.isnan(pred_values)
-    print("res:", abs(real_values[mask] - pred_values[mask]).round(2))
-    return pred_values[-1], is_np_point, real_values[-1]
-
-
-def parallel_research(r_values, ts_size, how_many_gaps, test_size_constant, dt=0.01, epsilon=0.01,
-                      template_length_constant=4,
-                      template_spread_constant=10):
-    pred_points_values = []
-    is_np_points = []
-    real_points_values = []
-    list_ts = []
-    mean_affils = []
-    for i, r in enumerate(r_values):
-        if ts_size[i] == 0:
-            continue
-        ts = TimeSeries("Lorentz", size=ts_size[i], r=r, dt=dt)
-        list_ts.append(ts)
-    tsproc = TSProcessor()
-    tsproc.fit(list_ts[1:], template_length_constant, template_spread_constant)
-    with ProcessPoolExecutor() as executor:
-        futures = [executor.submit(predict_handler, gap, test_size_constant, epsilon, list_ts[0], tsproc)
-                   for gap in range(how_many_gaps)]
-        for future in futures:
-            result = future.result()
-            if result is not None and len(result) > 0:
-                pred_points_values.append(result[0])
-                is_np_points.append(result[1])
-                real_points_values.append(result[2])
-    return rmse(pred_points_values, real_points_values), np.mean(is_np_points), mape(pred_points_values,
-                                                                                     real_points_values)
+    return np.mean(np.abs((y_true_non_zero - y_pred_non_zero) / y_true_non_zero))
 
 class Lorentz:
     def __init__(self, s=10, b=8/3):
@@ -126,7 +65,6 @@ class Lorentz:
         x += (k_1 + 2 * k_2 + 2 * k_3 + k_4) * dt * (1/6)
         y += (l_1 + 2 * l_2 + 2 * l_3 + l_4) * dt * (1/6)
         z += (m_1 + 2 * m_2 + 2 * m_3 + m_4) * dt * (1/6)
-
         return x, y, z
 
     def generate(self, dt, steps, r=28):
@@ -144,31 +82,20 @@ class TimeSeries:
     def __init__(self, series_type="Lorentz", size=0, r=28, dt=0.01, array=None):
         if series_type == "Lorentz":
             divisor = int(0.1 / dt)
-            x, y, z = Lorentz().generate(dt=dt, steps=size * divisor, r=r)
-            x = (x - x.min()) / (x.max() - x.min())  # нормализация чисел
-            self.values = list(x)[::divisor]
-        else:
-            x = np.array(array)
+            x, _, _ = Lorentz().generate(dt=dt, steps=size * divisor, r=r)
             x = (x - x.min()) / (x.max() - x.min())
-            self.values = list(x)
+            self.values = x[::divisor]
+        else:
+            self.values = np.array(array)
+            self.values = (self.values - self.values.min()) / (self.values.max() - self.values.min())
         self.train = None
-        self.after_test_train = None
         self.test = None
-        self.val = []
-        self.time = [i for i in range(len(self.values))]
 
     def split_train_val_test(self, window_index, test_size=100):
         if window_index + test_size > len(self.values):
             raise ValueError("test index out of range")
-
         self.train = self.values[:window_index]
         self.test = self.values[window_index:window_index + test_size]
-
-    def close_shm(self):
-        if self.shm_block:
-            self.shm_block.close()
-            self.shm_block.unlink()
-            self.shm_block = None
 
 class Templates:
     def __init__(self, template_length, max_template_spread):
@@ -222,9 +149,6 @@ class Templates:
             self.train_set = np.concatenate(all_train_sets, axis=1)
             self.affiliation_matrix = np.concatenate(affiliation_matrix, axis=1)
 
-def calc_distance_matrix(test_vectors, train_vectors):
-    return np.squeeze(cdist(test_vectors, train_vectors, 'euclidean'), axis=0)
-
 class TSProcessor:
     def __init__(self, k=16, mu=0.45):
         self.templates_ = None
@@ -233,26 +157,47 @@ class TSProcessor:
         self.motifs = None
 
     def fit(self, time_series_list, template_length, max_template_spread):
-        print("Fitting\n")
         self.templates_ = Templates(template_length, max_template_spread)
-        wishart = Wishart(k=self.k, mu=self.mu)
-        self.motifs = {}
         self.templates_.create_train_set(time_series_list)
-        z_vectors = self.templates_.train_set
-        for template in tqdm(range(z_vectors.shape[0])):
-            inf_mask = ~np.isinf(z_vectors[template]).any(axis=1)
-            temp_z_v = z_vectors[template][inf_mask]
-            wishart.fit(temp_z_v)
-            cluster_labels, cluster_sizes = np.unique(wishart.labels_[wishart.labels_ > -1], return_counts=True)
-            motifs = [temp_z_v[wishart.labels_ == i].mean(axis=0) for i in cluster_labels]
-            self.motifs[template] = np.array(motifs).reshape(-1, len(motifs[0]))
-        self.templates_.train_set = None  # Free memory
+        wishart = Wishart(k=self.k, mu=self.mu)
+        self.motifs = dict()
+        file_path = f"../assets/labels/{sys.argv[4]}.npz"
+        if os.path.exists(file_path):
+            save_labels = np.load(file_path)
+            z_vectors = self.templates_.train_set
+            for template in range(z_vectors.shape[0]):
+                inf_mask = ~np.isinf(z_vectors[template]).any(axis=1)
+                temp_z_v = z_vectors[template][inf_mask]
+                wishart.labels_ = save_labels[f"arr_{template}"]
+                cluster_labels, cluster_sizes = np.unique(wishart.labels_[wishart.labels_ > -1], return_counts=True)
+                motifs = [temp_z_v[wishart.labels_ == i].mean(axis=0) for i in cluster_labels]
+                if template in self.motifs:
+                    self.motifs[template] += list(np.array(motifs).reshape(-1, len(motifs[0])))
+                else:
+                    self.motifs[template] = list(np.array(motifs).reshape(-1, len(motifs[0])))
+        else:
+            save_labels = []
+            z_vectors = self.templates_.train_set
+            for template in range(z_vectors.shape[0]):
+                inf_mask = ~np.isinf(z_vectors[template]).any(axis=1)
+                temp_z_v = z_vectors[template][inf_mask]
+                wishart.fit(temp_z_v)
+                cluster_labels, cluster_sizes = np.unique(wishart.labels_[wishart.labels_ > -1], return_counts=True)
+                save_labels.append(wishart.labels_)
+                motifs = [temp_z_v[wishart.labels_ == i].mean(axis=0) for i in cluster_labels]
+                if template in self.motifs:
+                    self.motifs[template] += list(np.array(motifs).reshape(-1, len(motifs[0])))
+                else:
+                    self.motifs[template] = list(np.array(motifs).reshape(-1, len(motifs[0])))
+            np.savez(file_path, *save_labels)
+        for template in self.motifs.keys():
+            self.motifs[template] = np.array(self.motifs[template])
 
     def predict(self, time_series, window_index, test_size, eps):
         self.time_series_ = time_series
         self.time_series_.split_train_val_test(window_index, test_size)
         steps = len(self.time_series_.test)
-        values = np.array(self.time_series_.train + self.time_series_.val + [np.nan] * steps)
+        values = np.array(self.time_series_.train + [np.nan] * steps)
         forecast_trajectories = np.full((steps, 1), np.nan)
         observation_indexes = self.templates_.observation_indexes
         for step in range(steps):
@@ -263,7 +208,7 @@ class TSProcessor:
                 distance_matrix = calc_distance_matrix([test_vectors[template]], train_truncated_vectors_template)
                 distance_mask = distance_matrix < eps
                 best_motifs = self.motifs[template][distance_mask]
-                motifs_pool.extend(best_motifs)
+                motifs_pool.append(best_motifs)
             motifs_pool = np.array(motifs_pool)
             forecast_point = self.freeze_point(motifs_pool)
             forecast_trajectories[step, 0] = forecast_point
@@ -274,7 +219,7 @@ class TSProcessor:
         if motifs_pool.size == 0:
             return np.nan
         points_pool = motifs_pool[:, -1].reshape(-1, 1)
-        dbs = DBSCAN(0.01, min_samples=4)
+        dbs = DBSCAN(0.01, min_samples=16)
         dbs.fit(points_pool)
         cluster_labels, cluster_sizes = np.unique(dbs.labels_[dbs.labels_ > -1], return_counts=True)
         if cluster_labels.size > 0 and np.count_nonzero((cluster_sizes / cluster_sizes.max()).round(2) > 0.3) == 1:
@@ -282,35 +227,11 @@ class TSProcessor:
             return points_pool[mask].mean()
         return np.nan
 
-def rmse(y_true, y_pred):
-    y_pred = np.array(y_pred)
-    y_true = np.array(y_true)
-    mask = ~np.isnan(y_true) & ~np.isnan(y_pred)
-    y_true_masked = y_true[mask]
-    y_pred_masked = y_pred[mask]
-    return np.sqrt(np.mean((y_true_masked - y_pred_masked) ** 2)) if len(y_true_masked) > 0 else np.nan
+def calc_distance_matrix(test_vectors, train_vectors):
+    return np.squeeze(cdist(test_vectors, train_vectors, 'euclidean'), axis=0)
 
-def mape(y_true, y_pred):
-    y_pred = np.array(y_pred)
-    y_true = np.array(y_true)
-    mask = ~np.isnan(y_true) & ~np.isnan(y_pred)
-    y_true_masked = y_true[mask]
-    y_pred_masked = y_pred[mask]
-    if len(y_true_masked) == 0:
-        return 0
-    zero_mask = y_true_masked != 0
-    if not np.any(zero_mask):
-        return np.nan
-    y_true_non_zero = y_true_masked[zero_mask]
-    y_pred_non_zero = y_pred_masked[zero_mask]
-    return np.mean(np.abs((y_true_non_zero - y_pred_non_zero) / y_true_non_zero))
-
-def predict_handler(gap, test_size_constant, epsilon, ts_shm_name, ts_size, tsproc):
-    # Reconstruct TimeSeries with shared memory
-    ts = TimeSeries()
-    ts.shm_name = ts_shm_name
-    ts.shm_block = shm.SharedMemory(name=ts_shm_name)
-    ts.values = np.ndarray((ts_size,), dtype=np.float64, buffer=ts.shm_block.buf)
+def predict_handler(gap, test_size_constant, epsilon, ts, tsproc):
+    ts_size = len( ts.values)
     window_index = ts_size - (gap + 1) - test_size_constant
     if window_index < 0 or window_index >= ts_size:
         return None, None, None
@@ -320,60 +241,39 @@ def predict_handler(gap, test_size_constant, epsilon, ts_shm_name, ts_size, tspr
     is_np_point = 1 if np.isnan(pred_values[-1]) else 0
     return pred_values[-1], is_np_point, real_values[-1]
 
-def process_batch(gaps, test_size_constant, epsilon, ts_shm_name, ts_size, tsproc):
-    results = []
-    for gap in gaps:
-        pred_point, is_np_point, real_point = predict_handler(
-            gap, test_size_constant, epsilon, ts_shm_name, ts_size, tsproc
-        )
-        results.append((pred_point, is_np_point, real_point))
-    return results
-
-def parallel_research(r_values, ts_size, how_many_gaps, test_size_constant, dt=0.01, epsilon=0.01,
-                      template_length_constant=4, template_spread_constant=10):
-    batch_size = 50
+def research(r_values, ts_size, how_many_gaps, test_size_constant, dt=0.01, epsilon=0.01,
+             template_length_constant=4, template_spread_constant=10):
     list_ts = [TimeSeries("Lorentz", size=size, r=r, dt=dt) for size, r in zip(ts_size, r_values) if size > 0]
     tsproc = TSProcessor()
-    tsproc.fit(list_ts[1:], template_length_constant, template_spread_constant)
+    tsproc.fit(list_ts, template_length_constant, template_spread_constant)
     pred_points_values = []
     is_np_points = []
     real_points_values = []
-    with ProcessPoolExecutor() as executor:
-        futures = [
-            executor.submit(
-                process_batch,
-                range(batch_start, min(batch_start + batch_size, how_many_gaps)),
-                test_size_constant,
-                epsilon,
-                list_ts[0].shm_name,
-                len(list_ts[0].values),
-                tsproc
-            )
-            for batch_start in range(0, how_many_gaps, batch_size)
-        ]
-        for future in futures:
-            batch_result = future.result()
-            for pred_point, is_np_point, real_point in batch_result:
-                pred_points_values.append(pred_point)
-                is_np_points.append(is_np_point)
-                real_points_values.append(real_point)
-    for ts in list_ts:
-        ts.close_shm()
+    ts = list_ts[0]
+    for gap in range(how_many_gaps):
+        pred_point, is_np_point, real_point = predict_handler(
+            gap, test_size_constant, epsilon, ts, tsproc
+        )
+        if pred_point is not None:
+            pred_points_values.append(pred_point)
+            is_np_points.append(is_np_point)
+            real_points_values.append(real_point)
     return rmse(pred_points_values, real_points_values), np.mean(is_np_points), mape(pred_points_values, real_points_values)
+
 def main():
     deviation = float(sys.argv[1])
     prediction_size = int(sys.argv[2])
-    sizes = [10000,int(float(sys.argv[3]))]
-    general_size = 10000 + int(float(sys.argv[3]))
+    sizes = [5000, int(float(sys.argv[3]))]
+    general_size = 5000 + int(float(sys.argv[3]))
     experiment = sys.argv[4]
-    rmses, np_points, mape = parallel_research(r_values=[28, 28, 28 + deviation],
-                                                           ts_size=np.array([1350] + list(sizes)),
-                                                           how_many_gaps=3000,
-                                                           test_size_constant=prediction_size)
-    with open(f"/home/ikvasilev/PaTHoP/results/{experiment}", "a") as f:
-        f.write(str(deviation) + "," + str(int(sys.argv[3])) + "," + str(prediction_size) + "," + str(rmses) + "," + str(
-            np_points) + "," + str(mape) + "\n")
-
+    rmses, np_points, mape = research(
+        r_values=[28, 28 + deviation],
+        ts_size=np.array([1350] + list(sizes)),
+        how_many_gaps=1000,
+        test_size_constant=prediction_size
+    )
+    with open(f"/home/ikvasilev/PaTHoP/results/{experiment}/experiment.txt", "a") as f:
+        f.write(f"{deviation},{int(float(sys.argv[3]))},{prediction_size},{rmses},{np_points},{mape},{general_size}\n")
 
 if __name__ == '__main__':
     main()
