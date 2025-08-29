@@ -1,185 +1,142 @@
-# coding: utf-8
-import copy
-from collections import defaultdict
-from itertools import product
-from math import gamma
-
 import numpy as np
-import pandas as pd
-from scipy.spatial.distance import squareform, pdist
-from sklearn.neighbors import NearestNeighbors, BallTree
-from tqdm import tqdm
-
-# import cupy as cp
-# from cupyx.scipy.spatial.distance import cdist
-# from itertools import product
+from sklearn.neighbors import KDTree
 from collections import defaultdict
-import math
+from math import gamma, pi
 
-# coding: utf-8
-def partition(arr, l, r):
-    x = arr[r]
-    i = l
-    for j in range(l, r):
-
-        if arr[j] <= x:
-            arr[i], arr[j] = arr[j], arr[i]
-            i += 1
-
-    arr[i], arr[r] = arr[r], arr[i]
-    return i
-
-
-def QuickSelectWithLR(array, left, right, k):
-    if 0 < k <= right - left + 1:
-        index = partition(array, left, right)
-        if index - left == k - 1:
-            return array[index]
-        if index - left > k - 1:
-            return QuickSelectWithLR(array, left, index - 1, k)
-        return QuickSelectWithLR(array, index + 1, right,
-                                 k - index + left - 1)
-
-
-def QuickSelect(array, k):
-    return QuickSelectWithLR(array, 0, len(array) - 1, k)
 
 def volume(radius, dim):
-    return np.pi ** (dim / 2) * radius ** dim / gamma(dim / 2 + 1)
-
-
-class UnionFind:
-    def __init__(self):
-        self.parent = {}
-
-    def find(self, x):
-        if x not in self.parent:
-            self.parent[x] = x
-        if self.parent[x] != x:
-            self.parent[x] = self.find(self.parent[x])
-        return self.parent[x]
-
-    def union(self, x, y):
-        fx = self.find(x)
-        fy = self.find(y)
-        if fx != fy:
-            self.parent[fy] = fx
+    return pi ** (dim / 2) * radius ** dim / gamma(dim / 2 + 1)
 
 
 class Wishart:
-    def __init__(self, k, mu):
+    def __init__(self, k: int, mu: float):
         self.k, self.mu = k, mu
         self.labels_ = None
-        self.clusters_centers_ = None
-        self.center = None
 
-    def significant(self, cluster_points_significances):
-        """Реализация как в Wishartprev: max разница между всеми парами точек."""
-        max_diff = 0
-        # Перебор всех пар точек в кластере
-        for i, j in product(cluster_points_significances, repeat=2):
-            diff = abs(i - j)
-            if diff > max_diff:
-                max_diff = diff
-        return max_diff >= self.mu
+    def significant_batch(self, clusters_points, p_values):
+        """Векторизованная проверка значимости для нескольких кластеров"""
+        significant_mask = np.zeros(len(clusters_points), dtype=bool)
+        for i, (cluster_id, points) in enumerate(clusters_points.items()):
+            if len(points) < 2:
+                continue
+            cluster_p = p_values[points]
+            significant_mask[i] = (np.max(cluster_p) - np.min(cluster_p)) >= self.mu
+        return significant_mask
 
-    def fit(self, z_vectors, tqdms=False):
-        z_vectors = np.asarray(z_vectors)
-        n, dim = z_vectors.shape
+    def fit(self, x):
+        n = len(x)
+        x = np.array(x)
+        dim = x.shape[1] if x.ndim > 1 else 1
+
+        # 1. Используем KDTree для быстрого вычисления расстояний
+        tree = KDTree(x)
+        dists, _ = tree.query(x, k=self.k + 1)
+        distances_to_k_nearest = dists[:, self.k]
+
+        # 2. Векторизованное вычисление p-values
+        volumes = np.array([max(volume(r, dim), 1e-10) for r in distances_to_k_nearest])
+        p_values = self.k / (volumes * n)
+
+        # 3. Оптимизированные структуры данных
         labels = np.zeros(n, dtype=int)
-        completed = {0: False}
-        cluster_counter = 1
-        uf = UnionFind()
+        completed = np.zeros(n + 1, dtype=bool)  # Массив вместо словаря
+        completed[0] = True  # Шум всегда завершен
 
-        # Compute k-distances using NearestNeighbors
-        knn = NearestNeighbors(n_neighbors=self.k + 1)
-        knn.fit(z_vectors)
-        k_distances = knn.kneighbors(z_vectors, return_distance=True)[0][:, self.k]
+        # Массивы для хранения информации о кластерах
+        cluster_points = [np.array([], dtype=int) for _ in range(n + 1)]
+        cluster_active = np.zeros(n + 1, dtype=bool)
 
-        # Precompute significance values
-        r = k_distances
-        volumes = (np.pi ** (dim / 2) * r ** dim) / math.gamma(dim / 2 + 1)
-        significance_values = self.k / (volumes * n)
+        next_cluster_id = 1
 
-        processed_order = np.argsort(k_distances)
+        # Сортируем точки по расстоянию до k-го соседа
+        sorted_indices = np.argsort(distances_to_k_nearest)
 
-        # Build BallTree for range queries
-        tree = BallTree(z_vectors)
-        processed_order = tqdm(processed_order) if tqdms else processed_order
-        for i in processed_order:
-            xi = z_vectors[i:i + 1]
-            neighbors = tree.query_radius(xi, r=k_distances[i])[0]
-            neighbors = np.setdiff1d(neighbors, [i])  # Exclude self
+        # Массивы для хранения обработанных точек
+        processed_points = np.array([], dtype=int)
+        processed_coords = np.empty((0, dim)) if dim > 1 else np.array([], dtype=float)
 
-            neighbor_roots = set()
-            cluster_members = {}
-            for n in neighbors:
-                lbl = labels[n]
-                if lbl == 0:
-                    continue
-                root = uf.find(lbl)
-                neighbor_roots.add(root)
-                if root not in cluster_members:
-                    cluster_members[root] = []
-                cluster_members[root].append(n)
+        for i in sorted_indices:
+            current_point = x[i]
 
-            neighbor_roots = [r for r in neighbor_roots if not completed.get(r, False)]
+            # Поиск соседей среди обработанных точек
+            if len(processed_points) > 0:
+                processed_tree = KDTree(processed_coords)
+                neighbor_indices = processed_tree.query_radius([current_point],
+                                                               r=distances_to_k_nearest[i])[0]
+                neighbors = processed_points[neighbor_indices]
+            else:
+                neighbors = np.array([], dtype=int)
 
-            if len(neighbor_roots) == 0:
-                new_label = cluster_counter
-                labels[i] = new_label
-                uf.union(new_label, new_label)  # Ensure parent exists
-                completed[new_label] = False
-                cluster_counter += 1
+            # Добавляем текущую точку в обработанные
+            processed_points = np.append(processed_points, i)
+            if dim > 1:
+                processed_coords = np.vstack([processed_coords, current_point])
+            else:
+                processed_coords = np.append(processed_coords, current_point)
+
+            if len(neighbors) == 0:
+                # Создаем новый кластер
+                labels[i] = next_cluster_id
+                cluster_points[next_cluster_id] = np.array([i])
+                cluster_active[next_cluster_id] = True
+                next_cluster_id += 1
                 continue
 
-            if len(neighbor_roots) == 1:
-                target = neighbor_roots[0]
-                labels[i] = target
+            # Находим уникальные активные кластеры среди соседей
+            neighbor_labels = labels[neighbors]
+            unique_labels = np.unique(neighbor_labels)
+            active_clusters = [label for label in unique_labels
+                               if label != 0 and not completed[label] and cluster_active[label]]
+
+            if len(active_clusters) == 0:
+                labels[i] = 0
                 continue
 
-            cluster_significances = {}
-            for root in neighbor_roots:
-                members = cluster_members[root]
-                if not members:
-                    continue
-                cluster_significances[root] = significance_values[members]
+            if len(active_clusters) == 1:
+                labels[i] = active_clusters[0]
+                cluster_points[active_clusters[0]] = np.append(cluster_points[active_clusters[0]], i)
+                continue
 
-            significant_clusters = [
-                r for r in cluster_significances
-                if self.significant(cluster_significances[r])
-            ]
+            # Проверка значимости для нескольких кластеров
+            clusters_to_check = {}
+            for cluster_id in active_clusters:
+                # Находим точки этого кластера среди соседей
+                cluster_mask = (neighbor_labels == cluster_id)
+                clusters_to_check[cluster_id] = neighbors[cluster_mask]
+
+            # Векторизованная проверка значимости
+            significant_flags = self.significant_batch(clusters_to_check, p_values)
+            significant_clusters = [cluster_id for cluster_id, is_sig in
+                                    zip(active_clusters, significant_flags) if is_sig]
 
             if len(significant_clusters) > 1:
                 labels[i] = 0
-                for r in significant_clusters:
-                    completed[r] = True
-                continue
-
-            if significant_clusters:
-                target = significant_clusters[0]
+                for cluster_id in significant_clusters:
+                    completed[cluster_id] = True
+                    cluster_active[cluster_id] = False
             else:
-                target = min(neighbor_roots, key=lambda r: np.mean(z_vectors[labels == r], axis=0).sum())
+                target_cluster = significant_clusters[0] if significant_clusters else active_clusters[0]
+                labels[i] = target_cluster
+                cluster_points[target_cluster] = np.append(cluster_points[target_cluster], i)
 
-            labels[i] = target
-            for r in neighbor_roots:
-                if r != target:
-                    uf.union(target, r)
+                # Объединение кластеров
+                for cluster_id in active_clusters:
+                    if cluster_id != target_cluster:
+                        # Обновляем метки точек
+                        points_to_move = cluster_points[cluster_id]
+                        labels[points_to_move] = target_cluster
 
-        # Resolve final labels using union-find
-        for i in range(n):
-            if labels[i] != 0:
-                labels[i] = uf.find(labels[i])
+                        # Объединяем точки кластеров
+                        cluster_points[target_cluster] = np.concatenate([
+                            cluster_points[target_cluster],
+                            points_to_move
+                        ])
 
-        # Update cluster centers and labels
-        unique_labels = np.unique(labels)
-        self.clusters_centers_ = {}
-        for l in unique_labels:
-            if l == 0:
-                continue
-            mask = (labels == l)
-            self.clusters_centers_[l] = z_vectors[mask].mean(axis=0)
+                        # Деактивируем старый кластер
+                        cluster_active[cluster_id] = False
+                        completed[cluster_id] = True
+                        cluster_points[cluster_id] = np.array([], dtype=int)
 
         self.labels_ = labels
-        self.center = z_vectors.mean(axis=0)
         return self
+

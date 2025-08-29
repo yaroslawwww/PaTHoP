@@ -156,7 +156,7 @@ class Templates:
 
 
 class TSProcessor:
-    def __init__(self, k=16, mu=0.45):
+    def __init__(self, k=11, mu=0.2):
         self.templates_ = None
         self.time_series_ = None
         self.k, self.mu = k, mu
@@ -168,7 +168,7 @@ class TSProcessor:
         self.templates_.create_train_set(time_series_list)
         wishart = Wishart(k=self.k, mu=self.mu)
         self.motifs = dict()
-        file_path = f"../assets/labels/{sys.argv[4]}_{sys.argv[1]}_{sys.argv[2]}_{sys.argv[3]}.npz"
+        file_path = f"../assets/labels/{sys.argv[4]}_{sys.argv[1]}_{sys.argv[2]}_{sys.argv[3]}_{sys.argv[5]}.npz"
         if os.path.exists(file_path):
             save_labels = np.load(file_path)
             z_vectors = self.templates_.train_set

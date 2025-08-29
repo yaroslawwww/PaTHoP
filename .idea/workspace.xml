@@ -5,12 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="assets">
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysrc/main_bash.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets" beforeDir="false" afterPath="$PROJECT_DIR$/assets" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysrc/bash" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/bash" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/Size_experiment/exp.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/Size_experiment/exp.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/Size_experiment/size_experiment_final.txt" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/Size_experiment/size_experiment_final.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/Size_experiment/sorted_metrics_vs_general_size.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/Size_experiment/sorted_metrics_vs_general_size.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/metrics_experiment/sd_index.txt" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/metrics_experiment/sd_index.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/subbackups/Size_experiment/size_experiment_final.txt" beforeDir="false" afterPath="$PROJECT_DIR$/assets/subbackups/Size_experiment/size_experiment_final.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysrc/WishartClusterizationAlgorithm.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/WishartClusterizationAlgorithm.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mysrc/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysrc/main_bash" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/main_bash" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysrc/main_bash" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,6 +106,7 @@
     &quot;Python.wisharp.executor&quot;: &quot;Run&quot;,
     &quot;Python.zero_case_main.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;SHELLCHECK.PATH&quot;: &quot;/home/yarik/.local/share/JetBrains/PyCharmCE2025.1/Shell Script/shellcheck&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
@@ -122,7 +128,7 @@
       <recent name="$PROJECT_DIR$/mysrc" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.main">
+  <component name="RunManager" selected="Python.dtw">
     <configuration name="dtw" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Prediction_after_the_horizont_of_predictability" />
       <option name="ENV_FILES" value="" />
@@ -210,8 +216,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-6a121458b545-JavaScript-PY-251.25410.159" />
-        <option value="bundled-python-sdk-e0ed3721d81e-36ea0e71a18c-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-251.25410.159" />
+        <option value="bundled-python-sdk-d9fa9deec7cb-d902c0275401-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-252.23892.515" />
       </set>
     </attachedChunks>
   </component>
@@ -472,6 +477,11 @@
       <workItem from="1745598701243" duration="898000" />
       <workItem from="1745604728547" duration="325000" />
       <workItem from="1751484090295" duration="5972000" />
+      <workItem from="1756145521437" duration="196000" />
+      <workItem from="1756207206350" duration="817000" />
+      <workItem from="1756285796776" duration="72000" />
+      <workItem from="1756309038154" duration="230000" />
+      <workItem from="1756405556272" duration="75000" />
     </task>
     <task id="LOCAL-00050" summary="Исправил прогу">
       <option name="closed" value="true" />
