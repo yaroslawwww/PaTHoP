@@ -156,7 +156,7 @@ class Templates:
 
 
 class TSProcessor:
-    def __init__(self, k=11, mu=0.2):
+    def __init__(self, k=16, mu=0.45):
         self.templates_ = None
         self.time_series_ = None
         self.k, self.mu = k, mu
@@ -168,7 +168,7 @@ class TSProcessor:
         self.templates_.create_train_set(time_series_list)
         wishart = Wishart(k=self.k, mu=self.mu)
         self.motifs = dict()
-        file_path = f"../assets/labels/{sys.argv[4]}_{sys.argv[1]}_{sys.argv[2]}_{sys.argv[3]}_{sys.argv[5]}.npz"
+        file_path = f"../assets/labels/{sys.argv[4]}_{sys.argv[1]}_100_{sys.argv[3]}_{sys.argv[5]}.npz"
         if os.path.exists(file_path):
             save_labels = np.load(file_path)
             z_vectors = self.templates_.train_set
@@ -258,7 +258,7 @@ def predict_handler(gap, test_size_constant, epsilon, ts, tsproc):
     return pred_values[-1], is_np_point, real_values[-1]
 
 
-def research(r_values, ts_size, how_many_gaps, test_size_constant, dt=0.01, epsilon=0.01,
+def research(r_values, ts_size, how_many_gaps, test_size_constant, dt=0.001, epsilon=0.01,
              template_length_constant=4, template_spread_constant=10):
     list_ts = [TimeSeries("Lorentz", size=size, r=r, dt=dt) for size, r in zip(ts_size, r_values) if size > 0]
     tsproc = TSProcessor()
@@ -293,7 +293,7 @@ def main():
         how_many_gaps=how_many_gaps,
         test_size_constant=prediction_size
     )
-    with open(f"/home/ikvasilev/PaTHoP/assets/results/{experiment}/size_experiment_final.txt", "a") as f:
+    with open(f"/home/ikvasilev/PaTHoP/assets/results/{experiment}/size_experiment_final_10.txt", "a") as f:
         f.write(f"{deviation},{int(float(sys.argv[3]))},{prediction_size},{rmses},{np_points},{mape},{general_size}\n")
 
 
