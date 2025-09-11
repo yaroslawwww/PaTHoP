@@ -286,7 +286,7 @@ def main():
     sizes = [base_size, int(float(sys.argv[3]))]
     general_size = base_size + int(float(sys.argv[3]))
     experiment = sys.argv[4]
-    how_many_gaps = 3000
+    how_many_gaps = 10000
     rmses, np_points, mape = research(
         r_values=[28, 28, 28 + deviation],
         ts_size=np.array([how_many_gaps + 100 + sizes[0]] + list(sizes)),
