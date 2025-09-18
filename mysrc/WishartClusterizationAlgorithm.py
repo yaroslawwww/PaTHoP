@@ -91,26 +91,20 @@ class Wishart:
         completed = {0: False}
         cluster_counter = 1
         uf = UnionFind()
-
-        # Compute k-distances using NearestNeighbors
         knn = NearestNeighbors(n_neighbors=self.k + 1)
         knn.fit(z_vectors)
         k_distances = knn.kneighbors(z_vectors, return_distance=True)[0][:, self.k]
-
-        # Precompute significance values
         r = k_distances
         volumes = (np.pi ** (dim / 2) * r ** dim) / math.gamma(dim / 2 + 1)
         significance_values = self.k / (volumes * n)
 
         processed_order = np.argsort(k_distances)
-
-        # Build BallTree for range queries
         tree = BallTree(z_vectors)
         processed_order = tqdm(processed_order) if tqdms else processed_order
         for i in processed_order:
             xi = z_vectors[i:i + 1]
             neighbors = tree.query_radius(xi, r=k_distances[i])[0]
-            neighbors = np.setdiff1d(neighbors, [i])  # Exclude self
+            neighbors = np.setdiff1d(neighbors, [i])
 
             neighbor_roots = set()
             cluster_members = {}
@@ -129,7 +123,7 @@ class Wishart:
             if len(neighbor_roots) == 0:
                 new_label = cluster_counter
                 labels[i] = new_label
-                uf.union(new_label, new_label)  # Ensure parent exists
+                uf.union(new_label, new_label)
                 completed[new_label] = False
                 cluster_counter += 1
                 continue
@@ -165,13 +159,10 @@ class Wishart:
             for r in neighbor_roots:
                 if r != target:
                     uf.union(target, r)
-
-        # Resolve final labels using union-find
         for i in range(n):
             if labels[i] != 0:
                 labels[i] = uf.find(labels[i])
 
-        # Update cluster centers and labels
         unique_labels = np.unique(labels)
         self.clusters_centers_ = {}
         for l in unique_labels:

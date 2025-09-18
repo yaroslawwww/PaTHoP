@@ -293,7 +293,7 @@ def main():
         how_many_gaps=how_many_gaps,
         test_size_constant=prediction_size
     )
-    with open(f"/home/ikvasilev/PaTHoP/assets/results/{experiment}/size_experiment_final_10.txt", "a") as f:
+    with open(f"/home/ikvasilev/PaTHoP/assets/results/{experiment}/size_experiment_final_only_false_rows.txt", "a") as f:
         f.write(f"{deviation},{int(float(sys.argv[3]))},{prediction_size},{rmses},{np_points},{mape},{general_size}\n")
 
 
