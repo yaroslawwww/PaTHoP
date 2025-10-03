@@ -5,6 +5,7 @@ import os
 from WishartClusterizationAlgorithm import Wishart
 from sklearn.cluster import DBSCAN
 from scipy.spatial.distance import cdist
+from scipy.stats import entropy
 from tqdm import tqdm
 
 
@@ -33,6 +34,44 @@ def mape(y_true, y_pred):
     return np.mean(np.abs((y_true_non_zero - y_pred_non_zero) / y_true_non_zero))
 
 
+# ADDED CLASS
+class Daemon:
+    @staticmethod
+    def is_np_basic_dbscan(points_pool, dbscan_eps=0.01, min_samples=4, dominance_threshold=0.3):
+        dbs = DBSCAN(eps=dbscan_eps, min_samples=min_samples)
+        dbs.fit(points_pool)
+        cluster_labels, cluster_sizes = np.unique(dbs.labels_[dbs.labels_ > -1], return_counts=True)
+        if cluster_labels.size == 0:
+            return True
+        is_multimodal = np.count_nonzero((cluster_sizes / cluster_sizes.max()).round(2) > dominance_threshold) > 1
+        return is_multimodal
+
+    @staticmethod
+    def is_np_spread(points_pool, threshold=0.12):
+        if points_pool.size < 2: return False
+        return np.std(points_pool) > threshold
+
+    @staticmethod
+    def is_np_iqr(points_pool, threshold=0.15):
+        if points_pool.size < 4: return False
+        q75, q25 = np.percentile(points_pool, [75, 25])
+        return (q75 - q25) > threshold
+
+    @staticmethod
+    def is_np_entropy(points_pool, threshold=2.8, bins=15):
+        if points_pool.size < bins: return False
+        hist, bin_edges = np.histogram(points_pool, bins=bins, density=True)
+        probabilities = hist[hist > 0] * np.diff(bin_edges)[0]
+        return entropy(probabilities, base=2) > threshold
+
+    DAEMON_DISPATCHER = {
+        'basic_dbscan': is_np_basic_dbscan,
+        'spread': is_np_spread,
+        'iqr': is_np_iqr,
+        'entropy': is_np_entropy,
+    }
+
+
 class Lorentz:
     def __init__(self, s=10, b=8 / 3):
         self.s = s
@@ -52,19 +91,15 @@ class Lorentz:
         k_1 = self.X(x, y, s)
         l_1 = self.Y(x, y, z, r)
         m_1 = self.Z(x, y, z, b)
-
         k_2 = self.X((x + k_1 * dt * 0.5), (y + l_1 * dt * 0.5), s)
         l_2 = self.Y((x + k_1 * dt * 0.5), (y + l_1 * dt * 0.5), (z + m_1 * dt * 0.5), r)
         m_2 = self.Z((x + k_1 * dt * 0.5), (y + l_1 * dt * 0.5), (z + m_1 * dt * 0.5), b)
-
         k_3 = self.X((x + k_2 * dt * 0.5), (y + l_2 * dt * 0.5), s)
         l_3 = self.Y((x + k_2 * dt * 0.5), (y + l_2 * dt * 0.5), (z + m_2 * dt * 0.5), r)
         m_3 = self.Z((x + k_2 * dt * 0.5), (y + l_2 * dt * 0.5), (z + m_2 * dt * 0.5), b)
-
         k_4 = self.X((x + k_3 * dt), (y + l_3 * dt), s)
         l_4 = self.Y((x + k_3 * dt), (y + l_3 * dt), (z + m_3 * dt), r)
         m_4 = self.Z((x + k_3 * dt), (y + l_3 * dt), (z + m_3 * dt), b)
-
         x += (k_1 + 2 * k_2 + 2 * k_3 + k_4) * dt * (1 / 6)
         y += (l_1 + 2 * l_2 + 2 * l_3 + l_4) * dt * (1 / 6)
         z += (m_1 + 2 * m_2 + 2 * m_3 + m_4) * dt * (1 / 6)
@@ -96,8 +131,6 @@ class TimeSeries:
         self.test = None
 
     def split_train_val_test(self, window_index, test_size=100):
-        if window_index + test_size > len(self.values):
-            raise ValueError("test index out of range")
         self.train = self.values[:window_index]
         self.test = self.values[window_index:window_index + test_size]
 
@@ -120,12 +153,10 @@ class Templates:
         self.observation_indexes = shapes[:, ::-1].cumsum(axis=1)[:, ::-1] * -1
 
     def add_data_to_train_set(self, data, all_train_sets):
-        if len(data) == 0:
-            return
+        if len(data) == 0: return
         x_dim = self.templates.shape[0]
         y_dim = max(len(data) - self.templates[i][-1] for i in range(x_dim))
-        if y_dim <= 0:
-            return
+        if y_dim <= 0: return
         z_dim = self.templates.shape[1]
         individual_train_set = np.full((x_dim, y_dim, z_dim), np.inf, dtype=float)
         for i in range(len(self.templates)):
@@ -144,8 +175,7 @@ class Templates:
         affiliation_matrix.append(np.full((x_dim, y_dim, z_dim), index, dtype=int))
 
     def create_train_set(self, time_series_list):
-        all_train_sets = []
-        affiliation_matrix = []
+        all_train_sets, affiliation_matrix = [], []
         for i, time_series in enumerate(time_series_list):
             data = np.array(time_series.train if time_series.train is not None else time_series.values)
             self.add_data_to_train_set(data, all_train_sets)
@@ -156,11 +186,13 @@ class Templates:
 
 
 class TSProcessor:
-    def __init__(self, k=16, mu=0.45):
+    # CHANGED METHOD SIGNATURE AND BODY
+    def __init__(self, k=16, mu=0.45, daemon_name='basic_dbscan'):
         self.templates_ = None
         self.time_series_ = None
         self.k, self.mu = k, mu
         self.motifs = None
+        self.daemon_func = Daemon.DAEMON_DISPATCHER[daemon_name]
 
     def fit(self, time_series_list, template_length, max_template_spread):
         print("fitting")
@@ -168,7 +200,7 @@ class TSProcessor:
         self.templates_.create_train_set(time_series_list)
         wishart = Wishart(k=self.k, mu=self.mu)
         self.motifs = dict()
-        file_path = f"../assets/labels/{sys.argv[4]}_{sys.argv[1]}_100_{sys.argv[3]}_{sys.argv[5]}.npz"
+        file_path = f"../assets/labels/{int(float(sys.argv[3]))}_{int(sys.argv[5])}_{float(sys.argv[1])}.npz"
         if os.path.exists(file_path):
             save_labels = np.load(file_path)
             z_vectors = self.templates_.train_set
@@ -178,10 +210,7 @@ class TSProcessor:
                 wishart.labels_ = save_labels[f"arr_{template}"]
                 cluster_labels, cluster_sizes = np.unique(wishart.labels_[wishart.labels_ > -1], return_counts=True)
                 motifs = [temp_z_v[wishart.labels_ == i].mean(axis=0) for i in cluster_labels]
-                if template in self.motifs:
-                    self.motifs[template] += list(np.array(motifs).reshape(-1, len(motifs[0])))
-                else:
-                    self.motifs[template] = list(np.array(motifs).reshape(-1, len(motifs[0])))
+                self.motifs.setdefault(template, []).extend(list(np.array(motifs).reshape(-1, len(motifs[0]))))
         else:
             save_labels = []
             z_vectors = self.templates_.train_set
@@ -192,10 +221,7 @@ class TSProcessor:
                 cluster_labels, cluster_sizes = np.unique(wishart.labels_[wishart.labels_ > -1], return_counts=True)
                 save_labels.append(wishart.labels_)
                 motifs = [temp_z_v[wishart.labels_ == i].mean(axis=0) for i in cluster_labels]
-                if template in self.motifs:
-                    self.motifs[template] += list(np.array(motifs).reshape(-1, len(motifs[0])))
-                else:
-                    self.motifs[template] = list(np.array(motifs).reshape(-1, len(motifs[0])))
+                self.motifs.setdefault(template, []).extend(list(np.array(motifs).reshape(-1, len(motifs[0]))))
             np.savez(file_path, *save_labels)
         for template in self.motifs.keys():
             self.motifs[template] = np.array(self.motifs[template])
@@ -205,38 +231,35 @@ class TSProcessor:
         self.time_series_.split_train_val_test(window_index, test_size)
         steps = len(self.time_series_.test)
         values = np.array(list(self.time_series_.train) + [np.nan] * steps)
-        forecast_trajectories = np.full((steps, 1), np.nan)
         observation_indexes = self.templates_.observation_indexes
         for step in range(steps):
             test_vectors = values[:len(self.time_series_.train) + step][observation_indexes]
             all_motifs = []
             for template in self.motifs.keys():
                 train_truncated = self.motifs[template][:, :-1]
-
                 distance_matrix = calc_distance_matrix([test_vectors[template]], train_truncated)
                 distance_mask = distance_matrix < eps
-
                 matched_motifs = self.motifs[template][distance_mask.ravel()]
-
                 if matched_motifs.size > 0:
                     all_motifs.append(matched_motifs)
-
             motifs_pool = np.vstack(all_motifs) if all_motifs else np.empty((0, 4))
-
             forecast_point = self.freeze_point(motifs_pool)
-            forecast_trajectories[step, 0] = forecast_point
             values[len(self.time_series_.train) + step] = forecast_point
-
         return values
 
+    # CHANGED METHOD
     def freeze_point(self, motifs_pool):
         if motifs_pool.size == 0:
             return np.nan
         points_pool = motifs_pool[:, -1].reshape(-1, 1)
+
+        if self.daemon_func(points_pool):
+            return np.nan
+
         dbs = DBSCAN(0.01, min_samples=4)
         dbs.fit(points_pool)
         cluster_labels, cluster_sizes = np.unique(dbs.labels_[dbs.labels_ > -1], return_counts=True)
-        if cluster_labels.size > 0 and np.count_nonzero((cluster_sizes / cluster_sizes.max()).round(2) > 0.3) == 1:
+        if cluster_labels.size > 0:
             mask = (dbs.labels_ == cluster_labels[cluster_sizes.argmax()])
             return points_pool[mask].mean()
         return np.nan
@@ -250,7 +273,7 @@ def predict_handler(gap, test_size_constant, epsilon, ts, tsproc):
     ts_size = len(ts.values)
     window_index = ts_size - (gap + 1) - test_size_constant
     if window_index < 0 or window_index >= ts_size:
-        return None, None, None
+        sys.exit(1)
     values = tsproc.predict(ts, window_index, test_size_constant, epsilon)
     real_values = np.array(ts.values[window_index:window_index + test_size_constant])
     pred_values = np.array(values[-test_size_constant:])
@@ -258,14 +281,12 @@ def predict_handler(gap, test_size_constant, epsilon, ts, tsproc):
     return pred_values[-1], is_np_point, real_values[-1]
 
 
-def research(r_values, ts_size, how_many_gaps, test_size_constant, dt=0.001, epsilon=0.01,
+def research(r_values, ts_size, how_many_gaps, test_size_constant, daemon_name, dt=0.001, epsilon=0.01,
              template_length_constant=4, template_spread_constant=10):
     list_ts = [TimeSeries("Lorentz", size=size, r=r, dt=dt) for size, r in zip(ts_size, r_values) if size > 0]
-    tsproc = TSProcessor()
+    tsproc = TSProcessor(daemon_name=daemon_name)
     tsproc.fit(list_ts[1:], template_length_constant, template_spread_constant)
-    pred_points_values = []
-    is_np_points = []
-    real_points_values = []
+    pred_points_values, is_np_points, real_points_values = [], [], []
     ts = list_ts[0]
     for gap in range(how_many_gaps):
         pred_point, is_np_point, real_point = predict_handler(
@@ -279,22 +300,32 @@ def research(r_values, ts_size, how_many_gaps, test_size_constant, dt=0.001, eps
                                                                                      real_points_values)
 
 
+# CHANGED FUNCTION
 def main():
     base_size = int(sys.argv[5])
     deviation = float(sys.argv[1])
     prediction_size = int(sys.argv[2])
-    sizes = [base_size, int(float(sys.argv[3]))]
-    general_size = base_size + int(float(sys.argv[3]))
+    added_size = int(float(sys.argv[3]))
+    sizes = [base_size, added_size]
+    general_size = base_size + added_size
     experiment = sys.argv[4]
-    how_many_gaps = 10000
-    rmses, np_points, mape = research(
+    daemon_name = sys.argv[6]
+    how_many_gaps = 1500
+
+    rmses, np_points, mapes = research(
         r_values=[28, 28, 28 + deviation],
         ts_size=np.array([how_many_gaps + 100 + sizes[0]] + list(sizes)),
         how_many_gaps=how_many_gaps,
-        test_size_constant=prediction_size
+        test_size_constant=prediction_size,
+        daemon_name=daemon_name
     )
-    with open(f"/home/ikvasilev/PaTHoP/assets/results/{experiment}/size_experiment_final_only_false_rows.txt", "a") as f:
-        f.write(f"{deviation},{int(float(sys.argv[3]))},{prediction_size},{rmses},{np_points},{mape},{general_size}\n")
+
+    output_dir = f"/home/ikvasilev/PaTHoP/assets/results/{experiment}"
+    os.makedirs(output_dir, exist_ok=True)
+    output_filename = f"{output_dir}/daemons_size_experiment_{daemon_name}.txt"
+
+    with open(output_filename, "a") as f:
+        f.write(f"{deviation},{added_size},{prediction_size},{rmses},{np_points},{mapes},{general_size}\n")
 
 
 if __name__ == '__main__':
