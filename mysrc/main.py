@@ -34,7 +34,6 @@ def mape(y_true, y_pred):
     return np.mean(np.abs((y_true_non_zero - y_pred_non_zero) / y_true_non_zero))
 
 
-# ADDED CLASS
 class Daemon:
     @staticmethod
     def is_np_basic_dbscan(points_pool, dbscan_eps=0.01, min_samples=4, dominance_threshold=0.3):
@@ -51,11 +50,11 @@ class Daemon:
         if points_pool.size < 2: return False
         return np.std(points_pool) > threshold
 
-    @staticmethod
-    def is_np_iqr(points_pool, threshold=0.15):
-        if points_pool.size < 4: return False
-        q75, q25 = np.percentile(points_pool, [75, 25])
-        return (q75 - q25) > threshold
+    # @staticmethod
+    # def is_np_iqr(points_pool, threshold=0.15):
+    #     if points_pool.size < 4: return False
+    #     q75, q25 = np.percentile(points_pool, [75, 25])
+    #     return (q75 - q25) > threshold
 
     @staticmethod
     def is_np_entropy(points_pool, threshold=2.8, bins=15):
@@ -64,12 +63,20 @@ class Daemon:
         probabilities = hist[hist > 0] * np.diff(bin_edges)[0]
         return entropy(probabilities, base=2) > threshold
 
-    DAEMON_DISPATCHER = {
-        'basic_dbscan': is_np_basic_dbscan,
-        'spread': is_np_spread,
-        'iqr': is_np_iqr,
-        'entropy': is_np_entropy,
-    }
+    @staticmethod
+    def is_np_apriori(final_prediction, true_value, threshold=0.05):
+        if np.isnan(final_prediction) or true_value is None or np.isnan(true_value):
+            return False
+        return np.abs(final_prediction - true_value) > threshold
+
+
+# --- FIX: THE DISPATCHER DICTIONARY IS DEFINED *AFTER* THE CLASS BLOCK ---
+Daemon.DAEMON_DISPATCHER = {
+    'basic_dbscan': Daemon.is_np_basic_dbscan,
+    'spread': Daemon.is_np_spread,
+    'entropy': Daemon.is_np_entropy,
+    'apriori': Daemon.is_np_apriori,
+}
 
 
 class Lorentz:
@@ -186,12 +193,16 @@ class Templates:
 
 
 class TSProcessor:
-    # CHANGED METHOD SIGNATURE AND BODY
-    def __init__(self, k=16, mu=0.45, daemon_name='basic_dbscan'):
+    def __init__(self, k=16, mu=0.45):
         self.templates_ = None
         self.time_series_ = None
         self.k, self.mu = k, mu
         self.motifs = None
+        self.daemon_func = None
+        self.daemon_name = None
+
+    def set_daemon(self, daemon_name):
+        self.daemon_name = daemon_name
         self.daemon_func = Daemon.DAEMON_DISPATCHER[daemon_name]
 
     def fit(self, time_series_list, template_length, max_template_spread):
@@ -208,7 +219,7 @@ class TSProcessor:
                 inf_mask = ~np.isinf(z_vectors[template]).any(axis=1)
                 temp_z_v = z_vectors[template][inf_mask]
                 wishart.labels_ = save_labels[f"arr_{template}"]
-                cluster_labels, cluster_sizes = np.unique(wishart.labels_[wishart.labels_ > -1], return_counts=True)
+                cluster_labels, _ = np.unique(wishart.labels_[wishart.labels_ > -1], return_counts=True)
                 motifs = [temp_z_v[wishart.labels_ == i].mean(axis=0) for i in cluster_labels]
                 self.motifs.setdefault(template, []).extend(list(np.array(motifs).reshape(-1, len(motifs[0]))))
         else:
@@ -218,7 +229,7 @@ class TSProcessor:
                 inf_mask = ~np.isinf(z_vectors[template]).any(axis=1)
                 temp_z_v = z_vectors[template][inf_mask]
                 wishart.fit(temp_z_v)
-                cluster_labels, cluster_sizes = np.unique(wishart.labels_[wishart.labels_ > -1], return_counts=True)
+                cluster_labels, _ = np.unique(wishart.labels_[wishart.labels_ > -1], return_counts=True)
                 save_labels.append(wishart.labels_)
                 motifs = [temp_z_v[wishart.labels_ == i].mean(axis=0) for i in cluster_labels]
                 self.motifs.setdefault(template, []).extend(list(np.array(motifs).reshape(-1, len(motifs[0]))))
@@ -243,26 +254,44 @@ class TSProcessor:
                 if matched_motifs.size > 0:
                     all_motifs.append(matched_motifs)
             motifs_pool = np.vstack(all_motifs) if all_motifs else np.empty((0, 4))
-            forecast_point = self.freeze_point(motifs_pool)
+
+            true_value = self.time_series_.test[step]
+            forecast_point = self.freeze_point(motifs_pool, true_value_for_apriori=true_value)
+
             values[len(self.time_series_.train) + step] = forecast_point
         return values
 
-    # CHANGED METHOD
-    def freeze_point(self, motifs_pool):
+    def freeze_point(self, motifs_pool, true_value_for_apriori=None):
         if motifs_pool.size == 0:
             return np.nan
         points_pool = motifs_pool[:, -1].reshape(-1, 1)
 
-        if self.daemon_func(points_pool):
-            return np.nan
+        if self.daemon_name == 'apriori':
+            dbs = DBSCAN(0.01, min_samples=4)
+            dbs.fit(points_pool)
+            cluster_labels, cluster_sizes = np.unique(dbs.labels_[dbs.labels_ > -1], return_counts=True)
 
-        dbs = DBSCAN(0.01, min_samples=4)
-        dbs.fit(points_pool)
-        cluster_labels, cluster_sizes = np.unique(dbs.labels_[dbs.labels_ > -1], return_counts=True)
-        if cluster_labels.size > 0:
-            mask = (dbs.labels_ == cluster_labels[cluster_sizes.argmax()])
-            return points_pool[mask].mean()
-        return np.nan
+            potential_prediction = np.nan
+            if cluster_labels.size > 0:
+                mask = (dbs.labels_ == cluster_labels[cluster_sizes.argmax()])
+                potential_prediction = points_pool[mask].mean()
+
+            if self.daemon_func(potential_prediction, true_value_for_apriori):
+                return np.nan
+            else:
+                return potential_prediction
+
+        else:
+            if self.daemon_func(points_pool):
+                return np.nan
+
+            dbs = DBSCAN(0.01, min_samples=4)
+            dbs.fit(points_pool)
+            cluster_labels, cluster_sizes = np.unique(dbs.labels_[dbs.labels_ > -1], return_counts=True)
+            if cluster_labels.size > 0:
+                mask = (dbs.labels_ == cluster_labels[cluster_sizes.argmax()])
+                return points_pool[mask].mean()
+            return np.nan
 
 
 def calc_distance_matrix(test_vectors, train_vectors):
@@ -281,26 +310,39 @@ def predict_handler(gap, test_size_constant, epsilon, ts, tsproc):
     return pred_values[-1], is_np_point, real_values[-1]
 
 
-def research(r_values, ts_size, how_many_gaps, test_size_constant, daemon_name, dt=0.001, epsilon=0.01,
+def research(r_values, ts_size, how_many_gaps, test_size_constant, dt=0.001, epsilon=0.01,
              template_length_constant=4, template_spread_constant=10):
     list_ts = [TimeSeries("Lorentz", size=size, r=r, dt=dt) for size, r in zip(ts_size, r_values) if size > 0]
-    tsproc = TSProcessor(daemon_name=daemon_name)
+
+    tsproc = TSProcessor()
     tsproc.fit(list_ts[1:], template_length_constant, template_spread_constant)
-    pred_points_values, is_np_points, real_points_values = [], [], []
+
+    all_results = {}
     ts = list_ts[0]
-    for gap in range(how_many_gaps):
-        pred_point, is_np_point, real_point = predict_handler(
-            gap, test_size_constant, epsilon, ts, tsproc
-        )
-        if pred_point is not None:
-            pred_points_values.append(pred_point)
-            is_np_points.append(is_np_point)
-            real_points_values.append(real_point)
-    return rmse(pred_points_values, real_points_values), np.mean(is_np_points), mape(pred_points_values,
-                                                                                     real_points_values)
+
+    for daemon_name in Daemon.DAEMON_DISPATCHER.keys():
+        print(f"Running predictions for daemon: {daemon_name}")
+        tsproc.set_daemon(daemon_name)
+
+        pred_points_values, is_np_points, real_points_values = [], [], []
+        for gap in tqdm(range(how_many_gaps), desc=f"Predicting with {daemon_name}"):
+            pred_point, is_np_point, real_point = predict_handler(
+                gap, test_size_constant, epsilon, ts, tsproc
+            )
+            if pred_point is not None:
+                pred_points_values.append(pred_point)
+                is_np_points.append(is_np_point)
+                real_points_values.append(real_point)
+
+        rmses = rmse(pred_points_values, real_points_values)
+        np_rate = np.mean(is_np_points)
+        mapes = mape(pred_points_values, real_points_values)
+
+        all_results[daemon_name] = (rmses, np_rate, mapes)
+
+    return all_results
 
 
-# CHANGED FUNCTION
 def main():
     base_size = int(sys.argv[5])
     deviation = float(sys.argv[1])
@@ -309,23 +351,24 @@ def main():
     sizes = [base_size, added_size]
     general_size = base_size + added_size
     experiment = sys.argv[4]
-    daemon_name = sys.argv[6]
     how_many_gaps = 1500
 
-    rmses, np_points, mapes = research(
+    all_daemon_results = research(
         r_values=[28, 28, 28 + deviation],
         ts_size=np.array([how_many_gaps + 100 + sizes[0]] + list(sizes)),
         how_many_gaps=how_many_gaps,
-        test_size_constant=prediction_size,
-        daemon_name=daemon_name
+        test_size_constant=prediction_size
     )
 
     output_dir = f"/home/ikvasilev/PaTHoP/assets/results/{experiment}"
     os.makedirs(output_dir, exist_ok=True)
-    output_filename = f"{output_dir}/daemons_size_experiment_{daemon_name}.txt"
 
-    with open(output_filename, "a") as f:
-        f.write(f"{deviation},{added_size},{prediction_size},{rmses},{np_points},{mapes},{general_size}\n")
+    for daemon_name, metrics in all_daemon_results.items():
+        rmses, np_points, mapes = metrics
+        output_filename = f"{output_dir}/daemons_size_experiment_{daemon_name}.txt"
+        with open(output_filename, "a") as f:
+            f.write(f"{deviation},{added_size},{prediction_size},{rmses},{np_points},{mapes},{general_size}\n")
+        print(f"Results for '{daemon_name}' saved to {output_filename}")
 
 
 if __name__ == '__main__':
