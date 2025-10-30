@@ -5,9 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="assets">
-      <change afterPath="$PROJECT_DIR$/assets/results/Daemon/daemon.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets" beforeDir="false" afterPath="$PROJECT_DIR$/assets" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/Daemon/daemon.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/Daemon/daemon.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/Daemon/daempon_apr.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/Daemon/daempon_apr.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/latex/main.aux" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/latex/main.aux" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/latex/main.fdb_latexmk" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/latex/main.fdb_latexmk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/latex/main.fls" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/latex/main.fls" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/latex/main.log" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/latex/main.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/latex/main.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/latex/main.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/latex/main.synctex.gz" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/latex/main.synctex.gz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/latex/main.tex" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/latex/main.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/latex/main.toc" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/latex/main.toc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/latex/title_kr.tex" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/latex/title_kr.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/scripts/start" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scripts/start" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mysrc/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mysrc/main_bash.sh" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/main_bash.sh" afterDir="false" />
     </list>
@@ -19,8 +30,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="Jupyter Notebook" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -41,7 +52,7 @@
         <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/assets" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="ROOT_SYNC" value="DONT_SYNC" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -94,8 +105,10 @@
     &quot;Python.TimeSeries.executor&quot;: &quot;Run&quot;,
     &quot;Python.WishartClusterizationAlgorithm.executor&quot;: &quot;Run&quot;,
     &quot;Python.dtw.executor&quot;: &quot;Run&quot;,
+    &quot;Python.experimental.executor&quot;: &quot;Run&quot;,
     &quot;Python.interactiveshell.executor&quot;: &quot;Debug&quot;,
     &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.temp.executor&quot;: &quot;Run&quot;,
     &quot;Python.theory.executor&quot;: &quot;Run&quot;,
     &quot;Python.thery.executor&quot;: &quot;Run&quot;,
     &quot;Python.wisharp.executor&quot;: &quot;Run&quot;,
@@ -104,7 +117,7 @@
     &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;SHELLCHECK.PATH&quot;: &quot;/home/yarik/.local/share/JetBrains/PyCharmCE2025.1/Shell Script/shellcheck&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;daemons&quot;,
     &quot;last_opened_file_path&quot;: &quot;/home/yarik/git-reps/fencer&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -124,7 +137,7 @@
       <recent name="$PROJECT_DIR$/mysrc" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.main">
+  <component name="RunManager" selected="Python.dtw">
     <configuration name="dtw" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Prediction_after_the_horizont_of_predictability" />
       <option name="ENV_FILES" value="" />
@@ -201,9 +214,9 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.dtw" />
         <item itemvalue="Python.main" />
         <item itemvalue="Python.zero_case_main" />
-        <item itemvalue="Python.dtw" />
         <item itemvalue="Python.zero_case_main" />
         <item itemvalue="Python.main" />
       </list>
@@ -212,8 +225,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-6a121458b545-JavaScript-PY-251.25410.159" />
-        <option value="bundled-python-sdk-e0ed3721d81e-36ea0e71a18c-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-251.25410.159" />
+        <option value="bundled-python-sdk-f69e5c277ee4-cbfc7b97e6b2-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-252.27397.106" />
       </set>
     </attachedChunks>
   </component>
@@ -496,6 +508,7 @@
       <workItem from="1759824847124" duration="286000" />
       <workItem from="1759836765913" duration="8000" />
       <workItem from="1759914071211" duration="1114000" />
+      <workItem from="1761669562387" duration="191000" />
     </task>
     <task id="LOCAL-00050" summary="Исправил прогу">
       <option name="closed" value="true" />
