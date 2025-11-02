@@ -168,7 +168,7 @@ class TSProcessor:
         self.templates_.create_train_set(time_series_list)
         wishart = Wishart(k=self.k, mu=self.mu)
         self.motifs = dict()
-        file_path = f"../assets/labels/{sys.argv[4]}_{sys.argv[1]}_100_{sys.argv[3]}_{sys.argv[5]}.npz"
+        file_path = f"../assets/labels/{sys.argv[4]}_{sys.argv[1]}_10_{sys.argv[3]}_{sys.argv[5]}.npz"
         clusters_number = []
         if os.path.exists(file_path):
             save_labels = np.load(file_path)
@@ -304,7 +304,7 @@ def main():
     output_dir = f"/home/ikvasilev/PaTHoP/assets/results/{experiment}"
     os.makedirs(output_dir, exist_ok=True)
     daemon_name = "basic_dbscan"
-    output_filename = f"{output_dir}/daemons_size_experiment_{daemon_name}_valid.txt"
+    output_filename = f"{output_dir}/daemons_size_experiment_{daemon_name}_valid_wishart.txt"
     with open(output_filename, "a") as f:
         f.write(f"{deviation},{added_size},{prediction_size},{rmses},{np_points},{mapes},{avg_clusters},{general_size}\n")
 

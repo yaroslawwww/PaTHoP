@@ -154,7 +154,7 @@ class Wishart:
             if significant_clusters:
                 target = significant_clusters[0]
             else:
-                target = 0
+                target = neighbor_roots[0]
             labels[i] = target
             for r in neighbor_roots:
                 if r != target:
