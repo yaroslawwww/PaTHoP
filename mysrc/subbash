@@ -6,6 +6,4 @@
 source ~/.bashrc
 conda activate myenv
 
-scontrol update job=$SLURM_JOB_ID JobName="prediction_$1_$2_$3_$4_$5"
-#
-python ./main.py $1 $2 $3 $4 $5
+python ./submain.py $1 $2 $3 $4 $5

@@ -5,11 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="assets">
+      <change afterPath="$PROJECT_DIR$/mysrc/evaluation.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysrc/subbash" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysrc/submain.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets" beforeDir="false" afterPath="$PROJECT_DIR$/assets" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/results/Daemon/daempon_apr.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/Daemon/daempon_apr.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/experimental.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysrc/WishartClusterizationAlgorithm.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/WishartClusterizationAlgorithm.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/Метрики/acf_decay_times.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/Метрики/acf_decay_times.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/Метрики/acf_pacf_comparison.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/Метрики/acf_pacf_comparison.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/Метрики/corr_cov.py" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/Метрики/corr_cov.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/Метрики/correlation_covariance_plot.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/Метрики/correlation_covariance_plot.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/Метрики/cov_corr_var_results.txt" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/Метрики/cov_corr_var_results.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/Метрики/inv_measures.py" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/Метрики/inv_measures.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/Метрики/kde_measures_comparison.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/Метрики/kde_measures_comparison.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysrc/bash" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/mysrc/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mysrc/main_bash.sh" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/main_bash.sh" afterDir="false" />
     </list>
@@ -43,7 +51,7 @@
         <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/assets" />
     <option name="ROOT_SYNC" value="DONT_SYNC" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -95,25 +103,30 @@
     "Python.QuickSelect.executor": "Run",
     "Python.TimeSeries.executor": "Run",
     "Python.WishartClusterizationAlgorithm.executor": "Run",
+    "Python.candidate_scorer.executor": "Run",
     "Python.corr_cov.executor": "Run",
     "Python.dtw.executor": "Run",
+    "Python.else.executor": "Run",
     "Python.experimental.executor": "Run",
+    "Python.f.executor": "Run",
     "Python.fractal_dimension.executor": "Run",
     "Python.interactiveshell.executor": "Debug",
     "Python.inv_measures.executor": "Run",
     "Python.lyapunov.executor": "Run",
     "Python.main.executor": "Run",
+    "Python.my.executor": "Run",
     "Python.temp.executor": "Run",
     "Python.theory.executor": "Run",
     "Python.thery.executor": "Run",
     "Python.unnamed.executor": "Run",
+    "Python.visualization.executor": "Run",
     "Python.wisharp.executor": "Run",
     "Python.zero_case_main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
     "SHELLCHECK.PATH": "/home/yarik/.local/share/JetBrains/PyCharmCE2025.1/Shell Script/shellcheck",
-    "git-widget-placeholder": "full",
+    "git-widget-placeholder": "master",
     "last_opened_file_path": "/home/yarik/git-reps/fencer",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -134,7 +147,7 @@
       <recent name="$PROJECT_DIR$/mysrc" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.dtw">
+  <component name="RunManager">
     <configuration name="dtw" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Prediction_after_the_horizont_of_predictability" />
       <option name="ENV_FILES" value="" />
@@ -158,7 +171,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="evaluation" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Prediction_after_the_horizont_of_predictability" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -172,7 +185,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/mysrc/main.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/mysrc/evaluation.py" />
       <option name="PARAMETERS" value="0.01 10 5000 Size_experiment 5000" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -206,16 +219,16 @@
     </configuration>
     <list>
       <item itemvalue="Python.dtw" />
-      <item itemvalue="Python.main" />
+      <item itemvalue="Python.evaluation" />
       <item itemvalue="Python.zero_case_main" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.dtw" />
-        <item itemvalue="Python.main" />
+        <item itemvalue="Python.evaluation" />
         <item itemvalue="Python.zero_case_main" />
         <item itemvalue="Python.zero_case_main" />
-        <item itemvalue="Python.main" />
+        <item itemvalue="Python.evaluation" />
       </list>
     </recent_temporary>
   </component>
