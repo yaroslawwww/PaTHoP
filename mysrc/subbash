@@ -6,4 +6,4 @@
 source ~/.bashrc
 conda activate myenv
 
-python ./submain.py $1 $2 $3 $4 $5
+python ./submain.py $1 $2 $3 $4 $5 $6

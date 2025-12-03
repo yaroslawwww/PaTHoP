@@ -267,8 +267,7 @@ def research(r_values, ts_size, how_many_gaps, test_size_constant, dt=0.001, eps
                                                                                      real_points_values)
 
 
-def evaluation(r_values,ts_sizes):
-    prediction_size = 10
+def evaluation(r_values,ts_sizes,prediction_size=10):
     how_many_gaps = 1500
 
     rmse, np_points, mape = research(
