@@ -1,102 +1,60 @@
 # coding: utf-8
+import os
+import numpy as np
 from scipy.spatial import KDTree
-
 from evaluation import *
 from candidate_scorer import *
 from tqdm import tqdm
+from concurrent.futures import ProcessPoolExecutor
 R_TARGET = 28.0
 SIZE_TARGET = 10000
 SIZE_CANDIDATE = 20000
 R_DISTANCE = 5.0
 N_CANDIDATES = 10000
 N_SELECT = 480
+N_FINAL_SELECT = 48
 OUTPUT_DIR = "/home/ikvasilev/PaTHoP/assets/results/mannayuitni"
 BASELINES_FILE = os.path.join(OUTPUT_DIR, "baselines_validation2.txt")
 
 
-DATA_FILE = "candidates_scores.npz"
 
 
-
-def reconstruct_attractor(x: np.ndarray, dim: int, delay: int) -> np.ndarray:
-    n = len(x)
-    max_idx = n - (dim - 1) * delay
-    if max_idx <= 0:
-        raise ValueError("Ряд слишком короткий для заданных параметров dim и delay.")
-    attractor = np.column_stack([x[i:i + max_idx] for i in range(0, dim * delay, delay)])
-    return attractor
-
-
-
-
-def chamfer_distance_metric(x1: np.ndarray, x2: np.ndarray, dim: int = 3, delay: int = 10) -> float:
-    y1 = reconstruct_attractor(x1, dim, delay)
-    y2 = reconstruct_attractor(x2, dim, delay)
-
-    tree1 = KDTree(y1)
-    tree2 = KDTree(y2)
-
-    dist_y1_to_y2, _ = tree2.query(y1, k=1, workers=-1)
-    dist_y2_to_y1, _ = tree1.query(y2, k=1, workers=-1)
-
-    chamfer_dist = np.mean(dist_y1_to_y2 ** 2) + np.mean(dist_y2_to_y1 ** 2)
-
-    return chamfer_dist
-
-
-def chamfer_distance_score(r1, size1, r2, size2):
-
-    ts1 = TimeSeries(series_type="Lorentz", size=size1, r=r1)
-    ts2 = TimeSeries(series_type="Lorentz", size=size2, r=r2)
-    x1, x2 = ts1.values, ts2.values
-    return chamfer_distance_metric(x1, x2)
 def main():
-    if os.path.exists(DATA_FILE):
-        print("Загружаем сохранённые кандидатов и скоры...")
-        data = np.load(DATA_FILE)
-        candidate_r_values = data['r_values']
-        scores = data['scores'].tolist()
-    else:
-        print("Файл не найден. Генерируем новых кандидатов...")
-        candidate_r_values = np.random.uniform(
-            low=R_TARGET - R_DISTANCE,
-            high=R_TARGET + R_DISTANCE,
-            size=N_CANDIDATES
-        )
-        main_series = TimeSeries(r=R_TARGET, size=SIZE_TARGET)
-        scores = []
-        for r in tqdm(candidate_r_values):
-            score = candidate_score_ts(main_series, r, SIZE_CANDIDATE)
-            scores.append(score)
-        np.savez(DATA_FILE, r_values=candidate_r_values, scores=np.array(scores))
-    print(f"Сохранено {len(candidate_r_values)} кандидатов в {DATA_FILE}")
-    sorted_indices = np.argsort(scores)
-    sorted_indices = list(sorted_indices)
-    best_indices = sorted_indices[:N_SELECT]
-    print(np.array(scores)[best_indices])
-    random_indices = np.random.choice(sorted_indices, 48, replace=False)
+    best = [
+        27.891332620981082, 28.00057770510759, 27.984369151409023, 28.00394783731485,
+        27.939692413124504, 28.176083291504675, 28.123559858626244, 27.879041337625917,
+        27.81724625065422, 27.89483164039858, 27.873083250154146, 28.245492032360765,
+        27.823669974082158, 27.976721099123257, 27.949439015485705, 27.918069525913555,
+        28.10504207615325, 27.902887472736015, 28.064443771081645, 28.012407731642014,
+        28.095929171864334, 28.0621479955274, 27.853904091698553, 27.93434525245113,
+        27.976603734937402, 27.886879293560057, 27.910130697976136, 27.912746573565553,
+        28.08402881393446, 28.064837318821624, 28.014495474907257, 28.007236665768716,
+        28.023347573161185, 28.08603588102504, 28.08657007969408, 27.843701304730928,
+        28.15244411570599, 27.92974023363876, 28.042639450062246, 28.02139980872328,
+        28.023029488001747, 27.88916876436077, 28.067931928471772, 28.052246404814944,
+        28.019577387329786, 27.832371027301313, 27.917360626583296, 28.091130240378927
+    ]
 
-    best_of_the_best = candidate_r_values[best_indices]
-    scores = []
-    for r in tqdm(candidate_r_values):
-        score = chamfer_distance_score(28,SIZE_TARGET, r, SIZE_CANDIDATE)
-        scores.append(score)
-    np.savez(DATA_FILE, r_values=candidate_r_values, scores=np.array(scores))
-    print(best_of_the_best,"best")
+    random = [
+        32.08416623265542, 24.028781953568227, 30.300410935673856, 28.450565904350242,
+        31.909683608032807, 31.93663840678062, 32.92924321419821, 24.99776843983421,
+        26.35956373667436, 25.202706041500075, 28.674174759869672, 26.677272754988664,
+        31.767879479826455, 32.64851560266901, 24.056936488449878, 29.667417782463712,
+        25.640628753977904, 30.62779423241228, 30.891810321124716, 28.489036888676658,
+        29.500107579343027, 24.1876378008398, 32.98560246889694, 25.247689000379708,
+        31.951736235155735, 30.24202658556672, 32.457554037098106, 27.764339524196586,
+        27.610903504501607, 31.810460176002614, 27.361107652353624, 26.88082199905298,
+        31.933177040841176, 24.980563631356873, 26.316385293046768, 28.90635667531887,
+        29.22680012135525, 29.795448602123997, 25.8180946967162, 30.752314084259986,
+        25.401420545746557, 30.762935976314527, 29.34236135488087, 29.880558096234928,
+        24.817102223931844, 31.798590051262757
+    ]
 
-    random_r = candidate_r_values[random_indices]
-    for r in best_of_the_best:
+    for r in best_r_values:  # Теперь r - это действительно параметр
         os.system(f"sbatch -A proj_1716 ./subbash {R_TARGET} {r} {SIZE_TARGET} {SIZE_CANDIDATE} best")
 
     for r in random_r:
         os.system(f"sbatch -A proj_1716 ./subbash {R_TARGET} {r} {SIZE_TARGET} {SIZE_CANDIDATE} random")
-
-    # baseline_small = evaluation([R_TARGET], np.array([SIZE_TARGET]))
-    # baseline_large = evaluation([R_TARGET], np.array([SIZE_TARGET + SIZE_CANDIDATE]))
-    #
-    # with open(BASELINES_FILE, 'w') as f:
-    #     f.write(f"{baseline_small[0]},{baseline_small[1]},{baseline_small[2]}\n")
-    #     f.write(f"{baseline_large[0]},{baseline_large[1]},{baseline_large[2]}")
 
 
 if __name__ == "__main__":
