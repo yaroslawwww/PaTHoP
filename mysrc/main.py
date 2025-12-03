@@ -51,11 +51,11 @@ def main():
     ]
 
     for r in best:  # Теперь r - это действительно параметр
-        os.system(f"sbatch -A proj_1716 ./subbash {R_TARGET} {r} {SIZE_TARGET} {SIZE_CANDIDATE} best 20")
+        os.system(f"sbatch -A proj_1716 ./subbash {R_TARGET} {r} {SIZE_TARGET} {SIZE_CANDIDATE} best 50")
 
     for r in random:
-        os.system(f"sbatch -A proj_1716 ./subbash {R_TARGET} {r} {SIZE_TARGET} {SIZE_CANDIDATE} random 20")
-    os.system(f"sbatch -A proj_1716 ./subbash {28} {28} {10000} {0} baseline 20")
-    os.system(f"sbatch -A proj_1716 ./subbash {28} {28} {30000} {0} baseline 20")
+        os.system(f"sbatch -A proj_1716 ./subbash {R_TARGET} {r} {SIZE_TARGET} {SIZE_CANDIDATE} random 50")
+    os.system(f"sbatch -A proj_1716 ./subbash {28} {28} {10000} {0} baseline 50")
+    os.system(f"sbatch -A proj_1716 ./subbash {28} {28} {30000} {0} baseline 50")
 if __name__ == "__main__":
     main()
