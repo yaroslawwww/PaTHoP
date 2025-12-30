@@ -3,5 +3,7 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/assets" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/latex" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/latex_eswa" vcs="Git" />
   </component>
 </project>
