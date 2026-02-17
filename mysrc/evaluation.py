@@ -276,7 +276,6 @@ def research(r_values, ts_size, how_many_gaps, test_size_constant, dt=0.001, eps
         if pred_point is not None:
             pred_points_values_second.append(pred_point)
             is_np_points_second.append(is_np_point)
-            real_points_values.append(real_point)
     rmse1, np1, mape1 = rmse(pred_points_values_first, real_points_values), np.mean(is_np_points_first), mape(pred_points_values_first,real_points_values)
     rmse2, np2, mape2 = rmse(pred_points_values_second, real_points_values), np.mean(is_np_points_second), mape(pred_points_values_second,real_points_values)
 
@@ -284,7 +283,7 @@ def research(r_values, ts_size, how_many_gaps, test_size_constant, dt=0.001, eps
 
 
 def evaluation(r_values,ts_sizes,prediction_size=10):
-    how_many_gaps = 1000
+    how_many_gaps = 1500
 
     rmse1,np1,mape1,rmse2,np2,mape2 = research(
         r_values=[28] + r_values,

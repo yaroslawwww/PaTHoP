@@ -5,7 +5,7 @@ import numpy as np
 from evaluation import evaluation
 from multiprocessing import Pool
 
-OUTPUT_DIR = "/home/ikvasilev/PaTHoP/assets/results/manna2"
+OUTPUT_DIR = "/home/ikvasilev/PaTHoP/assets/results/share_experiment_not_important"
 
 
 def run_single_candidate(r_cand, main_r, main_size, cand_size, pred_len, output_file1,output_file2):
@@ -17,9 +17,9 @@ def run_single_candidate(r_cand, main_r, main_size, cand_size, pred_len, output_
             prediction_size=pred_len
         )
         with open(output_file1, 'a') as f:
-            f.write(f"{rmse1},{np1},{mape1},{r_cand:.12f}\n")
+            f.write(f"{rmse1},{np1},{mape1},{r_cand:.12f},{main_size}\n")
         with open(output_file2, 'a') as f:
-            f.write(f"{rmse2},{np2},{mape2},{r_cand:.12f}\n")
+            f.write(f"{rmse2},{np2},{mape2},{r_cand:.12f},{main_size}\n")
     except Exception as e:
         print(f"Ошибка при r={r_cand}: {e}", file=sys.stderr)
 
@@ -40,14 +40,13 @@ def main():
 
     main_r = float(sys.argv[1])
     main_size = int(sys.argv[2])
-    cand_size = int(sys.argv[3])
-    group_name = sys.argv[4]
+    cand_size = 10000 - main_size
     pred_len = int(sys.argv[5])
     r_file_path = sys.argv[6]
 
     # Формируем имя выходного файла
-    output_file1 = os.path.join(OUTPUT_DIR, f"{group_name}_10000_{pred_len}_1.txt")
-    output_file2 = os.path.join(OUTPUT_DIR, f"{group_name}_10000_{pred_len}_2.txt")
+    output_file1 = os.path.join(OUTPUT_DIR, f"10000_{pred_len}_1.txt")
+    output_file2 = os.path.join(OUTPUT_DIR, f"10000_{pred_len}_2.txt")
 
     # Читаем все кандидатные r из файла
     try:
@@ -60,14 +59,14 @@ def main():
         sys.exit(1)
 
     # Параллельный запуск на всех доступных ядрах (обычно 48 при --cpus-per-task=48)
-    with Pool(12) as pool:
+    with Pool(1) as pool:
         args = [
             (r_cand, main_r, main_size, cand_size, pred_len, output_file1,output_file2)
             for r_cand in candidate_r_values
         ]
         list(pool.starmap(run_single_candidate, args))
 
-    print(f"Готово: {group_name}, предсказание на {pred_len} шагов, результаты в {output_file1},{output_file2}")
+    print(f"Готово: , предсказание на {pred_len} шагов, результаты в {output_file1},{output_file2}")
 
 
 if __name__ == "__main__":
