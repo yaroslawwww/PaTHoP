@@ -69,22 +69,19 @@ class Wishart:
 
             active_clusters = set()
             completed_clusters = set()
+            has_zero = False  # Добавляем флаг касания фона
 
             for n_idx in neighbors:
                 if n_idx == i:
                     continue
 
-                # Обрабатываем только уже пройденные вершины (т.е. с p(x_j) >= p(x_i))
                 if labels[n_idx] == -1:
                     continue
 
-                # ВСЕГДА используем uf.find для получения актуального кластера за O(1)
-                # Это решает проблему "отложенного обновления"
                 root = uf.find(labels[n_idx])
 
-                # Если сосед — шум или граница, просто игнорируем его при сборе кластеров.
-                # Шум не должен блокировать создание нового кластера!
                 if root == 0:
+                    has_zero = True  # Фиксируем касание, но не добавляем 0 в active_clusters
                     continue
 
                 if completed.get(root, False):
@@ -94,67 +91,59 @@ class Wishart:
 
             active_clusters = list(active_clusters)
 
-            # Строки 7-8 из статьи: если нет связей с активными или завершенными кластерами
-            # (даже если есть связи с чистым шумом), создаем новый кластер
+            # Если соседей нет, проверяем, не коснулись ли мы чистого фона
             if len(active_clusters) == 0 and len(completed_clusters) == 0:
-                new_label = cluster_counter
-                cluster_counter += 1
+                if has_zero:
+                    labels[i] = 0
+                else:
+                    new_label = cluster_counter
+                    cluster_counter += 1
 
-                labels[i] = new_label
-                uf.parent[new_label] = new_label
-                completed[new_label] = False
+                    labels[i] = new_label
+                    uf.parent[new_label] = new_label
+                    completed[new_label] = False
 
-                # Инициализация статистики нового кластера текущей плотностью
-                cluster_max_p[new_label] = p_values[i]
-                cluster_min_p[new_label] = p_values[i]
+                    cluster_max_p[new_label] = p_values[i]
+                    cluster_min_p[new_label] = p_values[i]
                 continue
 
-            # Строка 11: если все кластеры, с которыми есть связь, уже завершены
             if len(active_clusters) == 0 and len(completed_clusters) > 0:
                 labels[i] = 0
                 continue
 
-            # Строка 14: Определение значимости (до присоединения текущей точки)
             significant_clusters = []
             insignificant_clusters = []
             for root in active_clusters:
-                # Внутрикластерная вариация плотности
                 if (cluster_max_p[root] - cluster_min_p[root]) >= self.mu:
                     significant_clusters.append(root)
                 else:
                     insignificant_clusters.append(root)
 
-            # Строки 15-18: Точка является границей между несколькими значимыми кластерами
-            if len(significant_clusters) > 1:
-                labels[i] = 0  # Точка становится границей (шумом)
+            # Строка 15-18 из статьи: если значимых > 1 ИЛИ есть касание нулевого кластера
+            if len(significant_clusters) > 1 or has_zero:
+                labels[i] = 0  # Точка становится границей/фоном
 
-                # Значимые кластеры помечаем как завершенные
                 for r in significant_clusters:
                     completed[r] = True
 
-                # Гениальный O(1) трюк: перенаправляем их корень в 0 (шум)
                 for r in insignificant_clusters:
                     uf.parent[r] = 0
 
-            # Строки 19-22: Слияние кластеров (<= 1 значимый кластер)
             else:
+                # Обычное слияние (когда significant_clusters <= 1 и has_zero == False)
                 if len(significant_clusters) == 1:
                     primary_root = significant_clusters[0]
                 else:
-                    # Если значимых нет, сливаем в самый плотный (старый) активный кластер
                     primary_root = max(active_clusters, key=lambda r: cluster_max_p[r])
 
                 labels[i] = primary_root
 
                 for r in active_clusters:
                     if r != primary_root:
-                        uf.parent[r] = primary_root  # O(1) обновление UnionFind
-
-                        # Объединяем плотностную статистику объединяемых кластеров
+                        uf.parent[r] = primary_root
                         cluster_max_p[primary_root] = max(cluster_max_p[primary_root], cluster_max_p[r])
                         cluster_min_p[primary_root] = min(cluster_min_p[primary_root], cluster_min_p[r])
 
-                # Обновляем пределы объединенного кластера плотностью новой присоединенной точки
                 cluster_max_p[primary_root] = max(cluster_max_p[primary_root], p_values[i])
                 cluster_min_p[primary_root] = min(cluster_min_p[primary_root], p_values[i])
 

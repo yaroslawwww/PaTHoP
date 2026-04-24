@@ -151,38 +151,74 @@ class Templates:
             self.affiliation_matrix = np.concatenate(affiliation_matrix, axis=1)
 
 
+import numpy as np
+from concurrent.futures import ProcessPoolExecutor
+from WishartClusterizationAlgorithm import Wishart
+
+
+# ... (остальные импорты: cdist, tqdm и т.д. остаются)
+
+def cluster_single_template(template_idx, z_vectors_template, k, mu):
+    """Вынесено в отдельную функцию для работы multiprocessing"""
+    # Убираем бесконечные значения (пустые окна)
+    inf_mask = ~np.isinf(z_vectors_template).any(axis=1)
+    temp_z_v = z_vectors_template[inf_mask]
+
+    if len(temp_z_v) == 0:
+        return template_idx, np.empty((0, z_vectors_template.shape[1]))
+
+    wishart = Wishart(k=k, mu=mu)
+    wishart.fit(temp_z_v)
+
+    # Получаем метки и считаем мотивы
+    cluster_labels = np.unique(wishart.labels_[wishart.labels_ > -1])
+    motifs = []
+    for i in cluster_labels:
+        mask = (wishart.labels_ == i)
+        motifs.append(temp_z_v[mask].mean(axis=0))
+
+    if len(motifs) > 0:
+        return template_idx, np.array(motifs)
+    else:
+        return template_idx, np.empty((0, z_vectors_template.shape[1]))
+
+
 class TSProcessor:
     def __init__(self, k=11, mu=0.2):
         self.templates_ = None
         self.time_series_ = None
         self.k, self.mu = k, mu
-        self.motifs = None
+        self.motifs = {}
 
     def fit(self, time_series_list, template_length, max_template_spread):
-        print("fitting")
+        print(f"Fitting (Parallel on 8 cores)")
         self.templates_ = Templates(template_length, max_template_spread)
         self.templates_.create_train_set(time_series_list)
-        wishart = Wishart(k=self.k, mu=self.mu)
-        self.motifs = dict()
-        clusters_number = []
-        save_labels = []
-        z_vectors = self.templates_.train_set
-        for template in tqdm(range(z_vectors.shape[0])):
-            inf_mask = ~np.isinf(z_vectors[template]).any(axis=1)
-            temp_z_v = z_vectors[template][inf_mask]
-            wishart.fit(temp_z_v)
-            cluster_labels, cluster_sizes = np.unique(wishart.labels_[wishart.labels_ > -1], return_counts=True)
-            clusters_number.append(len(cluster_labels))
-            save_labels.append(wishart.labels_)
-            motifs = [temp_z_v[wishart.labels_ == i].mean(axis=0) for i in cluster_labels]
-            if template in self.motifs:
-                self.motifs[template] += list(np.array(motifs).reshape(-1, len(motifs[0])))
-            else:
-                self.motifs[template] = list(np.array(motifs).reshape(-1, len(motifs[0])))
-        for template in self.motifs.keys():
-            self.motifs[template] = np.array(self.motifs[template])
-        avg_clusters = sum(clusters_number) / len(clusters_number)
-        return avg_clusters
+
+        z_vectors = self.templates_.train_set  # (Templates, Windows, Vector_Len)
+        num_templates = z_vectors.shape[0]
+
+        self.motifs = {}
+
+        # Используем 8 ядер для кластеризации шаблонов
+        with ProcessPoolExecutor(max_workers=8) as executor:
+            # Подготавливаем задачи
+            futures = [
+                executor.submit(
+                    cluster_single_template,
+                    t, z_vectors[t], self.k, self.mu
+                ) for t in range(num_templates)
+            ]
+
+            # Собираем результаты по мере готовности
+            for future in tqdm(futures, total=num_templates, desc="Clustering templates"):
+                t_idx, t_motifs = future.result()
+                if t_motifs.size > 0:
+                    self.motifs[t_idx] = t_motifs
+
+        # Очистка памяти: удаляем обучающую выборку после создания мотивов
+        self.templates_.train_set = None
+        return len(self.motifs)  # Просто для отчета
 
     def predict(self, time_series, window_index, test_size, eps, np_t):
         self.time_series_ = time_series

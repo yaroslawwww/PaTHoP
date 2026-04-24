@@ -5,62 +5,35 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="assets">
-      <change afterPath="$PROJECT_DIR$/assets/results/share_experiment_not_important/share.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/results/share_experiment_not_important/share.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/results/share_experiment_not_important/table_share.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/results/final/h1h20_all/03_np_threshold.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/results/final/h1h20_all/h1.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/results/final/nice/03_np_threshold.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/results/final/nice/h1_all.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysrc/exp1_clear_data.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysrc/metrics.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/temp/Predictions.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/temp/Readme.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/temp/WishartClusterizationAlgorithm.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/temp/candidate_scorer.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/temp/eval_worker.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/temp/evaluation.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/temp/exp1_clear_data.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/temp/local_runner.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/temp/main.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/temp/main_bash.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/temp/master.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/temp/metrics.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/temp/run_master.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/temp/subbash" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/temp/submain.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/temp/worker.slurm" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets" beforeDir="false" afterPath="$PROJECT_DIR$/assets" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/results/Daemon/Без названия.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/results/latex/latex_исходники/abstract.tex" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/results/latex/latex_исходники/conclusion.tex" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/results/latex/latex_исходники/experiments.tex" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/results/latex/latex_исходники/main_russian.tex" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/results/latex/latex_исходники/methodology.tex" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/results/latex/latex_исходники/review_literature.tex" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/results/latex/main.aux" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/results/latex/main.bbl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/results/latex/main.bbl-SAVE-ERROR" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/results/latex/main.bcf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/results/latex/main.fdb_latexmk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/results/latex/main.fls" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/results/latex/main.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/results/latex/main.out" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/results/latex/main.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/results/latex/main.run.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/results/latex/main.synctex.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/results/latex/main.tex" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/results/latex/main.toc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/results/latex/main_russian.aux" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/results/latex/main_russian.bbl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/results/latex/main_russian.bbl-SAVE-ERROR" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/results/latex/main_russian.bcf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/results/latex/main_russian.blg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/results/latex/main_russian.fdb_latexmk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/results/latex/main_russian.fls" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/results/latex/main_russian.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/results/latex/main_russian.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/results/latex/main_russian.run.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/results/latex/main_russian.synctex.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/results/latex/main_russian.tex" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/results/latex/main_russian.toc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/results/latex/output.docx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/results/latex/refs.bib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/results/latex/title_kr.tex" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/results/mannayuitni/Augmentations_benefit_visualisation_only_pf_metric.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/results/mannayuitni/Augmentations_benefit_visualisation_only_shamfer_metric.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/results/mannayuitni/Best_Augmentation_benefit_visualisation.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/results/mannayuitni/base2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/Daemon/gromov_pravki.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/results/mannayuitni/best_48.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/results/mannayuitni/best_48_shamfer_only.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/results/mannayuitni/best_validation.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/results/mannayuitni/eswa_table.tex" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/results/mannayuitni/eswa_table_pct.tex" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/results/mannayuitni/final_stats_v3.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/results/mannayuitni/full_analysis_results.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/results/mannayuitni/min_max_stats.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/results/mannayuitni/random_validation.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/results/share_experiment_not_important/combined_metrics_comparison.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/share_experiment_not_important/combined_metrics_comparison.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/results/share_experiment_not_important/exp.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/share_experiment_not_important/exp.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/final/h1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/final/h1/h1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/final/h10.txt" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/final/h10/h10.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/final/h1_all.txt" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/final/h1h20_all/h1_all.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/final/h20.txt" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/final/h20/h20.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/final/h20_all.txt" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/final/h1h20_all/h20_all.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/latex" beforeDir="false" afterPath="$PROJECT_DIR$/latex" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/latex/Article (1).docx" beforeDir="false" afterPath="$PROJECT_DIR$/latex/Article (1).docx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/latex/articles/Multi-step ahead forecasting for electric power load using an.pdf" beforeDir="false" />
@@ -88,14 +61,16 @@
       <change beforePath="$PROJECT_DIR$/latex/sections/5_experiments.tex" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/latex/sections/6_conclusion.tex" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/latex_eswa" beforeDir="false" afterPath="$PROJECT_DIR$/latex_eswa" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/latex_eswa/.~lock.document.docx#" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/latex_eswa/.~lock.output.docx#" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/latex_eswa/document.docx" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/latex_eswa/main_eswa.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/latex_eswa/main_eswa.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/latex_eswa/output.docx" beforeDir="false" afterPath="$PROJECT_DIR$/latex_eswa/output.docx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/latex_eswa/preamble_eswa.tex" beforeDir="false" afterPath="$PROJECT_DIR$/latex_eswa/preamble_eswa.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/latex_eswa/output.docx" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/latex_eswa/sections/beginning.tex" beforeDir="false" afterPath="$PROJECT_DIR$/latex_eswa/sections/beginning.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysrc/WishartClusterizationAlgorithm.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/WishartClusterizationAlgorithm.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mysrc/evaluation.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/evaluation.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mysrc/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysrc/subbash" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/subbash" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysrc/submain.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/submain.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysrc/main_bash.sh" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/main_bash.sh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -127,7 +102,7 @@
         <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/assets" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="ROOT_SYNC" value="DONT_SYNC" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -163,6 +138,10 @@
     &quot;repository&quot;: &quot;PaTHoP&quot;
   }
 }</component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
 }</component>
@@ -173,6 +152,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Python.03_np_threshold.executor": "Run",
     "Python.GetSeries.executor": "Run",
     "Python.Patterns.executor": "Debug",
     "Python.Predictions.executor": "Debug",
@@ -184,14 +164,17 @@
     "Python.corr_cov.executor": "Run",
     "Python.dtw.executor": "Run",
     "Python.else.executor": "Run",
+    "Python.evaluation.executor": "Run",
     "Python.exp.executor": "Run",
     "Python.experimental.executor": "Run",
     "Python.f.executor": "Run",
     "Python.final_analysis.executor": "Run",
     "Python.fractal_dimension.executor": "Run",
     "Python.gromov_pravki.executor": "Run",
+    "Python.h1.executor": "Run",
     "Python.interactiveshell.executor": "Debug",
     "Python.inv_measures.executor": "Run",
+    "Python.local_runner.executor": "Run",
     "Python.lyapunov.executor": "Run",
     "Python.main.executor": "Run",
     "Python.my.executor": "Run",
@@ -204,16 +187,20 @@
     "Python.thery.executor": "Run",
     "Python.unlucky.executor": "Run",
     "Python.unnamed.executor": "Run",
+    "Python.vis.executor": "Run",
     "Python.visualization.executor": "Run",
     "Python.visul.executor": "Run",
     "Python.wisharp.executor": "Run",
     "Python.zero_case_main.executor": "Run",
+    "RunOnceActivity.MCP Project settings loaded": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "SHELLCHECK.PATH": "/home/yarik/.local/share/JetBrains/PyCharmCE2025.1/Shell Script/shellcheck",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "/home/yarik/Gromov/PaTHoP",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "git-widget-placeholder": "final__experiments",
+    "last_opened_file_path": "/home/yarik/Gromov/PaTHoP/assets/results/final/nice",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -225,12 +212,18 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/assets/results/Size_experiment" />
+      <recent name="$PROJECT_DIR$/assets/results/final/nice" />
       <recent name="$PROJECT_DIR$/mysrc" />
+      <recent name="$PROJECT_DIR$/temp" />
+      <recent name="$PROJECT_DIR$/assets/results/final/h1h20_all" />
+      <recent name="$PROJECT_DIR$/assets/results/final/h1" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/assets/results/final/h20" />
+      <recent name="$PROJECT_DIR$/assets/results/final/h10" />
+      <recent name="$PROJECT_DIR$/assets/results/final/h1" />
+      <recent name="$PROJECT_DIR$/assets/results/final/h1h20_all" />
       <recent name="$PROJECT_DIR$/assets/results/Метрики" />
-      <recent name="$PROJECT_DIR$/mysrc" />
     </key>
   </component>
   <component name="RunManager">
@@ -247,6 +240,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="DEBUG_JUST_MY_CODE" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="RUN_TOOL" value="" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/mysrc/dtw.py" />
@@ -271,6 +265,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="DEBUG_JUST_MY_CODE" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="RUN_TOOL" value="" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/mysrc/evaluation.py" />
@@ -295,6 +290,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="DEBUG_JUST_MY_CODE" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="RUN_TOOL" value="" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/mysrc/zero_case_main.py" />
@@ -324,7 +320,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-4762d8aabb82-6d6dccd035ac-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-253.30387.173" />
+        <option value="bundled-python-sdk-b63d5a1f7c97-b61e75351b1f-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-261.22158.340" />
       </set>
     </attachedChunks>
   </component>
@@ -1056,19 +1052,7 @@
         </entry>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="FILTERS">
-                <map>
-                  <entry key="branch">
-                    <value>
-                      <list>
-                        <option value="centroids-research" />
-                      </list>
-                    </value>
-                  </entry>
-                </map>
-              </option>
-            </State>
+            <State />
           </value>
         </entry>
       </map>
@@ -1119,6 +1103,11 @@
           <url>file://$PROJECT_DIR$/assets/results/share_experiment_not_important/table_share.py</url>
           <line>8</line>
           <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/assets/results/final/h1h20_all/03_np_threshold.py</url>
+          <line>119</line>
+          <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
