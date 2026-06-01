@@ -184,22 +184,21 @@ class TSProcessor:
         avg_clusters = sum(clusters_number) / len(clusters_number)
         return avg_clusters
 
-    def predict(self, time_series, window_index, test_size, eps, np_t):
+    def predict(self, time_series, window_index, test_size, eps, np_t, method="dbscan"):
         self.time_series_ = time_series
         self.time_series_.split_train_val_test(window_index, test_size)
         steps = len(self.time_series_.test)
         values = np.array(list(self.time_series_.train) + [np.nan] * steps)
         forecast_trajectories = np.full((steps, 1), np.nan)
         observation_indexes = self.templates_.observation_indexes
+
         for step in range(steps):
             test_vectors = values[:len(self.time_series_.train) + step][observation_indexes]
             all_motifs = []
             for template in self.motifs.keys():
                 train_truncated = self.motifs[template][:, :-1]
-
                 distance_matrix = calc_distance_matrix([test_vectors[template]], train_truncated)
                 distance_mask = distance_matrix < eps
-
                 matched_motifs = self.motifs[template][distance_mask.ravel()]
 
                 if matched_motifs.size > 0:
@@ -207,86 +206,116 @@ class TSProcessor:
 
             motifs_pool = np.vstack(all_motifs) if all_motifs else np.empty((0, 4))
 
-            forecast_point = self.freeze_point(motifs_pool,np_t)
+            # ПЕРЕДАЕМ method СЮДА
+            forecast_point = self.freeze_point(motifs_pool, np_t, method)
             forecast_trajectories[step, 0] = forecast_point
             values[len(self.time_series_.train) + step] = forecast_point
 
         return values
 
-    def freeze_point(self, motifs_pool, np_threshold):
+    def freeze_point(self, motifs_pool, np_threshold, method="dbscan"):
         if motifs_pool.size == 0:
             return np.nan
         points_pool = motifs_pool[:, -1].reshape(-1, 1)
         dbs = DBSCAN(0.01, min_samples=4)
         dbs.fit(points_pool)
         cluster_labels, cluster_sizes = np.unique(dbs.labels_[dbs.labels_ > -1], return_counts=True)
-        if cluster_labels.size > 0 and np.count_nonzero((cluster_sizes / cluster_sizes.max()).round(2) > np_threshold) == 1:
+
+        if cluster_labels.size > 0:
             mask = (dbs.labels_ == cluster_labels[cluster_sizes.argmax()])
-            return points_pool[mask].mean()
+            upv = points_pool[mask].mean()
+
+            # Если метод априорный, игнорируем кластерное соотношение (np_threshold)
+            # и возвращаем лучшее предположение. Проверка ошибки будет в predict_handler.
+            if method == "apriori":
+                return upv
+            else:
+                # Классический DBSCAN: проверяем доминацию кластера
+                if np.count_nonzero((cluster_sizes / cluster_sizes.max()).round(2) > np_threshold) == 1:
+                    return upv
         return np.nan
-
-
 def calc_distance_matrix(test_vectors, train_vectors):
     return np.squeeze(cdist(test_vectors, train_vectors, 'euclidean'), axis=0)
 
 
-def predict_handler(gap, test_size_constant, epsilon, ts, tsproc,np_t):
+def predict_handler(gap, test_size_constant, epsilon, ts, tsproc, np_t, method="dbscan"):
     ts_size = len(ts.values)
     window_index = ts_size - (gap + 1) - test_size_constant
     if window_index < 0 or window_index >= ts_size:
         return None, None, None
-    values = tsproc.predict(ts, window_index, test_size_constant, epsilon, np_t)
+
+    values = tsproc.predict(ts, window_index, test_size_constant, epsilon, np_t, method)
     real_values = np.array(ts.values[window_index:window_index + test_size_constant])
     pred_values = np.array(values[-test_size_constant:])
-    is_np_point = 1 if np.isnan(pred_values[-1]) else 0
-    return pred_values[-1], is_np_point, real_values[-1]
+
+    final_pred = pred_values[-1]
+    final_real = real_values[-1]
+
+    # Логика априорного метода
+    if method == "apriori":
+        # Если прогноз не состоялся вообще ИЛИ отклонение больше 0.05
+        if np.isnan(final_pred) or abs(final_pred - final_real) > 0.05:
+            is_np_point = 1
+            final_pred = np.nan  # Исключаем из подсчета RMSE
+        else:
+            is_np_point = 0
+    else:
+        # Стандартная логика
+        is_np_point = 1 if np.isnan(final_pred) else 0
+
+    return final_pred, is_np_point, final_real
 
 
 def research(r_values, ts_size, how_many_gaps, test_size_constant, dt=0.001, epsilon=0.01,
-             template_length_constant=4, template_spread_constant=10):
+             template_length_constant=4, template_spread_constant=10, method="dbscan"):
     list_ts = [TimeSeries("Lorentz", size=size, r=r, dt=dt) for size, r in zip(ts_size, r_values) if size > 0]
     tsproc = TSProcessor()
     avg_clusters = tsproc.fit(list_ts[1:], template_length_constant, template_spread_constant)
-    pred_points_values_second = []
-    is_np_points_second = []
-    real_points_values = []
+
     pred_points_values_first = []
     is_np_points_first = []
     real_points_values = []
+
+    pred_points_values_second = []
+    is_np_points_second = []
+
     ts = list_ts[0]
     np_first_thres = 0.1
     np_second_thres = 0.3
 
     for gap in range(how_many_gaps):
         pred_point, is_np_point, real_point = predict_handler(
-            gap, test_size_constant, epsilon, ts, tsproc,np_first_thres
+            gap, test_size_constant, epsilon, ts, tsproc, np_first_thres, method
         )
         if pred_point is not None:
             pred_points_values_first.append(pred_point)
             is_np_points_first.append(is_np_point)
             real_points_values.append(real_point)
+
     for gap in range(how_many_gaps):
         pred_point, is_np_point, real_point = predict_handler(
-            gap, test_size_constant, epsilon, ts, tsproc,np_second_thres
+            gap, test_size_constant, epsilon, ts, tsproc, np_second_thres, method
         )
         if pred_point is not None:
             pred_points_values_second.append(pred_point)
             is_np_points_second.append(is_np_point)
-    rmse1, np1, mape1 = rmse(pred_points_values_first, real_points_values), np.mean(is_np_points_first), mape(pred_points_values_first,real_points_values)
-    rmse2, np2, mape2 = rmse(pred_points_values_second, real_points_values), np.mean(is_np_points_second), mape(pred_points_values_second,real_points_values)
 
-    return rmse1,np1,mape1,rmse2,np2,mape2
+    rmse1, np1, mape1 = rmse(pred_points_values_first, real_points_values), np.mean(is_np_points_first), mape(
+        pred_points_values_first, real_points_values)
+    rmse2, np2, mape2 = rmse(pred_points_values_second, real_points_values), np.mean(is_np_points_second), mape(
+        pred_points_values_second, real_points_values)
+
+    return rmse1, np1, mape1, rmse2, np2, mape2
 
 
-def evaluation(r_values,ts_sizes,prediction_size=20):
+def evaluation(r_values, ts_sizes, prediction_size=20, method="dbscan"):
     how_many_gaps = 1000
 
-    rmse1,np1,mape1,rmse2,np2,mape2 = research(
+    rmse1, np1, mape1, rmse2, np2, mape2 = research(
         r_values=[28] + r_values,
         ts_size=np.array([how_many_gaps + 100 + ts_sizes[0]] + list(ts_sizes)),
         how_many_gaps=how_many_gaps,
-        test_size_constant=prediction_size
+        test_size_constant=prediction_size,
+        method=method
     )
-    return rmse1,np1,mape1,rmse2,np2,mape2
-
-
+    return rmse1, np1, mape1, rmse2, np2, mape2

@@ -5,35 +5,49 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9e1e6812-1247-41d9-847f-fac7be77fba0" name="Changes" comment="assets">
-      <change afterPath="$PROJECT_DIR$/assets/results/final/h1h20_all/03_np_threshold.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/results/final/h1h20_all/h1.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/results/final/nice/03_np_threshold.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/results/final/nice/h1_all.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysrc/exp1_clear_data.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysrc/metrics.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/temp/Predictions.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/temp/Readme.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/temp/WishartClusterizationAlgorithm.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/temp/candidate_scorer.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/temp/eval_worker.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/temp/evaluation.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/temp/exp1_clear_data.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/temp/local_runner.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/temp/main.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/temp/main_bash.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/temp/master.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/temp/metrics.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/temp/run_master.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/temp/subbash" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/temp/submain.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/temp/worker.slurm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/results/final/nice/final.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysrc/metrics_worker.slurm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysrc/run_metric_selection.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets" beforeDir="false" afterPath="$PROJECT_DIR$/assets" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/results/final/h1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/final/h1/h1.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/results/final/h10.txt" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/final/h10/h10.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/results/final/h1_all.txt" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/final/h1h20_all/h1_all.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/results/final/h20.txt" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/final/h20/h20.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/results/final/h20_all.txt" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/final/h1h20_all/h20_all.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/final/nice/exp1_plots/h10_alpha_10.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/final/nice/exp1_plots/h10_alpha_10.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/final/nice/exp1_plots/h10_alpha_10_3.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/final/nice/exp1_plots/h10_alpha_10_3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/final/nice/exp1_plots/h1_alpha_10.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/final/nice/exp1_plots/h1_alpha_10.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/final/nice/exp1_plots/h1_alpha_10_3.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/final/nice/exp1_plots/h1_alpha_10_3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/final/nice/exp1_plots/h20_alpha_10.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/final/nice/exp1_plots/h20_alpha_10.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/final/nice/exp1_plots/h20_alpha_10_3.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/final/nice/exp1_plots/h20_alpha_10_3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/final/nice/exp2_plots/h10_alpha_10.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/final/nice/exp2_plots/h10_alpha_10.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/final/nice/exp2_plots/h10_alpha_10_3.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/final/nice/exp2_plots/h10_alpha_10_3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/final/nice/exp2_plots/h1_alpha_10.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/final/nice/exp2_plots/h1_alpha_10.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/final/nice/exp2_plots/h1_alpha_10_3.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/final/nice/exp2_plots/h1_alpha_10_3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/final/nice/exp2_plots/h20_alpha_10.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/final/nice/exp2_plots/h20_alpha_10.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/final/nice/exp2_plots/h20_alpha_10_3.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/final/nice/exp2_plots/h20_alpha_10_3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/final/nice/exp2_plots/summary_exp2_alpha_10.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/final/nice/exp2_plots/summary_exp2_alpha_10.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/final/nice/exp2_plots/summary_exp2_alpha_10_3.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/final/nice/exp2_plots/summary_exp2_alpha_10_3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/final/nice/exp3_plots/h10_alpha_10.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/final/nice/exp3_plots/h10_alpha_10.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/final/nice/exp3_plots/h10_alpha_10_3.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/final/nice/exp3_plots/h10_alpha_10_3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/final/nice/exp3_plots/h1_alpha_10.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/final/nice/exp3_plots/h1_alpha_10.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/final/nice/exp3_plots/h1_alpha_10_3.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/final/nice/exp3_plots/h1_alpha_10_3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/final/nice/exp3_plots/h20_alpha_10.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/final/nice/exp3_plots/h20_alpha_10.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/final/nice/exp3_plots/h20_alpha_10_3.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/final/nice/exp3_plots/h20_alpha_10_3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/final/nice/exp5_plots/h10_apriori_alpha_10.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/final/nice/exp5_plots/h10_apriori_alpha_10.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/final/nice/exp5_plots/h10_apriori_alpha_10_3.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/final/nice/exp5_plots/h10_apriori_alpha_10_3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/final/nice/exp6_plots/summary_exp7_alpha_10.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/final/nice/exp6_plots/summary_exp7_alpha_10.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/final/nice/exp6_plots/summary_exp7_alpha_10_3.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/final/nice/exp6_plots/summary_exp7_alpha_10_3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/final/nice/exp7_plots/h10_alpha_10.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/final/nice/exp7_plots/h10_alpha_10.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/final/nice/exp7_plots/h10_alpha_10_3.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/final/nice/exp7_plots/h10_alpha_10_3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/final/nice/exp7_plots/h1_alpha_10.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/final/nice/exp7_plots/h1_alpha_10.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/final/nice/exp7_plots/h1_alpha_10_3.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/final/nice/exp7_plots/h1_alpha_10_3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/final/nice/exp7_plots/h20_alpha_10.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/final/nice/exp7_plots/h20_alpha_10.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/final/nice/exp7_plots/h20_alpha_10_3.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/final/nice/exp7_plots/h20_alpha_10_3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/final/nice/fifth_experiment.py" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/final/nice/fifth_experiment.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/final/nice/first_experiment.py" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/final/nice/first_experiment.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/final/nice/h10_all.txt" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/final/nice/h10_all.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/final/nice/h1_all.txt" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/final/nice/h1_all.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/final/nice/h20_all.txt" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/final/nice/h20_all.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/final/nice/second_experiment.py" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/final/nice/second_experiment.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/final/nice/seventh.py" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/final/nice/seventh.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/results/final/nice/third_experiment.py" beforeDir="false" afterPath="$PROJECT_DIR$/assets/results/final/nice/third_experiment.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/latex" beforeDir="false" afterPath="$PROJECT_DIR$/latex" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/latex/Article (1).docx" beforeDir="false" afterPath="$PROJECT_DIR$/latex/Article (1).docx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/latex/articles/Multi-step ahead forecasting for electric power load using an.pdf" beforeDir="false" />
@@ -61,16 +75,24 @@
       <change beforePath="$PROJECT_DIR$/latex/sections/5_experiments.tex" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/latex/sections/6_conclusion.tex" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/latex_eswa" beforeDir="false" afterPath="$PROJECT_DIR$/latex_eswa" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/latex_eswa/.~lock.document.docx#" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/latex_eswa/.~lock.output.docx#" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/latex_eswa/document.docx" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/latex_eswa/main_eswa.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/latex_eswa/main_eswa.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/latex_eswa/output.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/latex_eswa/main_eswa.spl" beforeDir="false" afterPath="$PROJECT_DIR$/latex_eswa/main_eswa.spl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/latex_eswa/main_eswa.tex" beforeDir="false" afterPath="$PROJECT_DIR$/latex_eswa/main_eswa.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/latex_eswa/preamble_eswa.tex" beforeDir="false" afterPath="$PROJECT_DIR$/latex_eswa/preamble_eswa.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/latex_eswa/sections/all_inputs.tex" beforeDir="false" afterPath="$PROJECT_DIR$/latex_eswa/sections/all_inputs.tex" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/latex_eswa/sections/beginning.tex" beforeDir="false" afterPath="$PROJECT_DIR$/latex_eswa/sections/beginning.tex" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysrc/WishartClusterizationAlgorithm.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/WishartClusterizationAlgorithm.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysrc/eval_worker.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/eval_worker.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mysrc/evaluation.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/evaluation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysrc/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysrc/main_bash.sh" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/main_bash.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysrc/main.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysrc/main_bash.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysrc/master.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/master.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysrc/metrics.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysrc/subbash" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysrc/submain.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysrc/worker.slurm" beforeDir="false" afterPath="$PROJECT_DIR$/mysrc/worker.slurm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/temp/WishartClusterizationAlgorithm.py" beforeDir="false" afterPath="$PROJECT_DIR$/temp/WishartClusterizationAlgorithm.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/temp/evaluation.py" beforeDir="false" afterPath="$PROJECT_DIR$/temp/evaluation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/temp/exp1_fast_recalc.csv" beforeDir="false" afterPath="$PROJECT_DIR$/temp/exp1_fast_recalc.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,7 +124,7 @@
         <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/assets" />
     <option name="ROOT_SYNC" value="DONT_SYNC" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -168,7 +190,11 @@
     "Python.exp.executor": "Run",
     "Python.experimental.executor": "Run",
     "Python.f.executor": "Run",
+    "Python.fifth_experiment.executor": "Run",
+    "Python.final.executor": "Run",
     "Python.final_analysis.executor": "Run",
+    "Python.first_experiment.executor": "Run",
+    "Python.fourth_experiment.executor": "Run",
     "Python.fractal_dimension.executor": "Run",
     "Python.gromov_pravki.executor": "Run",
     "Python.h1.executor": "Run",
@@ -180,11 +206,16 @@
     "Python.my.executor": "Run",
     "Python.new_deviations.executor": "Run",
     "Python.rows.executor": "Run",
+    "Python.second_experiment.executor": "Run",
+    "Python.seventh.executor": "Run",
+    "Python.sh.executor": "Run",
     "Python.share.executor": "Run",
+    "Python.sixth.executor": "Run",
     "Python.table_share.executor": "Run",
     "Python.temp.executor": "Run",
     "Python.theory.executor": "Run",
     "Python.thery.executor": "Run",
+    "Python.third_experiment.executor": "Run",
     "Python.unlucky.executor": "Run",
     "Python.unnamed.executor": "Run",
     "Python.vis.executor": "Run",
@@ -199,8 +230,8 @@
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "SHELLCHECK.PATH": "/home/yarik/.local/share/JetBrains/PyCharmCE2025.1/Shell Script/shellcheck",
     "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "final__experiments",
-    "last_opened_file_path": "/home/yarik/Gromov/PaTHoP/assets/results/final/nice",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "/home/yarik/git-reps/LowRankApprox-Pythia-RW",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -212,11 +243,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/assets/results/final/nice/code" />
       <recent name="$PROJECT_DIR$/assets/results/final/nice" />
       <recent name="$PROJECT_DIR$/mysrc" />
       <recent name="$PROJECT_DIR$/temp" />
       <recent name="$PROJECT_DIR$/assets/results/final/h1h20_all" />
-      <recent name="$PROJECT_DIR$/assets/results/final/h1" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/assets/results/final/h20" />
@@ -226,7 +257,7 @@
       <recent name="$PROJECT_DIR$/assets/results/Метрики" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.dtw">
     <configuration name="dtw" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Prediction_after_the_horizont_of_predictability" />
       <option name="ENV_FILES" value="" />
@@ -245,6 +276,56 @@
       <option name="RUN_TOOL" value="" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/mysrc/dtw.py" />
       <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="dtw" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Prediction_after_the_horizont_of_predictability" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/mysrc" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="DEBUG_JUST_MY_CODE" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="RUN_TOOL" value="" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/mysrc/dtw.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="evaluation" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Prediction_after_the_horizont_of_predictability" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/mysrc" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="DEBUG_JUST_MY_CODE" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="RUN_TOOL" value="" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/mysrc/evaluation.py" />
+      <option name="PARAMETERS" value="0.01 10 5000 Size_experiment 5000" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -302,6 +383,31 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="zero_case_main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Prediction_after_the_horizont_of_predictability" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/mysrc" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="DEBUG_JUST_MY_CODE" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="RUN_TOOL" value="" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/mysrc/zero_case_main.py" />
+      <option name="PARAMETERS" value="1" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="Python.dtw" />
       <item itemvalue="Python.evaluation" />
@@ -320,7 +426,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-b63d5a1f7c97-b61e75351b1f-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-261.22158.340" />
+        <option value="bundled-python-sdk-024ed6589d45-c2ffad84badb-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-261.23567.174" />
       </set>
     </attachedChunks>
   </component>

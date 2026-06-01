@@ -253,7 +253,7 @@ class TSProcessor:
         if motifs_pool.size == 0:
             return np.nan
         points_pool = motifs_pool[:, -1].reshape(-1, 1)
-        dbs = DBSCAN(0.01, min_samples=4)
+        dbs = DBSCAN(0.01, min_samples=2)
         dbs.fit(points_pool)
         cluster_labels, cluster_sizes = np.unique(dbs.labels_[dbs.labels_ > -1], return_counts=True)
         if cluster_labels.size > 0 and np.count_nonzero((cluster_sizes / cluster_sizes.max()).round(2) > np_threshold) == 1:

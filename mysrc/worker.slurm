@@ -2,7 +2,7 @@
 #SBATCH --job-name=ev_task
 #SBATCH -A proj_1716
 #SBATCH -c 1
-#SBATCH --time=5:00:00
+#SBATCH --time=50:00:00
 #SBATCH --output=../assets/logs/worker_%j.log
 
 module purge
